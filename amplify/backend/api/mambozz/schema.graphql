@@ -1,0 +1,113 @@
+type User
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read] }
+      { allow: owner, operations: [create, read, update, delete] }
+    ]
+  ) {
+  id: ID!
+  username: String!
+  phoneNumber: String! @index(name: "byPhoneNumber")
+  codelessNumber: String @index
+  numbers: [Contact] @hasMany
+
+  email: String @auth(rules: [{ allow: owner }])
+  chatStatus: String
+  chatImage: String
+  imageKey: String
+  chatMessages: [ChatMessage] @hasMany(indexName: "byUser", fields: ["id"])
+  chatRooms: [ChatRoom] @manyToMany(relationName: "ChatRoomUsers")
+  lastOnlineAt: AWSTimestamp
+  adminRightsId: ID @index(name: "byAdminRights")
+  publicKey: String @auth(rules: [{ allow: owner }])
+}
+
+type Contact @model @auth(rules: [{ allow: owner }]) {
+  number: ID! @primaryKey
+}
+
+type AdminRights
+  @model
+  @auth(rules: [{ allow: private, operations: [read] }, { allow: owner }]) {
+  id: ID!
+  chatRoom: ChatRoom @hasOne
+  Users: [User] @hasMany(indexName: "byAdminRights", fields: ["id"])
+}
+
+type ChatMessage
+  @model
+  @auth(rules: [{ allow: private, operations: [read] }, { allow: owner }]) {
+  id: ID!
+  createdAt: AWSDateTime!
+  type: MessageType
+  text: String
+  userId: ID! @index(name: "byUser")
+  chatRoomId: ID!
+    @index(
+      name: "byChatRoom"
+      sortKeyFields: ["createdAt"]
+      queryField: "listChatMessagesByChatRoom"
+    )
+  chatAttachments: [ChatAttachment]
+    @hasMany(indexName: "byChatMessage", fields: ["id"])
+  status: MessageStatus
+  replyToMessageID: ID
+  forUserId: ID
+}
+
+enum MessageType {
+  TEXT
+  AUDIO
+}
+
+enum MessageStatus {
+  SENT
+  DELIVERED
+  READ
+}
+type ChatAttachment
+  @model
+  @auth(rules: [{ allow: private, operations: [read] }, { allow: owner }]) {
+  id: ID!
+  chatMessageID: ID @index(name: "byChatMessage")
+  chatRoomID: ID @index(name: "byChatRoom")
+  storageKey: String!
+  type: AttachmentType!
+  width: Int
+  height: Int
+  duration: Int
+}
+enum AttachmentType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+}
+
+type ChatRoom
+  @model
+  @auth(rules: [{ allow: private, operations: [read] }, { allow: owner }]) {
+  id: ID!
+  adminRightsId: ID
+  name: String
+  image: String
+  users: [User] @manyToMany(relationName: "ChatRoomUsers")
+  chatMessages: [ChatMessage] @hasMany(indexName: "byChatRoom", fields: ["id"])
+  newMessages: Int
+  lastMessage: ChatMessage @hasOne
+  chatAttachments: [ChatAttachment]
+    @hasMany(indexName: "byChatRoom", fields: ["id"])
+}
+input contactsInput {
+  number: ID!
+}
+
+type Query {
+  getUsersByNumbers(numbers: [contactsInput]!): [User]
+    @auth(rules: [{ allow: private }])
+    @function(name: "getUsersByNumbersFunction-${env}")
+}
+
+schema {
+  query: Query
+}
