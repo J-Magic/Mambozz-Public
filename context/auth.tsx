@@ -27,7 +27,7 @@ interface AuthContextValue {
   confirmMail: (email: string, code: string) => Promise<any>;
   resendCode: (userEmail: string) => Promise<any>;
   signOut: () => Promise<any>;
-  authedUser: string | null;
+  authedUser: string | undefined;
   cognitoUser: CognitoUser | undefined;
   authId: string;
   session: string | null;
@@ -65,7 +65,7 @@ export const userSessionCache = {
 export function AuthProvider(props: React.PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState('session');
   console.log('Session from auth: ', session);
-  const [authedUser, setAuthUser] = useState<string | null>(null);
+  const [authedUser, setAuthUser] = useState<string | undefined>(undefined);
   const [authId, setAuthId] = useState<string>('');
   const [cognitoUser, setCognitoUser] = useState<CognitoUser | undefined>(
     undefined
@@ -182,7 +182,7 @@ export function AuthProvider(props: React.PropsWithChildren) {
         // }
       } catch (error) {
         console.log('No Authed User Error: ', error);
-        setAuthUser(null);
+        setAuthUser(undefined);
       }
     })();
   }, []);
@@ -211,7 +211,7 @@ export function AuthProvider(props: React.PropsWithChildren) {
       }
       return response;
     } catch (error) {
-      setAuthUser(null);
+      setAuthUser(undefined);
       console.log('No User Error from login fn in Auth : ', error);
       return { error: error as Error };
     }
@@ -233,13 +233,13 @@ export function AuthProvider(props: React.PropsWithChildren) {
         console.log('Sign out response from Auth :', response);
         // setStorageItemAsync('JWT_TOKEN', null);
         setSession(null);
-        setAuthUser(null);
+        setAuthUser(undefined);
       }
       return response;
     } catch (error) {
       return { error: error as Error };
     } finally {
-      setAuthUser(null);
+      setAuthUser(undefined);
     }
   };
 
@@ -287,7 +287,7 @@ export function AuthProvider(props: React.PropsWithChildren) {
       }
       return response;
     } catch (error) {
-      setAuthUser(null);
+      setAuthUser(undefined);
       return { error: error as Error };
     }
   };
@@ -333,7 +333,7 @@ export function AuthProvider(props: React.PropsWithChildren) {
       }
       return response;
     } catch (error) {
-      setAuthUser(null);
+      setAuthUser(undefined);
       return { error: error as Error };
     }
   };

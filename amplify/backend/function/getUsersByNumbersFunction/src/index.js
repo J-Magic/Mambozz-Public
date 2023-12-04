@@ -17,7 +17,8 @@ exports.handler = async (event) => {
 
     const params = {
       TableName: 'User-62ctpxxp6ja5bikqnpnlpikpmq-dev',
-      ProjectionExpression: 'id,username, chatImage, phoneNumber',
+      ProjectionExpression:
+        'id,username, chatImage, chatStatus, email, publicKey, phoneNumber',
     };
 
     // Scan the DynamoDB table
@@ -33,16 +34,21 @@ exports.handler = async (event) => {
         userPhoneNumber.toString()
       );
       console.log('Matching Contact: ', matchingContact);
-      console.log(
-        'UNMARSHALLED MATCHING CONTACT: ',
-        unmarshall(matchingContact)
-      );
+
       return matchingContact;
     });
 
     // Log or process the matching user records
     console.log('Matching Users:', matchingUsers);
-    return matchingUsers;
+
+    // return matchingUsers;
+    return matchingUsers.map((item) => {
+      const user = {};
+      for (const key in item) {
+        user[key] = item[key].S;
+      }
+      return user;
+    });
   } catch (err) {
     console.log('Error: ', err);
   }

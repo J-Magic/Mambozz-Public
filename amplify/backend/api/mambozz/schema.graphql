@@ -11,8 +11,7 @@ type User
   phoneNumber: String! @index(name: "byPhoneNumber")
   codelessNumber: String @index
   numbers: [Contact] @hasMany
-
-  email: String @auth(rules: [{ allow: owner }])
+  email: String
   chatStatus: String
   chatImage: String
   imageKey: String
@@ -20,7 +19,7 @@ type User
   chatRooms: [ChatRoom] @manyToMany(relationName: "ChatRoomUsers")
   lastOnlineAt: AWSTimestamp
   adminRightsId: ID @index(name: "byAdminRights")
-  publicKey: String @auth(rules: [{ allow: owner }])
+  publicKey: String
 }
 
 type Contact @model @auth(rules: [{ allow: owner }]) {
@@ -107,7 +106,12 @@ type Query {
     @auth(rules: [{ allow: private }])
     @function(name: "getUsersByNumbersFunction-${env}")
 }
+type Subscription {
+  onUpdateChatroomByChatroomId(chatRoomID: ID!): ChatRoom
+    @aws_subscribe(mutations: ["updateChatRoom"])
+}
 
 schema {
   query: Query
+  subscription: Subscription
 }

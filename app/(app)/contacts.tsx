@@ -246,8 +246,11 @@ const ContactsScreen = () => {
         //   params: { id: existingChatRoom?.chatRoom.id, name: user.username },
         // });
         router.push({
-          pathname: `/${user.username}`,
+          // pathname: `/${user.username}`,
+          // pathname: `/(app)/[chat]`,
+          pathname: `/(app)/${user.username}`,
           params: {
+            chat: user.username,
             id: existingChatRoom?.chatRoom.id,
             name: user.username,
           },
@@ -304,7 +307,7 @@ const ContactsScreen = () => {
           },
         },
       });
-      console.log('CREATE ROOM RESULT 2: ', createRoomResult);
+      console.log('CREATE ROOM RESULT 1: ', createRoomResult);
 
       //     // Add the authenticated user (me) to the ChatRoom
       //     (await API.graphql(
@@ -331,10 +334,12 @@ const ContactsScreen = () => {
       // navigate to the newly created ChatRoom
 
       router.push({
-        pathname: '/(app)/[chat]',
+        // pathname: '/(app)/[chat]',
+        pathname: `/(app)/${user.username}`,
         params: {
-          id: newChatRoom.id,
           chat: user.username,
+          id: newChatRoom.id,
+          name: user.username,
         },
       });
     }

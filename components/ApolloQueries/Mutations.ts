@@ -1047,669 +1047,728 @@ export const createChatRoomUsers = gql`
     }
   }
 `;
-// export const createChatRoom = /* GraphQL */ `
-//   mutation CreateChatRoom(
-//     $input: CreateChatRoomInput!
-//     $condition: ModelChatRoomConditionInput
-//   ) {
-//     createChatRoom(input: $input, condition: $condition) {
-//       id
-//       adminRightsId
-//       name
-//       image
-//       users {
-//         items {
-//           id
-//           userId
-//           chatRoomId
-//           user {
-//             id
-//             username
-//             phoneNumber
-//             codelessNumber
-//             numbers {
-//               items {
-//                 number
-//                 createdAt
-//                 updatedAt
-//                 userNumbersId
-//                 owner
-//               }
-//               nextToken
-//             }
-//             email
-//             chatStatus
-//             chatImage
-//             imageKey
-//             chatMessages {
-//               items {
-//                 id
-//                 createdAt
-//                 type
-//                 text
-//                 userId
-//                 chatRoomId
-//                 chatAttachments {
-//                   items {
-//                     id
-//                     chatMessageID
-//                     chatRoomID
-//                     storageKey
-//                     type
-//                     width
-//                     height
-//                     duration
-//                     createdAt
-//                     updatedAt
-//                     owner
-//                   }
-//                   nextToken
-//                 }
-//                 status
-//                 replyToMessageID
-//                 forUserId
-//                 updatedAt
-//                 owner
-//               }
-//               nextToken
-//             }
-//             chatRooms {
-//               items {
-//                 id
-//                 userId
-//                 chatRoomId
-//                 user {
-//                   id
-//                   username
-//                   phoneNumber
-//                   codelessNumber
-//                   numbers {
-//                     items {
-//                       number
-//                       createdAt
-//                       updatedAt
-//                       userNumbersId
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   email
-//                   chatStatus
-//                   chatImage
-//                   imageKey
-//                   chatMessages {
-//                     items {
-//                       id
-//                       createdAt
-//                       type
-//                       text
-//                       userId
-//                       chatRoomId
-//                       chatAttachments {
-//                         nextToken
-//                       }
-//                       status
-//                       replyToMessageID
-//                       forUserId
-//                       updatedAt
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   chatRooms {
-//                     items {
-//                       id
-//                       userId
-//                       chatRoomId
-//                       user {
-//                         id
-//                         username
-//                         phoneNumber
-//                         codelessNumber
-//                         email
-//                         chatStatus
-//                         chatImage
-//                         imageKey
-//                         lastOnlineAt
-//                         adminRightsId
-//                         publicKey
-//                         createdAt
-//                         updatedAt
-//                         owner
-//                       }
-//                       chatRoom {
-//                         id
-//                         adminRightsId
-//                         name
-//                         image
-//                         newMessages
-//                         createdAt
-//                         updatedAt
-//                         chatRoomLastMessageId
-//                         owner
-//                       }
-//                       createdAt
-//                       updatedAt
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   lastOnlineAt
-//                   adminRightsId
-//                   publicKey
-//                   createdAt
-//                   updatedAt
-//                   owner
-//                 }
-//                 chatRoom {
-//                   id
-//                   adminRightsId
-//                   name
-//                   image
-//                   users {
-//                     items {
-//                       id
-//                       userId
-//                       chatRoomId
-//                       user {
-//                         id
-//                         username
-//                         phoneNumber
-//                         codelessNumber
-//                         email
-//                         chatStatus
-//                         chatImage
-//                         imageKey
-//                         lastOnlineAt
-//                         adminRightsId
-//                         publicKey
-//                         createdAt
-//                         updatedAt
-//                         owner
-//                       }
-//                       chatRoom {
-//                         id
-//                         adminRightsId
-//                         name
-//                         image
-//                         newMessages
-//                         createdAt
-//                         updatedAt
-//                         chatRoomLastMessageId
-//                         owner
-//                       }
-//                       createdAt
-//                       updatedAt
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   chatMessages {
-//                     items {
-//                       id
-//                       createdAt
-//                       type
-//                       text
-//                       userId
-//                       chatRoomId
-//                       chatAttachments {
-//                         nextToken
-//                       }
-//                       status
-//                       replyToMessageID
-//                       forUserId
-//                       updatedAt
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   newMessages
-//                   lastMessage {
-//                     id
-//                     createdAt
-//                     type
-//                     text
-//                     userId
-//                     chatRoomId
-//                     chatAttachments {
-//                       items {
-//                         id
-//                         chatMessageID
-//                         chatRoomID
-//                         storageKey
-//                         type
-//                         width
-//                         height
-//                         duration
-//                         createdAt
-//                         updatedAt
-//                         owner
-//                       }
-//                       nextToken
-//                     }
-//                     status
-//                     replyToMessageID
-//                     forUserId
-//                     updatedAt
-//                     owner
-//                   }
-//                   chatAttachments {
-//                     items {
-//                       id
-//                       chatMessageID
-//                       chatRoomID
-//                       storageKey
-//                       type
-//                       width
-//                       height
-//                       duration
-//                       createdAt
-//                       updatedAt
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   createdAt
-//                   updatedAt
-//                   chatRoomLastMessageId
-//                   owner
-//                 }
-//                 createdAt
-//                 updatedAt
-//                 owner
-//               }
-//               nextToken
-//             }
-//             lastOnlineAt
-//             adminRightsId
-//             publicKey
-//             createdAt
-//             updatedAt
-//             owner
-//           }
-//           chatRoom {
-//             id
-//             adminRightsId
-//             name
-//             image
-//             users {
-//               items {
-//                 id
-//                 userId
-//                 chatRoomId
-//                 user {
-//                   id
-//                   username
-//                   phoneNumber
-//                   codelessNumber
-//                   numbers {
-//                     items {
-//                       number
-//                       createdAt
-//                       updatedAt
-//                       userNumbersId
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   email
-//                   chatStatus
-//                   chatImage
-//                   imageKey
-//                   chatMessages {
-//                     items {
-//                       id
-//                       createdAt
-//                       type
-//                       text
-//                       userId
-//                       chatRoomId
-//                       chatAttachments {
-//                         nextToken
-//                       }
-//                       status
-//                       replyToMessageID
-//                       forUserId
-//                       updatedAt
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   chatRooms {
-//                     items {
-//                       id
-//                       userId
-//                       chatRoomId
-//                       user {
-//                         id
-//                         username
-//                         phoneNumber
-//                         codelessNumber
-//                         email
-//                         chatStatus
-//                         chatImage
-//                         imageKey
-//                         lastOnlineAt
-//                         adminRightsId
-//                         publicKey
-//                         createdAt
-//                         updatedAt
-//                         owner
-//                       }
-//                       chatRoom {
-//                         id
-//                         adminRightsId
-//                         name
-//                         image
-//                         newMessages
-//                         createdAt
-//                         updatedAt
-//                         chatRoomLastMessageId
-//                         owner
-//                       }
-//                       createdAt
-//                       updatedAt
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   lastOnlineAt
-//                   adminRightsId
-//                   publicKey
-//                   createdAt
-//                   updatedAt
-//                   owner
-//                 }
-//                 chatRoom {
-//                   id
-//                   adminRightsId
-//                   name
-//                   image
-//                   users {
-//                     items {
-//                       id
-//                       userId
-//                       chatRoomId
-//                       user {
-//                         id
-//                         username
-//                         phoneNumber
-//                         codelessNumber
-//                         email
-//                         chatStatus
-//                         chatImage
-//                         imageKey
-//                         lastOnlineAt
-//                         adminRightsId
-//                         publicKey
-//                         createdAt
-//                         updatedAt
-//                         owner
-//                       }
-//                       chatRoom {
-//                         id
-//                         adminRightsId
-//                         name
-//                         image
-//                         newMessages
-//                         createdAt
-//                         updatedAt
-//                         chatRoomLastMessageId
-//                         owner
-//                       }
-//                       createdAt
-//                       updatedAt
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   chatMessages {
-//                     items {
-//                       id
-//                       createdAt
-//                       type
-//                       text
-//                       userId
-//                       chatRoomId
-//                       chatAttachments {
-//                         nextToken
-//                       }
-//                       status
-//                       replyToMessageID
-//                       forUserId
-//                       updatedAt
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   newMessages
-//                   lastMessage {
-//                     id
-//                     createdAt
-//                     type
-//                     text
-//                     userId
-//                     chatRoomId
-//                     chatAttachments {
-//                       items {
-//                         id
-//                         chatMessageID
-//                         chatRoomID
-//                         storageKey
-//                         type
-//                         width
-//                         height
-//                         duration
-//                         createdAt
-//                         updatedAt
-//                         owner
-//                       }
-//                       nextToken
-//                     }
-//                     status
-//                     replyToMessageID
-//                     forUserId
-//                     updatedAt
-//                     owner
-//                   }
-//                   chatAttachments {
-//                     items {
-//                       id
-//                       chatMessageID
-//                       chatRoomID
-//                       storageKey
-//                       type
-//                       width
-//                       height
-//                       duration
-//                       createdAt
-//                       updatedAt
-//                       owner
-//                     }
-//                     nextToken
-//                   }
-//                   createdAt
-//                   updatedAt
-//                   chatRoomLastMessageId
-//                   owner
-//                 }
-//                 createdAt
-//                 updatedAt
-//                 owner
-//               }
-//               nextToken
-//             }
-//             chatMessages {
-//               items {
-//                 id
-//                 createdAt
-//                 type
-//                 text
-//                 userId
-//                 chatRoomId
-//                 chatAttachments {
-//                   items {
-//                     id
-//                     chatMessageID
-//                     chatRoomID
-//                     storageKey
-//                     type
-//                     width
-//                     height
-//                     duration
-//                     createdAt
-//                     updatedAt
-//                     owner
-//                   }
-//                   nextToken
-//                 }
-//                 status
-//                 replyToMessageID
-//                 forUserId
-//                 updatedAt
-//                 owner
-//               }
-//               nextToken
-//             }
-//             newMessages
-//             lastMessage {
-//               id
-//               createdAt
-//               type
-//               text
-//               userId
-//               chatRoomId
-//               chatAttachments {
-//                 items {
-//                   id
-//                   chatMessageID
-//                   chatRoomID
-//                   storageKey
-//                   type
-//                   width
-//                   height
-//                   duration
-//                   createdAt
-//                   updatedAt
-//                   owner
-//                 }
-//                 nextToken
-//               }
-//               status
-//               replyToMessageID
-//               forUserId
-//               updatedAt
-//               owner
-//             }
-//             chatAttachments {
-//               items {
-//                 id
-//                 chatMessageID
-//                 chatRoomID
-//                 storageKey
-//                 type
-//                 width
-//                 height
-//                 duration
-//                 createdAt
-//                 updatedAt
-//                 owner
-//               }
-//               nextToken
-//             }
-//             createdAt
-//             updatedAt
-//             chatRoomLastMessageId
-//             owner
-//           }
-//           createdAt
-//           updatedAt
-//           owner
-//         }
-//         nextToken
-//       }
-//       chatMessages {
-//         items {
-//           id
-//           createdAt
-//           type
-//           text
-//           userId
-//           chatRoomId
-//           chatAttachments {
-//             items {
-//               id
-//               chatMessageID
-//               chatRoomID
-//               storageKey
-//               type
-//               width
-//               height
-//               duration
-//               createdAt
-//               updatedAt
-//               owner
-//             }
-//             nextToken
-//           }
-//           status
-//           replyToMessageID
-//           forUserId
-//           updatedAt
-//           owner
-//         }
-//         nextToken
-//       }
-//       newMessages
-//       lastMessage {
-//         id
-//         createdAt
-//         type
-//         text
-//         userId
-//         chatRoomId
-//         chatAttachments {
-//           items {
-//             id
-//             chatMessageID
-//             chatRoomID
-//             storageKey
-//             type
-//             width
-//             height
-//             duration
-//             createdAt
-//             updatedAt
-//             owner
-//           }
-//           nextToken
-//         }
-//         status
-//         replyToMessageID
-//         forUserId
-//         updatedAt
-//         owner
-//       }
-//       chatAttachments {
-//         items {
-//           id
-//           chatMessageID
-//           chatRoomID
-//           storageKey
-//           type
-//           width
-//           height
-//           duration
-//           createdAt
-//           updatedAt
-//           owner
-//         }
-//         nextToken
-//       }
-//       createdAt
-//       updatedAt
-//       chatRoomLastMessageId
-//       owner
-//     }
-//   }
-// `;
+
+export const createChatMessage = gql`
+  mutation CreateChatMessage(
+    $input: CreateChatMessageInput!
+    $condition: ModelChatMessageConditionInput
+  ) {
+    createChatMessage(input: $input, condition: $condition) {
+      id
+      createdAt
+      type
+      text
+      userId
+      chatRoomId
+      chatAttachments {
+        items {
+          id
+          chatMessageID
+          chatRoomID
+          storageKey
+          type
+          width
+          height
+          duration
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      status
+      replyToMessageID
+      forUserId
+      updatedAt
+      owner
+    }
+  }
+`;
+
+export const createChatAttachment = gql`
+  mutation CreateChatAttachment(
+    $input: CreateChatAttachmentInput!
+    $condition: ModelChatAttachmentConditionInput
+  ) {
+    createChatAttachment(input: $input, condition: $condition) {
+      id
+      chatMessageID
+      chatRoomID
+      storageKey
+      type
+      width
+      height
+      duration
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+
+export const updateChatRoom = gql`
+  mutation UpdateChatRoom(
+    $input: UpdateChatRoomInput!
+    $condition: ModelChatRoomConditionInput
+  ) {
+    updateChatRoom(input: $input, condition: $condition) {
+      id
+      adminRightsId
+      name
+      image
+      users {
+        items {
+          id
+          userId
+          chatRoomId
+          user {
+            id
+            username
+            phoneNumber
+            codelessNumber
+            numbers {
+              items {
+                number
+                createdAt
+                updatedAt
+                userNumbersId
+                owner
+              }
+              nextToken
+            }
+            email
+            chatStatus
+            chatImage
+            imageKey
+            chatMessages {
+              items {
+                id
+                createdAt
+                type
+                text
+                userId
+                chatRoomId
+                chatAttachments {
+                  items {
+                    id
+                    chatMessageID
+                    chatRoomID
+                    storageKey
+                    type
+                    width
+                    height
+                    duration
+                    createdAt
+                    updatedAt
+                    owner
+                  }
+                  nextToken
+                }
+                status
+                replyToMessageID
+                forUserId
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            chatRooms {
+              items {
+                id
+                userId
+                chatRoomId
+                user {
+                  id
+                  username
+                  phoneNumber
+                  codelessNumber
+                  numbers {
+                    items {
+                      number
+                      createdAt
+                      updatedAt
+                      userNumbersId
+                      owner
+                    }
+                    nextToken
+                  }
+                  email
+                  chatStatus
+                  chatImage
+                  imageKey
+                  chatMessages {
+                    items {
+                      id
+                      createdAt
+                      type
+                      text
+                      userId
+                      chatRoomId
+                      chatAttachments {
+                        nextToken
+                      }
+                      status
+                      replyToMessageID
+                      forUserId
+                      updatedAt
+                      owner
+                    }
+                    nextToken
+                  }
+                  chatRooms {
+                    items {
+                      id
+                      userId
+                      chatRoomId
+                      user {
+                        id
+                        username
+                        phoneNumber
+                        codelessNumber
+                        email
+                        chatStatus
+                        chatImage
+                        imageKey
+                        lastOnlineAt
+                        adminRightsId
+                        publicKey
+                        createdAt
+                        updatedAt
+                        owner
+                      }
+                      chatRoom {
+                        id
+                        adminRightsId
+                        name
+                        image
+                        newMessages
+                        createdAt
+                        updatedAt
+                        chatRoomLastMessageId
+                        owner
+                      }
+                      createdAt
+                      updatedAt
+                      owner
+                    }
+                    nextToken
+                  }
+                  lastOnlineAt
+                  adminRightsId
+                  publicKey
+                  createdAt
+                  updatedAt
+                  owner
+                }
+                chatRoom {
+                  id
+                  adminRightsId
+                  name
+                  image
+                  users {
+                    items {
+                      id
+                      userId
+                      chatRoomId
+                      user {
+                        id
+                        username
+                        phoneNumber
+                        codelessNumber
+                        email
+                        chatStatus
+                        chatImage
+                        imageKey
+                        lastOnlineAt
+                        adminRightsId
+                        publicKey
+                        createdAt
+                        updatedAt
+                        owner
+                      }
+                      chatRoom {
+                        id
+                        adminRightsId
+                        name
+                        image
+                        newMessages
+                        createdAt
+                        updatedAt
+                        chatRoomLastMessageId
+                        owner
+                      }
+                      createdAt
+                      updatedAt
+                      owner
+                    }
+                    nextToken
+                  }
+                  chatMessages {
+                    items {
+                      id
+                      createdAt
+                      type
+                      text
+                      userId
+                      chatRoomId
+                      chatAttachments {
+                        nextToken
+                      }
+                      status
+                      replyToMessageID
+                      forUserId
+                      updatedAt
+                      owner
+                    }
+                    nextToken
+                  }
+                  newMessages
+                  lastMessage {
+                    id
+                    createdAt
+                    type
+                    text
+                    userId
+                    chatRoomId
+                    chatAttachments {
+                      items {
+                        id
+                        chatMessageID
+                        chatRoomID
+                        storageKey
+                        type
+                        width
+                        height
+                        duration
+                        createdAt
+                        updatedAt
+                        owner
+                      }
+                      nextToken
+                    }
+                    status
+                    replyToMessageID
+                    forUserId
+                    updatedAt
+                    owner
+                  }
+                  chatAttachments {
+                    items {
+                      id
+                      chatMessageID
+                      chatRoomID
+                      storageKey
+                      type
+                      width
+                      height
+                      duration
+                      createdAt
+                      updatedAt
+                      owner
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                  chatRoomLastMessageId
+                  owner
+                }
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            lastOnlineAt
+            adminRightsId
+            publicKey
+            createdAt
+            updatedAt
+            owner
+          }
+          chatRoom {
+            id
+            adminRightsId
+            name
+            image
+            users {
+              items {
+                id
+                userId
+                chatRoomId
+                user {
+                  id
+                  username
+                  phoneNumber
+                  codelessNumber
+                  numbers {
+                    items {
+                      number
+                      createdAt
+                      updatedAt
+                      userNumbersId
+                      owner
+                    }
+                    nextToken
+                  }
+                  email
+                  chatStatus
+                  chatImage
+                  imageKey
+                  chatMessages {
+                    items {
+                      id
+                      createdAt
+                      type
+                      text
+                      userId
+                      chatRoomId
+                      chatAttachments {
+                        nextToken
+                      }
+                      status
+                      replyToMessageID
+                      forUserId
+                      updatedAt
+                      owner
+                    }
+                    nextToken
+                  }
+                  chatRooms {
+                    items {
+                      id
+                      userId
+                      chatRoomId
+                      user {
+                        id
+                        username
+                        phoneNumber
+                        codelessNumber
+                        email
+                        chatStatus
+                        chatImage
+                        imageKey
+                        lastOnlineAt
+                        adminRightsId
+                        publicKey
+                        createdAt
+                        updatedAt
+                        owner
+                      }
+                      chatRoom {
+                        id
+                        adminRightsId
+                        name
+                        image
+                        newMessages
+                        createdAt
+                        updatedAt
+                        chatRoomLastMessageId
+                        owner
+                      }
+                      createdAt
+                      updatedAt
+                      owner
+                    }
+                    nextToken
+                  }
+                  lastOnlineAt
+                  adminRightsId
+                  publicKey
+                  createdAt
+                  updatedAt
+                  owner
+                }
+                chatRoom {
+                  id
+                  adminRightsId
+                  name
+                  image
+                  users {
+                    items {
+                      id
+                      userId
+                      chatRoomId
+                      user {
+                        id
+                        username
+                        phoneNumber
+                        codelessNumber
+                        email
+                        chatStatus
+                        chatImage
+                        imageKey
+                        lastOnlineAt
+                        adminRightsId
+                        publicKey
+                        createdAt
+                        updatedAt
+                        owner
+                      }
+                      chatRoom {
+                        id
+                        adminRightsId
+                        name
+                        image
+                        newMessages
+                        createdAt
+                        updatedAt
+                        chatRoomLastMessageId
+                        owner
+                      }
+                      createdAt
+                      updatedAt
+                      owner
+                    }
+                    nextToken
+                  }
+                  chatMessages {
+                    items {
+                      id
+                      createdAt
+                      type
+                      text
+                      userId
+                      chatRoomId
+                      chatAttachments {
+                        nextToken
+                      }
+                      status
+                      replyToMessageID
+                      forUserId
+                      updatedAt
+                      owner
+                    }
+                    nextToken
+                  }
+                  newMessages
+                  lastMessage {
+                    id
+                    createdAt
+                    type
+                    text
+                    userId
+                    chatRoomId
+                    chatAttachments {
+                      items {
+                        id
+                        chatMessageID
+                        chatRoomID
+                        storageKey
+                        type
+                        width
+                        height
+                        duration
+                        createdAt
+                        updatedAt
+                        owner
+                      }
+                      nextToken
+                    }
+                    status
+                    replyToMessageID
+                    forUserId
+                    updatedAt
+                    owner
+                  }
+                  chatAttachments {
+                    items {
+                      id
+                      chatMessageID
+                      chatRoomID
+                      storageKey
+                      type
+                      width
+                      height
+                      duration
+                      createdAt
+                      updatedAt
+                      owner
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                  chatRoomLastMessageId
+                  owner
+                }
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            chatMessages {
+              items {
+                id
+                createdAt
+                type
+                text
+                userId
+                chatRoomId
+                chatAttachments {
+                  items {
+                    id
+                    chatMessageID
+                    chatRoomID
+                    storageKey
+                    type
+                    width
+                    height
+                    duration
+                    createdAt
+                    updatedAt
+                    owner
+                  }
+                  nextToken
+                }
+                status
+                replyToMessageID
+                forUserId
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            newMessages
+            lastMessage {
+              id
+              createdAt
+              type
+              text
+              userId
+              chatRoomId
+              chatAttachments {
+                items {
+                  id
+                  chatMessageID
+                  chatRoomID
+                  storageKey
+                  type
+                  width
+                  height
+                  duration
+                  createdAt
+                  updatedAt
+                  owner
+                }
+                nextToken
+              }
+              status
+              replyToMessageID
+              forUserId
+              updatedAt
+              owner
+            }
+            chatAttachments {
+              items {
+                id
+                chatMessageID
+                chatRoomID
+                storageKey
+                type
+                width
+                height
+                duration
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+            chatRoomLastMessageId
+            owner
+          }
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      chatMessages {
+        items {
+          id
+          createdAt
+          type
+          text
+          userId
+          chatRoomId
+          chatAttachments {
+            items {
+              id
+              chatMessageID
+              chatRoomID
+              storageKey
+              type
+              width
+              height
+              duration
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          status
+          replyToMessageID
+          forUserId
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      newMessages
+      lastMessage {
+        id
+        createdAt
+        type
+        text
+        userId
+        chatRoomId
+        chatAttachments {
+          items {
+            id
+            chatMessageID
+            chatRoomID
+            storageKey
+            type
+            width
+            height
+            duration
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        status
+        replyToMessageID
+        forUserId
+        updatedAt
+        owner
+      }
+      chatAttachments {
+        items {
+          id
+          chatMessageID
+          chatRoomID
+          storageKey
+          type
+          width
+          height
+          duration
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      chatRoomLastMessageId
+      owner
+    }
+  }
+`;

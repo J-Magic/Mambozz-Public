@@ -6,16 +6,35 @@ import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import SmartImage from './SmartImage';
 import * as Contacts from 'expo-contacts';
 import { Contact } from 'expo-contacts';
+import { User } from '@/src/API';
 
 dayjs.extend(relativeTime);
+// interface IContactListItem {
+//   user: User;
+//   onPress?: () => void;
+//   selectable?: boolean;
+//   isSelected?: boolean;
+// }
+// const ContactListItem = ({
+//   user,
+//   onPress = () => {},
+//   selectable = false,
+//   isSelected = false,
+// }: IContactListItem) => {
 
+type UserProps = {
+  user: User;
+  onPress?: () => void;
+  selectable?: boolean;
+  isSelected?: boolean;
+};
 const ContactListItem = ({
   user,
   onPress = () => {},
   selectable = false,
   isSelected = false,
-}) => {
-  const [number, setNumber] = useState();
+}: UserProps) => {
+  // const [number, setNumber] = useState();
   // useEffect(() => {
   //   (async () => {
   //     const { data } = await Contacts.getContactsAsync({
@@ -36,11 +55,14 @@ const ContactListItem = ({
   //     }
   //   })();
   // }, []);
-  console.log('USER FROM CONTACTLIST ITEM: ', user.chatImage);
+  // console.log('USER FROM CONTACTLIST ITEM: ', user.chatImage);
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       {/* <SmartImage imgKey={user?.imageKey} style={styles.image} /> */}
-      <Image source={{ uri: user.chatImage }} style={styles.image} />
+      {/* <Image source={{ uri: user.chatImage }} style={styles.image} /> */}
+      {user.chatImage && (
+        <Image source={{ uri: user.chatImage }} style={styles.image} />
+      )}
       <View style={styles.content}>
         <Text style={styles.name} numberOfLines={1}>
           {user.username}

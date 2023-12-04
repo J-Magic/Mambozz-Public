@@ -23,7 +23,7 @@
         },
         "getUsersByNumbersFunction": {
           "deploymentBucketName": "amplify-mambozz-dev-143338-deployment",
-          "s3Key": "amplify-builds/getUsersByNumbersFunction-6865757943436573655a-build.zip"
+          "s3Key": "amplify-builds/getUsersByNumbersFunction-4d394f6e6a574c32696d-build.zip"
         }
       },
       "api": {
