@@ -3,9 +3,10 @@
 // this is an auto generated file. This will be overwritten
 
 export const onUpdateChatroomByChatroomId = /* GraphQL */ `
-  subscription OnUpdateChatroomByChatroomId($chatRoomID: ID!) {
-    onUpdateChatroomByChatroomId(chatRoomID: $chatRoomID) {
+  subscription OnUpdateChatroomByChatroomId($chatRoomId: ID!) {
+    onUpdateChatroomByChatroomId(chatRoomId: $chatRoomId) {
       id
+      chatRoomId
       adminRightsId
       name
       image
@@ -18,7 +19,6 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
             id
             username
             phoneNumber
-            codelessNumber
             numbers {
               items {
                 number
@@ -74,7 +74,6 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -117,7 +116,6 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -131,6 +129,7 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -155,6 +154,7 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -167,7 +167,6 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -181,6 +180,7 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -281,6 +281,7 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
           }
           chatRoom {
             id
+            chatRoomId
             adminRightsId
             name
             image
@@ -293,7 +294,6 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -336,7 +336,6 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -350,6 +349,7 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -374,6 +374,7 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -386,7 +387,6 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -400,6 +400,7 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -665,6 +666,39 @@ export const onUpdateChatroomByChatroomId = /* GraphQL */ `
     }
   }
 `;
+export const onCreateNewChatMessageByChatroomId = /* GraphQL */ `
+  subscription OnCreateNewChatMessageByChatroomId($chatRoomId: ID!) {
+    onCreateNewChatMessageByChatroomId(chatRoomId: $chatRoomId) {
+      id
+      createdAt
+      type
+      text
+      userId
+      chatRoomId
+      chatAttachments {
+        items {
+          id
+          chatMessageID
+          chatRoomID
+          storageKey
+          type
+          width
+          height
+          duration
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      status
+      replyToMessageID
+      forUserId
+      updatedAt
+      owner
+    }
+  }
+`;
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser(
     $filter: ModelSubscriptionUserFilterInput
@@ -674,7 +708,6 @@ export const onCreateUser = /* GraphQL */ `
       id
       username
       phoneNumber
-      codelessNumber
       numbers {
         items {
           number
@@ -730,7 +763,6 @@ export const onCreateUser = /* GraphQL */ `
             id
             username
             phoneNumber
-            codelessNumber
             numbers {
               items {
                 number
@@ -786,7 +818,6 @@ export const onCreateUser = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -829,7 +860,6 @@ export const onCreateUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -843,6 +873,7 @@ export const onCreateUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -867,6 +898,7 @@ export const onCreateUser = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -879,7 +911,6 @@ export const onCreateUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -893,6 +924,7 @@ export const onCreateUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -993,6 +1025,7 @@ export const onCreateUser = /* GraphQL */ `
           }
           chatRoom {
             id
+            chatRoomId
             adminRightsId
             name
             image
@@ -1005,7 +1038,6 @@ export const onCreateUser = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -1048,7 +1080,6 @@ export const onCreateUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -1062,6 +1093,7 @@ export const onCreateUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -1086,6 +1118,7 @@ export const onCreateUser = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -1098,7 +1131,6 @@ export const onCreateUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -1112,6 +1144,7 @@ export const onCreateUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -1310,7 +1343,6 @@ export const onUpdateUser = /* GraphQL */ `
       id
       username
       phoneNumber
-      codelessNumber
       numbers {
         items {
           number
@@ -1366,7 +1398,6 @@ export const onUpdateUser = /* GraphQL */ `
             id
             username
             phoneNumber
-            codelessNumber
             numbers {
               items {
                 number
@@ -1422,7 +1453,6 @@ export const onUpdateUser = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -1465,7 +1495,6 @@ export const onUpdateUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -1479,6 +1508,7 @@ export const onUpdateUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -1503,6 +1533,7 @@ export const onUpdateUser = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -1515,7 +1546,6 @@ export const onUpdateUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -1529,6 +1559,7 @@ export const onUpdateUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -1629,6 +1660,7 @@ export const onUpdateUser = /* GraphQL */ `
           }
           chatRoom {
             id
+            chatRoomId
             adminRightsId
             name
             image
@@ -1641,7 +1673,6 @@ export const onUpdateUser = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -1684,7 +1715,6 @@ export const onUpdateUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -1698,6 +1728,7 @@ export const onUpdateUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -1722,6 +1753,7 @@ export const onUpdateUser = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -1734,7 +1766,6 @@ export const onUpdateUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -1748,6 +1779,7 @@ export const onUpdateUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -1946,7 +1978,6 @@ export const onDeleteUser = /* GraphQL */ `
       id
       username
       phoneNumber
-      codelessNumber
       numbers {
         items {
           number
@@ -2002,7 +2033,6 @@ export const onDeleteUser = /* GraphQL */ `
             id
             username
             phoneNumber
-            codelessNumber
             numbers {
               items {
                 number
@@ -2058,7 +2088,6 @@ export const onDeleteUser = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -2101,7 +2130,6 @@ export const onDeleteUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -2115,6 +2143,7 @@ export const onDeleteUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -2139,6 +2168,7 @@ export const onDeleteUser = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -2151,7 +2181,6 @@ export const onDeleteUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -2165,6 +2194,7 @@ export const onDeleteUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -2265,6 +2295,7 @@ export const onDeleteUser = /* GraphQL */ `
           }
           chatRoom {
             id
+            chatRoomId
             adminRightsId
             name
             image
@@ -2277,7 +2308,6 @@ export const onDeleteUser = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -2320,7 +2350,6 @@ export const onDeleteUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -2334,6 +2363,7 @@ export const onDeleteUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -2358,6 +2388,7 @@ export const onDeleteUser = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -2370,7 +2401,6 @@ export const onDeleteUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -2384,6 +2414,7 @@ export const onDeleteUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -2624,6 +2655,7 @@ export const onCreateAdminRights = /* GraphQL */ `
       id
       chatRoom {
         id
+        chatRoomId
         adminRightsId
         name
         image
@@ -2636,7 +2668,6 @@ export const onCreateAdminRights = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -2692,7 +2723,6 @@ export const onCreateAdminRights = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -2743,6 +2773,7 @@ export const onCreateAdminRights = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -2826,6 +2857,7 @@ export const onCreateAdminRights = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -2838,7 +2870,6 @@ export const onCreateAdminRights = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -2889,6 +2920,7 @@ export const onCreateAdminRights = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -3140,7 +3172,6 @@ export const onCreateAdminRights = /* GraphQL */ `
           id
           username
           phoneNumber
-          codelessNumber
           numbers {
             items {
               number
@@ -3196,7 +3227,6 @@ export const onCreateAdminRights = /* GraphQL */ `
                 id
                 username
                 phoneNumber
-                codelessNumber
                 numbers {
                   items {
                     number
@@ -3252,7 +3282,6 @@ export const onCreateAdminRights = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -3275,6 +3304,7 @@ export const onCreateAdminRights = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -3321,6 +3351,7 @@ export const onCreateAdminRights = /* GraphQL */ `
               }
               chatRoom {
                 id
+                chatRoomId
                 adminRightsId
                 name
                 image
@@ -3333,7 +3364,6 @@ export const onCreateAdminRights = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -3356,6 +3386,7 @@ export const onCreateAdminRights = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -3507,6 +3538,7 @@ export const onUpdateAdminRights = /* GraphQL */ `
       id
       chatRoom {
         id
+        chatRoomId
         adminRightsId
         name
         image
@@ -3519,7 +3551,6 @@ export const onUpdateAdminRights = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -3575,7 +3606,6 @@ export const onUpdateAdminRights = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -3626,6 +3656,7 @@ export const onUpdateAdminRights = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -3709,6 +3740,7 @@ export const onUpdateAdminRights = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -3721,7 +3753,6 @@ export const onUpdateAdminRights = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -3772,6 +3803,7 @@ export const onUpdateAdminRights = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -4023,7 +4055,6 @@ export const onUpdateAdminRights = /* GraphQL */ `
           id
           username
           phoneNumber
-          codelessNumber
           numbers {
             items {
               number
@@ -4079,7 +4110,6 @@ export const onUpdateAdminRights = /* GraphQL */ `
                 id
                 username
                 phoneNumber
-                codelessNumber
                 numbers {
                   items {
                     number
@@ -4135,7 +4165,6 @@ export const onUpdateAdminRights = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -4158,6 +4187,7 @@ export const onUpdateAdminRights = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -4204,6 +4234,7 @@ export const onUpdateAdminRights = /* GraphQL */ `
               }
               chatRoom {
                 id
+                chatRoomId
                 adminRightsId
                 name
                 image
@@ -4216,7 +4247,6 @@ export const onUpdateAdminRights = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -4239,6 +4269,7 @@ export const onUpdateAdminRights = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -4390,6 +4421,7 @@ export const onDeleteAdminRights = /* GraphQL */ `
       id
       chatRoom {
         id
+        chatRoomId
         adminRightsId
         name
         image
@@ -4402,7 +4434,6 @@ export const onDeleteAdminRights = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -4458,7 +4489,6 @@ export const onDeleteAdminRights = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -4509,6 +4539,7 @@ export const onDeleteAdminRights = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -4592,6 +4623,7 @@ export const onDeleteAdminRights = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -4604,7 +4636,6 @@ export const onDeleteAdminRights = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -4655,6 +4686,7 @@ export const onDeleteAdminRights = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -4906,7 +4938,6 @@ export const onDeleteAdminRights = /* GraphQL */ `
           id
           username
           phoneNumber
-          codelessNumber
           numbers {
             items {
               number
@@ -4962,7 +4993,6 @@ export const onDeleteAdminRights = /* GraphQL */ `
                 id
                 username
                 phoneNumber
-                codelessNumber
                 numbers {
                   items {
                     number
@@ -5018,7 +5048,6 @@ export const onDeleteAdminRights = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -5041,6 +5070,7 @@ export const onDeleteAdminRights = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -5087,6 +5117,7 @@ export const onDeleteAdminRights = /* GraphQL */ `
               }
               chatRoom {
                 id
+                chatRoomId
                 adminRightsId
                 name
                 image
@@ -5099,7 +5130,6 @@ export const onDeleteAdminRights = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -5122,6 +5152,7 @@ export const onDeleteAdminRights = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -5439,6 +5470,7 @@ export const onCreateChatRoom = /* GraphQL */ `
   ) {
     onCreateChatRoom(filter: $filter, owner: $owner) {
       id
+      chatRoomId
       adminRightsId
       name
       image
@@ -5451,7 +5483,6 @@ export const onCreateChatRoom = /* GraphQL */ `
             id
             username
             phoneNumber
-            codelessNumber
             numbers {
               items {
                 number
@@ -5507,7 +5538,6 @@ export const onCreateChatRoom = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -5550,7 +5580,6 @@ export const onCreateChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -5564,6 +5593,7 @@ export const onCreateChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -5588,6 +5618,7 @@ export const onCreateChatRoom = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -5600,7 +5631,6 @@ export const onCreateChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -5614,6 +5644,7 @@ export const onCreateChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -5714,6 +5745,7 @@ export const onCreateChatRoom = /* GraphQL */ `
           }
           chatRoom {
             id
+            chatRoomId
             adminRightsId
             name
             image
@@ -5726,7 +5758,6 @@ export const onCreateChatRoom = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -5769,7 +5800,6 @@ export const onCreateChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -5783,6 +5813,7 @@ export const onCreateChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -5807,6 +5838,7 @@ export const onCreateChatRoom = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -5819,7 +5851,6 @@ export const onCreateChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -5833,6 +5864,7 @@ export const onCreateChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -6105,6 +6137,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
   ) {
     onUpdateChatRoom(filter: $filter, owner: $owner) {
       id
+      chatRoomId
       adminRightsId
       name
       image
@@ -6117,7 +6150,6 @@ export const onUpdateChatRoom = /* GraphQL */ `
             id
             username
             phoneNumber
-            codelessNumber
             numbers {
               items {
                 number
@@ -6173,7 +6205,6 @@ export const onUpdateChatRoom = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -6216,7 +6247,6 @@ export const onUpdateChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -6230,6 +6260,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -6254,6 +6285,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -6266,7 +6298,6 @@ export const onUpdateChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -6280,6 +6311,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -6380,6 +6412,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
           }
           chatRoom {
             id
+            chatRoomId
             adminRightsId
             name
             image
@@ -6392,7 +6425,6 @@ export const onUpdateChatRoom = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -6435,7 +6467,6 @@ export const onUpdateChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -6449,6 +6480,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -6473,6 +6505,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -6485,7 +6518,6 @@ export const onUpdateChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -6499,6 +6531,7 @@ export const onUpdateChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -6771,6 +6804,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
   ) {
     onDeleteChatRoom(filter: $filter, owner: $owner) {
       id
+      chatRoomId
       adminRightsId
       name
       image
@@ -6783,7 +6817,6 @@ export const onDeleteChatRoom = /* GraphQL */ `
             id
             username
             phoneNumber
-            codelessNumber
             numbers {
               items {
                 number
@@ -6839,7 +6872,6 @@ export const onDeleteChatRoom = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -6882,7 +6914,6 @@ export const onDeleteChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -6896,6 +6927,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -6920,6 +6952,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -6932,7 +6965,6 @@ export const onDeleteChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -6946,6 +6978,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -7046,6 +7079,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
           }
           chatRoom {
             id
+            chatRoomId
             adminRightsId
             name
             image
@@ -7058,7 +7092,6 @@ export const onDeleteChatRoom = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -7101,7 +7134,6 @@ export const onDeleteChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -7115,6 +7147,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -7139,6 +7172,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -7151,7 +7185,6 @@ export const onDeleteChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -7165,6 +7198,7 @@ export const onDeleteChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -7443,7 +7477,6 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
         id
         username
         phoneNumber
-        codelessNumber
         numbers {
           items {
             number
@@ -7499,7 +7532,6 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -7555,7 +7587,6 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -7606,6 +7637,7 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -7689,6 +7721,7 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -7701,7 +7734,6 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -7752,6 +7784,7 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -7924,6 +7957,7 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
       }
       chatRoom {
         id
+        chatRoomId
         adminRightsId
         name
         image
@@ -7936,7 +7970,6 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -7992,7 +8025,6 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -8043,6 +8075,7 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -8126,6 +8159,7 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -8138,7 +8172,6 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -8189,6 +8222,7 @@ export const onCreateChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -8454,7 +8488,6 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
         id
         username
         phoneNumber
-        codelessNumber
         numbers {
           items {
             number
@@ -8510,7 +8543,6 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -8566,7 +8598,6 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -8617,6 +8648,7 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -8700,6 +8732,7 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -8712,7 +8745,6 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -8763,6 +8795,7 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -8935,6 +8968,7 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
       }
       chatRoom {
         id
+        chatRoomId
         adminRightsId
         name
         image
@@ -8947,7 +8981,6 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -9003,7 +9036,6 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -9054,6 +9086,7 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -9137,6 +9170,7 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -9149,7 +9183,6 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -9200,6 +9233,7 @@ export const onUpdateChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -9465,7 +9499,6 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
         id
         username
         phoneNumber
-        codelessNumber
         numbers {
           items {
             number
@@ -9521,7 +9554,6 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -9577,7 +9609,6 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -9628,6 +9659,7 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -9711,6 +9743,7 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -9723,7 +9756,6 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -9774,6 +9806,7 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -9946,6 +9979,7 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
       }
       chatRoom {
         id
+        chatRoomId
         adminRightsId
         name
         image
@@ -9958,7 +9992,6 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -10014,7 +10047,6 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -10065,6 +10097,7 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -10148,6 +10181,7 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -10160,7 +10194,6 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -10211,6 +10244,7 @@ export const onDeleteChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image

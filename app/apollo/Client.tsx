@@ -8,11 +8,13 @@ import {
   gql,
   createHttpLink,
   TypePolicies,
+  HttpLink,
 } from '@apollo/client';
 import { createAuthLink, AuthOptions, AUTH_TYPE } from 'aws-appsync-auth-link';
 import { createSubscriptionHandshakeLink } from 'aws-appsync-subscription-link';
 import config from '../../src/aws-exports';
 import { useAuth } from '../../context/auth';
+// import { cacheVar, modifyCache } from './ApolloCache';
 
 interface IClient {
   children: React.ReactNode;
@@ -20,12 +22,14 @@ interface IClient {
 
 const url = config.aws_appsync_graphqlEndpoint;
 const region = config.aws_appsync_region;
-const httpLink = createHttpLink({ uri: url });
+// const httpLink = createHttpLink({ uri: url });
+const httpLink = new HttpLink({ uri: url });
 
 // const typePolicies: TypePolicies = {};
 
 const Client = ({ children }: IClient) => {
   const { cognitoUser } = useAuth();
+  console.log('COGNITO USER:', cognitoUser);
 
   const client = useMemo(() => {
     const jwtToken =
@@ -44,8 +48,63 @@ const Client = ({ children }: IClient) => {
 
     return new ApolloClient({
       link,
-      // cache: new InMemoryCache({ typePolicies }),
-      cache: new InMemoryCache(),
+      cache: new InMemoryCache({
+        typePolicies: {
+          ChatMessage: {
+            fields: {
+              chatAttachments: {
+                merge(
+                  existing: any[],
+                  incoming: any[],
+                  { readField, mergeObjects }
+                ) {
+                  const merged: any[] = existing ? existing.slice(0) : [];
+                  const attachmentchatMessageIDToIndex: Record<string, number> =
+                    Object.create(null);
+
+                  if (existing) {
+                    existing.forEach((chatAttachment, index) => {
+                      const chatMessageID = readField<string>(
+                        'chatMessageID',
+                        chatAttachment
+                      );
+                      if (chatMessageID !== undefined) {
+                        attachmentchatMessageIDToIndex[chatMessageID] = index;
+                      }
+                    });
+                  }
+                  if (incoming && Array.isArray(incoming)) {
+                    incoming.forEach((chatAttachment) => {
+                      const chatMessageID = readField<string>(
+                        'chatMessageID',
+                        chatAttachment
+                      );
+                      if (chatMessageID !== undefined) {
+                        const index =
+                          attachmentchatMessageIDToIndex[chatMessageID];
+                        if (typeof index === 'number') {
+                          merged[index] = mergeObjects(
+                            merged[index],
+                            chatAttachment
+                          );
+                        } else {
+                          // First time this chat attachment is seen in this array
+                          attachmentchatMessageIDToIndex[chatMessageID] =
+                            merged.length;
+                          merged.push(chatAttachment);
+                        }
+                      }
+                    });
+                  }
+                  return merged;
+                },
+              },
+            },
+          },
+        },
+      }),
+      // cache: new InMemoryCache(),
+      // cache: cacheVar(),
     });
   }, [cognitoUser]);
 

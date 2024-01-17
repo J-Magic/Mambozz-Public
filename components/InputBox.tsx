@@ -14,18 +14,25 @@ import {
   Feather,
   MaterialCommunityIcons,
   Ionicons,
+  AntDesign,
 } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { ImagePickerAsset } from 'expo-image-picker';
 import { Audio, AVPlaybackStatus } from 'expo-av';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'react-native-get-random-values';
 import * as Crypto from 'expo-crypto';
+import { useAppDispatch, useAppSelector } from '@/Store';
+import { removeMsgReplyingTo } from '@/slices/navSlice';
 import { useAuth } from '@/context/auth';
-import { useAppSelector } from '@/Store';
 import { Storage } from 'aws-amplify';
-import { useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import {
   ChatRoom,
+  ChatMessage,
+  ChatRoomUsers,
   CreateChatMessageMutation,
   CreateChatMessageMutationVariables,
   CreateChatMessageInput,
@@ -44,14 +51,28 @@ import {
   createChatAttachment,
   updateChatRoom,
 } from './ApolloQueries/Mutations';
+import MessageComponent from '@/components/Message';
+import {
+  getChatRoom,
+  listChatMessagesByChatRoom,
+} from './ApolloQueries/Queries';
+dayjs.extend(relativeTime);
 
 type InputBoxProps = {
   chatRoom: ChatRoom | null;
+  subscribeToUpdatedChatRoom: () => void;
+  // updatedChatRoom: ChatRoom | null;
+  removeMessageReplyTo: () => void;
 };
 interface ProgressInterface {
   [key: string]: number;
 }
-const InputBox: React.FC<InputBoxProps> = ({ chatRoom }) => {
+const InputBox: React.FC<InputBoxProps> = ({
+  chatRoom,
+  subscribeToUpdatedChatRoom,
+  // updatedChatRoom,
+  removeMessageReplyTo,
+}) => {
   const [text, setText] = useState<string | undefined>(undefined);
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState<boolean>(false);
   const [vidpic, setVidPics] = useState<ImagePickerAsset[] | []>([]);
@@ -62,7 +83,15 @@ const InputBox: React.FC<InputBoxProps> = ({ chatRoom }) => {
   const { authedUser } = useAuth();
   const msgReplyingTo = useAppSelector((state) => state.nav.msgReplyingTo);
   let msgRecipient: string | undefined;
+  let msgRecipientDets: ChatRoomUsers | null | undefined;
+  const dispatch = useAppDispatch();
 
+  // let unifiedChatRoom = Object.assign({}, chatRoom, updatedChatRoom);
+
+  useEffect(() => {
+    subscribeToUpdatedChatRoom();
+    console.log('CACHE UPDATE FROM CHATROOM SUBSCRIPTION RESPONSE');
+  }, []);
   const [
     doCreateChatMsg,
     {
@@ -167,6 +196,7 @@ const InputBox: React.FC<InputBoxProps> = ({ chatRoom }) => {
       duration: file.duration,
       chatMessageID,
       chatRoomID: chatRoom?.id,
+      // chatRoomID: unifiedChatRoom?.id,
     };
 
     console.log('NEW ATTACHMENT : ', input);
@@ -179,16 +209,22 @@ const InputBox: React.FC<InputBoxProps> = ({ chatRoom }) => {
   };
 
   const sendMsg = async () => {
+    const msgText = text;
     if (authedUser === chatRoom?.users?.items[0]?.userId) {
+      // if (authedUser === unifiedChatRoom?.users?.items[0]?.userId) {
       msgRecipient = chatRoom?.users?.items[1]?.userId;
+      msgRecipientDets = chatRoom?.users?.items[1];
     } else {
       msgRecipient = chatRoom?.users?.items[0]?.userId;
+      msgRecipientDets = chatRoom?.users?.items[0];
+      // msgRecipient = unifiedChatRoom?.users?.items[0]?.userId;
     }
-
+    msgText;
     if (msgRecipient) {
       let input: CreateChatMessageInput = {
         chatRoomId: chatRoom?.id as string,
-        text,
+        // chatRoomId: unifiedChatRoom?.id as string,
+        text: msgText,
         userId: authedUser as string,
         forUserId: msgRecipient,
         status: MessageStatus.SENT,
@@ -197,10 +233,52 @@ const InputBox: React.FC<InputBoxProps> = ({ chatRoom }) => {
       };
       let newMsgData = await doCreateChatMsg({
         variables: { input },
+        update(cache, { data }) {
+          const newChatMsg = data?.createChatMessage;
+
+          if (!newChatMsg) {
+            // Handle the case where doCreateChatMsg is undefined
+            return;
+          }
+          cache.modify({
+            fields: {
+              // listChatMessagesByChatRoom({\"chatRoomId\":\"c1b3754d-e214-4ba5-b459-667ebf8f2b5e\",\"sortDirection\":\"DESC\"})
+              listChatMessagesByChatRoom(existingMessages, { readField }) {
+                const updatedChatMessages = {
+                  ...existingMessages,
+                  items: [newChatMsg, ...existingMessages.items],
+                };
+                return updatedChatMessages;
+              },
+            },
+          });
+        },
+        // optimisticResponse: {
+        //   createChatMessage: {
+        //     id: 'temp-id',
+        //     __typename: 'ChatMessage',
+        //     createdAt: 'temp-createdAt',
+        //     type: MessageType.TEXT,
+        //     text: text,
+        //     userId: authedUser as string,
+        //     chatRoomId: chatRoom?.id as string,
+        //     chatAttachments: {
+        //       __typename: 'ModelChatAttachmentConnection',
+        //       items: [],
+        //       nextToken: null,
+        //     },
+        //     status: MessageStatus.SENT,
+        //     replyToMessageID: msgReplyingTo?.id || 'temp-replyToMessageID',
+        //     forUserId: msgRecipient,
+        //     updatedAt: 'temp-updatedAt',
+        //     owner: authedUser as string,
+        //   },
+        // },
+        // refetchQueries: [listChatMessagesByChatRoom],
+        // onQueryUpdated(observableQuery) {
+        //   return observableQuery.refetch();
+        // },
       });
-
-      console.log('NEW MSG DATA: ', newMsgData);
-
       setText('');
       if (vidpic) {
         // Create Video and Photo Attachments
@@ -215,36 +293,111 @@ const InputBox: React.FC<InputBoxProps> = ({ chatRoom }) => {
         variables: {
           input: {
             id: chatRoom?.id,
+            chatRoomId: chatRoom?.id,
             chatRoomLastMessageId: newMsgData?.data?.createChatMessage?.id,
           } as UpdateChatRoomInput,
         },
+        // update(cache, { data }) {
+        //   const updatedRoom = data?.updateChatRoom;
+
+        //   if (!updatedRoom) {
+        //     return;
+        //   }
+        //   cache.modify({
+        //     fields: {
+        //       getChatRoom(existingChatRoom) {
+        //         return Object.assign({}, existingChatRoom, updatedRoom);
+        //       },
+        //     },
+        //   });
+        // },
+        // refetchQueries: [getChatRoom],
+        // onQueryUpdated(observableQuery) {
+        //   return observableQuery.refetch();
+        // },
+        // optimisticResponse: {
+        //   updateChatRoom: {
+        //     id: chatRoom?.id as string,
+        //     __typename: 'ChatRoom',
+        //     chatRoomId: chatRoom?.id,
+        //     adminRightsId: chatRoom?.adminRightsId,
+        //     name: msgRecipientDets?.user?.username,
+        //     image: msgRecipientDets?.user?.chatImage,
+        //     users: {
+        //       __typename: 'ModelChatRoomUsersConnection',
+        //       items: [],
+        //       nextToken: null,
+        //     },
+        //     chatMessages: {
+        //       __typename: 'ModelChatMessageConnection',
+        //       items: [],
+        //       nextToken: null,
+        //     },
+        //     newMessages: 0,
+        //     lastMessage: {
+        //       __typename: 'ChatMessage',
+        //       id: newMsgData?.data?.createChatMessage?.id as string,
+        //       createdAt:
+        //         (newMsgData?.data?.createChatMessage?.createdAt as string) ||
+        //         'temp-createdAt',
+        //       type: MessageType.TEXT,
+        //       text: text,
+        //       userId: authedUser as string,
+        //       chatRoomId: chatRoom?.id as string,
+        //       chatAttachments: {
+        //         __typename: 'ModelChatAttachmentConnection',
+        //         items: [],
+        //         nextToken: null,
+        //       },
+        //       status: MessageStatus.SENT,
+        //       replyToMessageID: msgReplyingTo?.id || 'temp-replyToMessageID',
+        //       forUserId: msgRecipient,
+        //       updatedAt:
+        //         (newMsgData?.data?.createChatMessage?.updatedAt as string) ||
+        //         'temp-updatedAt',
+        //       owner: authedUser as string,
+        //     },
+        //     chatAttachments: {
+        //       __typename: 'ModelChatAttachmentConnection',
+        //       items:
+        //         newMsgData?.data?.createChatMessage?.chatAttachments?.items ||
+        //         [],
+        //       nextToken: null,
+        //     },
+        //     createdAt: 'temp-createdAt',
+        //     updatedAt: dayjs().toString(),
+        //     chatRoomLastMessageId:
+        //       newMsgData?.data?.createChatMessage?.id || undefined,
+        //     owner: authedUser as string,
+        //   },
+        // },
       });
-      console.log('UPDATE CHATROOM RESULT:', updateChatRoomResult);
+      console.log(
+        'FROM INPUTBOX - UPDATE CHATROOM RESULT:',
+        updateChatRoomResult
+      );
     }
   };
   if (createChatMsgError || createAttachmentError || updateChatRoomError) {
     // <Text>{error.message}</Text>;
     console.log(
-      'APOLLO CLIENT CREAT CHAT MSG ERROR: ',
+      'FROM INPUTBOX - CREATE CHAT MSG ERROR: ',
       createChatMsgError?.message ||
         createAttachmentError?.message ||
         updateChatRoomError?.message
     );
   }
-  console.log(
-    'DATA FROM APOLLO CLIENT -  CREAT CHAT MSG MUTATION: ',
-    createChatMsgData
-  );
-  console.log(
-    'DATA FROM APOLLO CLIENT -  CREATE CHAT ATTACHMENT MUTATION: ',
-    createAttachmentData
-  );
-  console.log(
-    'DATA FROM APOLLO CLIENT -  UPDATE CHAT ROOM MUTATION: ',
-    updateChatRoomData
-  );
+  // console.log('FROM INPUTBOX -  CREATE CHAT MSG MUTATION: ', createChatMsgData);
+  // console.log(
+  //   'FROM INPUTBOX -  CREATE CHAT ATTACHMENT MUTATION: ',
+  //   createAttachmentData
+  // );
+  // console.log(
+  //   'FROM INPUTBOX -  UPDATE CHAT ROOM MUTATION: ',
+  //   updateChatRoomData
+  // );
   const onPress = () => {
-    if (text) {
+    if (text || vidpic?.length > 0) {
       // Send text msg
       sendMsg();
     }
@@ -257,6 +410,30 @@ const InputBox: React.FC<InputBoxProps> = ({ chatRoom }) => {
       style={[styles.root, { height: isEmojiPickerOpen ? '50%' : 'auto' }]}
       // style={styles.container}
     >
+      {msgReplyingTo?.id && (
+        <View
+          style={{
+            backgroundColor: '#f2f2f2',
+            padding: 5,
+            flexDirection: 'row',
+            alignSelf: 'stretch',
+            justifyContent: 'space-between',
+          }}
+        >
+          <View style={{ flex: 1 }}>
+            <Text>Reply to:</Text>
+            <MessageComponent message={msgReplyingTo} />
+          </View>
+          <TouchableOpacity onPress={() => dispatch(removeMsgReplyingTo())}>
+            <AntDesign
+              name='close'
+              size={24}
+              color='black'
+              style={{ margin: 5 }}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
       {vidpic?.length > 0 && (
         <View style={styles.attachmentsContainer}>
           <FlatList

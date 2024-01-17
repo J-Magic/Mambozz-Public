@@ -18,7 +18,7 @@ exports.handler = async (event) => {
     const params = {
       TableName: 'User-62ctpxxp6ja5bikqnpnlpikpmq-dev',
       ProjectionExpression:
-        'id,username, chatImage, chatStatus, email, publicKey, phoneNumber',
+        'id,username, chatImage, chatStatus, email, publicKey, phoneNumber, chatRooms, createdAt, updatedAt',
     };
 
     // Scan the DynamoDB table

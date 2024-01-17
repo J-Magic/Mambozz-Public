@@ -20,7 +20,6 @@ import { Auth } from 'aws-amplify';
 import { Stack, useRouter } from 'expo-router';
 import { useAuth } from '@/context/auth';
 import PhoneInput, { ICountry } from 'react-native-international-phone-number';
-import { setCodelessNumber } from '@/slices/navSlice';
 import { parsePhoneNumberFromString, CountryCode } from 'libphonenumber-js';
 import { useAppDispatch } from '@/Store';
 
@@ -95,7 +94,7 @@ const SignUp = () => {
           password,
           `${selectedCountry?.callingCode}${phone_number}`
         );
-        dispatch(setCodelessNumber({ number: phone_number }));
+
         if (response) {
           console.log('Response from Sign Up :', response);
           router.replace('/(auth)/confirmEmail');

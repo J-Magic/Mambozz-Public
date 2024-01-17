@@ -64,6 +64,11 @@
     }
   },
   "custom": {
+    "Qldb": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "customCloudformation"
+    },
     "usercontactsq1114215": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
@@ -71,6 +76,16 @@
     }
   },
   "function": {
+    "QldbAppsyncDataSource": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "createIndividualUserAccount": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "getUsersByNumbersFunction": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -83,6 +98,38 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_QldbAppsyncDataSource_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "QldbAppsyncDataSource"
+        }
+      ]
+    },
+    "AMPLIFY_function_QldbAppsyncDataSource_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "QldbAppsyncDataSource"
+        }
+      ]
+    },
+    "AMPLIFY_function_createIndividualUserAccount_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createIndividualUserAccount"
+        }
+      ]
+    },
+    "AMPLIFY_function_createIndividualUserAccount_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createIndividualUserAccount"
+        }
+      ]
+    },
     "AMPLIFY_function_getUsersByNumbersFunction_deploymentBucketName": {
       "usedBy": [
         {

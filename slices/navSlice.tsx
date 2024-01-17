@@ -37,7 +37,7 @@ let initialState = {
   // contacts: [] as string[], Array< contactsInput | null >
   regdContacts: [] as User[] | undefined,
   contacts: [] as contactsInput[],
-  codelessNumber: '',
+  newMessages: {} as ChatMessage | null,
   recBtnPressedIn: false,
   session: false,
   userId: '',
@@ -83,6 +83,12 @@ export const navSlice = createSlice({
       } else state.loggedIn = false;
       // console.log('Logged in state after update :', state.loggedIn);
     },
+    setNewMessage: (
+      state,
+      action: PayloadAction<{ newMsg: ChatMessage | null }>
+    ) => {
+      state.newMessages = action.payload.newMsg;
+    },
     setIsRecording: (
       state,
       action: PayloadAction<{ rec: Audio.Recording | null }>
@@ -105,9 +111,6 @@ export const navSlice = createSlice({
     },
     setEmail: (state, action: PayloadAction<{ email: string }>) => {
       state.email = action.payload.email;
-    },
-    setCodelessNumber: (state, action: PayloadAction<{ number: string }>) => {
-      state.codelessNumber = action.payload.number;
     },
     setConfirmingEmail: (
       state,
@@ -196,7 +199,6 @@ export const {
   setIsRecording,
   setRecBtnPressedIn,
   setUserId,
-  setCodelessNumber,
   setEmail,
   setConfirmingEmail,
   setContacts,
@@ -204,6 +206,7 @@ export const {
   setSession,
   setReduxUser,
   setReduxChatRoom,
+  setNewMessage,
   // setReduxAllChatUsers,
   setChatProImgS3Key,
   setChatProfileImage,

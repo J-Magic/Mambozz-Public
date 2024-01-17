@@ -6,7 +6,8 @@ import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import SmartImage from './SmartImage';
 import * as Contacts from 'expo-contacts';
 import { Contact } from 'expo-contacts';
-import { User } from '@/src/API';
+// import { User } from '@/src/API';
+import { User } from '@/components/ApolloQueries/Types';
 
 dayjs.extend(relativeTime);
 // interface IContactListItem {
@@ -21,6 +22,13 @@ dayjs.extend(relativeTime);
 //   selectable = false,
 //   isSelected = false,
 // }: IContactListItem) => {
+
+// type User = {
+//   id: string;
+//   username: string;
+//   chatImage: string | null | undefined;
+//   chatStatus: string | null | undefined;
+// };
 
 type UserProps = {
   user: User;

@@ -47,9 +47,15 @@ type newChatAttachment = {
   updatedAt: string;
   uri: string;
 };
-const Message = (props: any) => {
-  const { setAsMessageReply, message: propMessage } = props;
-  const [message, setMessage] = useState<ChatMessage>(propMessage);
+
+type MsgProps = {
+  message: ChatMessage | null;
+  setAsMessageReply?: () => void;
+};
+// const Message = (props: any) => {
+const Message = ({ message, setAsMessageReply = () => {} }: MsgProps) => {
+  // const { setAsMessageReply, message: propMessage } = props;
+  const [msg, setMsg] = useState<ChatMessage | null>(message);
   const [decryptedContent, setDecryptedContent] = useState('');
   const [repliedTo, setRepliedTo] = useState<ChatMessage | null | undefined>(
     undefined
@@ -66,15 +72,16 @@ const Message = (props: any) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { width } = useWindowDimensions();
   const { authedUser } = useAuth();
+  // console.log('MESSAGE USERID: ', message?.userId);
 
   useEffect(() => {
-    setMessage(propMessage);
-  }, [propMessage]);
+    setMsg(message);
+  }, [message]);
 
   useEffect(() => {
-    if (message) {
-      setUser(message.userId);
-      if (message.userId !== authedUser) {
+    if (msg) {
+      setUser(msg?.userId);
+      if (msg?.userId !== authedUser) {
         setIsMe(false);
       }
     }
@@ -85,17 +92,17 @@ const Message = (props: any) => {
       return;
     }
     const isMyMsg = () => {
-      setIsMe(message.userId === authedUser);
+      setIsMe(msg?.userId === authedUser);
     };
     isMyMsg();
   }, [user]);
 
   useEffect(() => {
-    if (message?.replyToMessageID) {
+    if (msg?.replyToMessageID) {
       (async () => {
         const response = (await API.graphql(
           graphqlOperation(getChatMessage, {
-            id: message.replyToMessageID,
+            id: msg.replyToMessageID,
           })
         )) as { data: GetChatMessageQuery };
 
@@ -103,11 +110,11 @@ const Message = (props: any) => {
         setRepliedTo(response.data?.getChatMessage);
       })();
     }
-  }, [message]);
+  }, [msg]);
 
   useEffect(() => {
     setAsRead();
-  }, [isMe, message]);
+  }, [isMe, msg]);
 
   // useEffect(() => {
   //   if (message.audio) {
@@ -122,13 +129,10 @@ const Message = (props: any) => {
   // }
   useEffect(() => {
     const downloadAttachments = async () => {
-      if (
-        message.chatAttachments?.items &&
-        message.chatAttachments?.items !== null
-      ) {
+      if (msg?.chatAttachments?.items && msg?.chatAttachments?.items !== null) {
         const downloadedAttachmentsResult = [];
 
-        for (const attachment of message.chatAttachments.items) {
+        for (const attachment of msg.chatAttachments.items) {
           const storageKey = attachment?.storageKey;
           if (storageKey) {
             const uri = await Storage.get(storageKey);
@@ -148,16 +152,16 @@ const Message = (props: any) => {
       }
     };
     downloadAttachments();
-  }, [JSON.stringify(message.chatAttachments?.items)]);
+  }, [JSON.stringify(msg?.chatAttachments?.items)]);
 
   const imageContainerWidth = width * 0.8 - 30;
 
-  const audioAttachments = downloadedAttachments.filter(
-    (at) => at?.type === 'AUDIO'
-  );
-  if (audioAttachments) {
-    console.log('Audio Attachments: ', audioAttachments);
-  }
+  // const audioAttachments = downloadedAttachments.filter(
+  //   (at) => at?.type === 'AUDIO'
+  // );
+  // if (audioAttachments) {
+  //   console.log('Audio Attachments: ', audioAttachments);
+  // }
   const imageAttachments = downloadedAttachments.filter(
     (at) => at?.type === 'IMAGE'
   );
@@ -167,11 +171,11 @@ const Message = (props: any) => {
   );
 
   const setAsRead = async () => {
-    if (isMe === false && message.status !== 'READ') {
+    if (isMe === false && msg?.status !== 'READ') {
       let updatedMsg = (await API.graphql(
         graphqlOperation(updateChatMessage, {
           input: {
-            id: message.id,
+            id: msg?.id,
             status: 'READ',
           },
         })
@@ -249,14 +253,14 @@ const Message = (props: any) => {
           <ImageAttachments attachments={imageAttachments} />
         </View>
       )}
-      {audioAttachments !== null && (
+      {/* {audioAttachments !== null && (
         <AudioPlayer soundURI={audioAttachments[0]?.uri} />
-      )}
+      )} */}
       {/* {soundURI && <AudioPlayer soundURI={soundURI} />} */}
-      {message && <Text>{message.text}</Text>}
-      {isMe && !!message.status && message.status !== 'SENT' && (
+      {msg && <Text>{msg.text}</Text>}
+      {isMe && !!msg?.status && msg?.status !== 'SENT' && (
         <Ionicons
-          name={message.status === 'DELIVERED' ? 'checkmark' : 'checkmark-done'}
+          name={msg.status === 'DELIVERED' ? 'checkmark' : 'checkmark-done'}
           size={16}
           color='gray'
           style={{ marginHorizontal: 5 }}

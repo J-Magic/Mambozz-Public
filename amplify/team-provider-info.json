@@ -23,7 +23,15 @@
         },
         "getUsersByNumbersFunction": {
           "deploymentBucketName": "amplify-mambozz-dev-143338-deployment",
-          "s3Key": "amplify-builds/getUsersByNumbersFunction-4d394f6e6a574c32696d-build.zip"
+          "s3Key": "amplify-builds/getUsersByNumbersFunction-2f62426d57634c637852-build.zip"
+        },
+        "QldbAppsyncDataSource": {
+          "deploymentBucketName": "amplify-mambozz-dev-143338-deployment",
+          "s3Key": "amplify-builds/QldbAppsyncDataSource-4b636e4c6c624f73364c-build.zip"
+        },
+        "createIndividualUserAccount": {
+          "deploymentBucketName": "amplify-mambozz-dev-143338-deployment",
+          "s3Key": "amplify-builds/createIndividualUserAccount-486f367a2f32754f4b38-build.zip"
         }
       },
       "api": {
@@ -33,7 +41,8 @@
         "s38a594a02": {}
       },
       "custom": {
-        "usercontactsq1114215": {}
+        "usercontactsq1114215": {},
+        "Qldb": {}
       }
     }
   }

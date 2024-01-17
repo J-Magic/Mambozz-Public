@@ -24,6 +24,20 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
+    "QldbAppsyncDataSource": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "createIndividualUserAccount": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "getUsersByNumbersFunction": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

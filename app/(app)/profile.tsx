@@ -21,7 +21,11 @@ import { useRouter } from 'expo-router';
 
 import { API, graphqlOperation, Auth } from 'aws-amplify';
 // import { updateUser } from '@/src/graphql/mutations';
-import { updateUser } from '@/components/ApolloQueries/Mutations';
+import {
+  updateUser,
+  createIndividualUserAccount,
+} from '@/components/ApolloQueries/Mutations';
+
 import { useAuth } from '../../context/auth';
 
 // import {
@@ -41,7 +45,10 @@ import {
   UpdateUserMutation,
   UpdateUserMutationVariables,
   UpdateUserInput,
+  CreateIndividualUserAccountMutation,
+  CreateIndividualUserAccountMutationVariables,
 } from '@/src/API';
+
 import { useAppSelector } from '@/Store';
 
 // import { generateKeyPair } from '../../utils/crypto';
@@ -58,18 +65,21 @@ const ChatProfileSetupScreen = () => {
   const [imageSource, setImageSource] = useState();
   const [changePic, setChangePic] = useState(true);
   const navigation = useNavigation();
-  const codelessNumber = useAppSelector((state) => state.nav.codelessNumber);
-  console.log('CODELESS NUMBER FROM PROFILE SCREEN: ', codelessNumber);
 
   // const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
+  const { authedUser, authId } = useAuth();
   const [updateProfile] = useMutation<
     UpdateUserMutation,
     UpdateUserMutationVariables
   >(updateUser);
-  const router = useRouter();
-  const { authedUser, authId } = useAuth();
+
+  const [doCreateIndividualUser] = useMutation<
+    CreateIndividualUserAccountMutation,
+    CreateIndividualUserAccountMutationVariables
+  >(createIndividualUserAccount);
 
   // const updateKeyPair = async () => {
   //   // generate private/public key
@@ -104,7 +114,32 @@ const ChatProfileSetupScreen = () => {
   // useEffect(() => {
   //   updateKeyPair();
   // }, []);
+  const imageUploadFailed = async () => {
+    const input: UpdateUserInput = {
+      id: authId,
+      chatStatus: bio,
+      username: pName,
+    };
 
+    const updatedUser = await updateProfile({
+      variables: { input },
+    });
+
+    console.log(
+      'Updated User Username, without ChatImage Save Result: ',
+      updatedUser
+    );
+
+    let newIndividualUserWallet = await doCreateIndividualUser({
+      variables: {
+        UserID: authId,
+      },
+    });
+
+    console.log('Auth Id - Chats:', authId);
+    console.log('NEW WALLET: ', newIndividualUserWallet);
+    router.push('/(app)/(tabs)/');
+  };
   const handleDone = async () => {
     if (pName === null || pName === undefined) {
       Alert.alert('Required', 'Username required');
@@ -146,7 +181,6 @@ const ChatProfileSetupScreen = () => {
                 chatImage: chatImageUri,
                 chatStatus: bio,
                 username: pName,
-                codelessNumber,
               };
 
               const updatedUser = await updateProfile({
@@ -157,8 +191,8 @@ const ChatProfileSetupScreen = () => {
                 //     chatImage: chatImageUri,
                 //     chatStatus: bio,
                 //     username: pName,
-                //     codelessNumber,
-                //     // numbers: codelessNumber,
+                //
+                //
                 //   },
                 variables: { input },
               });
@@ -169,6 +203,16 @@ const ChatProfileSetupScreen = () => {
               console.log('PNAME: ', pName);
               console.log('IMAGE STRING: ', chatImageUri);
               console.log('Pushing to Homepage from profile');
+
+              let newIndividualUserWallet = await doCreateIndividualUser({
+                variables: {
+                  UserID: authId,
+                },
+              });
+
+              console.log('Auth Id - Chats:', authId);
+              console.log('NEW WALLET: ', newIndividualUserWallet);
+              // console.log('Data: ', createIndividualUserData);
               // await AsyncStorage.setItem('USER_INITIAL_PROFILE', 'set');
               await userSessionCache.saveUser('USER_INITIAL_PROFILE', 'set');
               const profileSave = await userSessionCache.getUser(
@@ -229,6 +273,18 @@ const ChatProfileSetupScreen = () => {
       return key;
     } catch (err) {
       console.log('Error uploading file:', err);
+
+      Alert.alert(
+        'Upload Failed',
+        'There was a problem uploading your profile pic. Try again later',
+        [
+          {
+            text: 'Ok',
+            style: 'default',
+            onPress: imageUploadFailed,
+          },
+        ]
+      );
     }
   };
 

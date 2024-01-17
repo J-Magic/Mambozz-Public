@@ -2,11 +2,337 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
+export type Individual_User = {
+  __typename: "Individual_User",
+  ID?: string | null,
+  UserID: string,
+  currentBalance?: number | null,
+  transactions?:  Array<Transactions | null > | null,
+  chamas?:  Array<Group_User | null > | null,
+  loans?:  Array<Loan | null > | null,
+  paidLoans?: number | null,
+  activeLoans?: number | null,
+  nonPerformingLoans?: number | null,
+  lateLoanInstallmentRepayments?: number | null,
+  loanRating?: number | null,
+  loanRepayments?:  Array<Loan_Repayment | null > | null,
+  purchases?:  Array<Purchase | null > | null,
+  businesses?:  Array<Business_User | null > | null,
+};
+
+export type Transactions = {
+  __typename: "Transactions",
+  TransactionID: string,
+  category?: TransactionCategory | null,
+  type?: TransactionType | null,
+  transactionExecutorId: string,
+  transactionAmount?: number | null,
+  currency?: CurrencyType | null,
+  forUserId: string,
+  createdAt: string,
+  status?: TransactionStatus | null,
+};
+
+export enum TransactionCategory {
+  GROUP = "GROUP",
+  INDIVIDUAL = "INDIVIDUAL",
+  BUSINESS = "BUSINESS",
+}
+
+
+export enum TransactionType {
+  DEPOSIT = "DEPOSIT",
+  WITHDRAWAL = "WITHDRAWAL",
+  MAKEPAYMENT = "MAKEPAYMENT",
+  RECIEVEPAYMENT = "RECIEVEPAYMENT",
+  SENDMONEY = "SENDMONEY",
+  RECIEVEMONEY = "RECIEVEMONEY",
+  LOANPAYMENT = "LOANPAYMENT",
+  LOANDISBURSEMENT = "LOANDISBURSEMENT",
+}
+
+
+export enum CurrencyType {
+  KSH = "KSH",
+  DOLLAR = "DOLLAR",
+  POUND = "POUND",
+  EURO = "EURO",
+}
+
+
+export enum TransactionStatus {
+  COMPLETED = "COMPLETED",
+  NOTCOMPLETED = "NOTCOMPLETED",
+  REFUNDED = "REFUNDED",
+}
+
+
+export type Group_User = {
+  __typename: "Group_User",
+  GroupID: string,
+  groupName?: string | null,
+  groupMembers?:  Array<User | null > | null,
+  currentBalance?: number | null,
+  transactions?:  Array<Transactions | null > | null,
+  approvedLoanKitty?: number | null,
+  approvedInvestmentKitty?: number | null,
+  loansDisbursed?:  Array<Loan | null > | null,
+  paidLoans?: number | null,
+  activeLoans?: number | null,
+  nonPerformingLoans?: number | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type User = {
+  __typename: "User",
+  id: string,
+  username: string,
+  phoneNumber: string,
+  numbers?: ModelContactConnection | null,
+  email?: string | null,
+  chatStatus?: string | null,
+  chatImage?: string | null,
+  imageKey?: string | null,
+  chatMessages?: ModelChatMessageConnection | null,
+  chatRooms?: ModelChatRoomUsersConnection | null,
+  lastOnlineAt?: number | null,
+  adminRightsId?: string | null,
+  publicKey?: string | null,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type ModelContactConnection = {
+  __typename: "ModelContactConnection",
+  items:  Array<Contact | null >,
+  nextToken?: string | null,
+};
+
+export type Contact = {
+  __typename: "Contact",
+  number: string,
+  createdAt: string,
+  updatedAt: string,
+  userNumbersId?: string | null,
+  owner?: string | null,
+};
+
+export type ModelChatMessageConnection = {
+  __typename: "ModelChatMessageConnection",
+  items:  Array<ChatMessage | null >,
+  nextToken?: string | null,
+};
+
+export type ChatMessage = {
+  __typename: "ChatMessage",
+  id: string,
+  createdAt: string,
+  type?: MessageType | null,
+  text?: string | null,
+  userId: string,
+  chatRoomId: string,
+  chatAttachments?: ModelChatAttachmentConnection | null,
+  status?: MessageStatus | null,
+  replyToMessageID?: string | null,
+  forUserId?: string | null,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export enum MessageType {
+  TEXT = "TEXT",
+  AUDIO = "AUDIO",
+  CHAMAMSG = "CHAMAMSG",
+}
+
+
+export type ModelChatAttachmentConnection = {
+  __typename: "ModelChatAttachmentConnection",
+  items:  Array<ChatAttachment | null >,
+  nextToken?: string | null,
+};
+
+export type ChatAttachment = {
+  __typename: "ChatAttachment",
+  id: string,
+  chatMessageID?: string | null,
+  chatRoomID?: string | null,
+  storageKey: string,
+  type: AttachmentType,
+  width?: number | null,
+  height?: number | null,
+  duration?: number | null,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export enum AttachmentType {
+  IMAGE = "IMAGE",
+  VIDEO = "VIDEO",
+  DOCUMENT = "DOCUMENT",
+}
+
+
+export enum MessageStatus {
+  SENT = "SENT",
+  DELIVERED = "DELIVERED",
+  READ = "READ",
+}
+
+
+export type ModelChatRoomUsersConnection = {
+  __typename: "ModelChatRoomUsersConnection",
+  items:  Array<ChatRoomUsers | null >,
+  nextToken?: string | null,
+};
+
+export type ChatRoomUsers = {
+  __typename: "ChatRoomUsers",
+  id: string,
+  userId: string,
+  chatRoomId: string,
+  user: User,
+  chatRoom: ChatRoom,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type ChatRoom = {
+  __typename: "ChatRoom",
+  id: string,
+  chatRoomId?: string | null,
+  adminRightsId?: string | null,
+  name?: string | null,
+  image?: string | null,
+  users?: ModelChatRoomUsersConnection | null,
+  chatMessages?: ModelChatMessageConnection | null,
+  newMessages?: number | null,
+  lastMessage?: ChatMessage | null,
+  chatAttachments?: ModelChatAttachmentConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  chatRoomLastMessageId?: string | null,
+  owner?: string | null,
+};
+
+export type Loan = {
+  __typename: "Loan",
+  LoanID: string,
+  loaneeID: string,
+  category?: LoanCategory | null,
+  amountLoaned?: number | null,
+  currency?: CurrencyType | null,
+  loanDisbursementDate: string,
+  interestRate?: number | null,
+  loanPeriod?: number | null,
+  totalInterestPayable?: number | null,
+  totalLoanPayable?: number | null,
+  installments?: number | null,
+  installmentAmount?: number | null,
+  installmentPaymentDate?: string | null,
+  latePayments?: number | null,
+  totalPaidtoDate?: string | null,
+  percentagePaidtoDate?: string | null,
+  repayments?:  Array<Loan_Repayment | null > | null,
+  loanDueDate?: string | null,
+  fullyPaid?: boolean | null,
+  defaulted?: boolean | null,
+  actualAmountPaidonCompletion?: number | null,
+  status?: LoanStatus | null,
+};
+
+export enum LoanCategory {
+  GROUP = "GROUP",
+  INDIVIDUAL = "INDIVIDUAL",
+  BUSINESS = "BUSINESS",
+}
+
+
+export type Loan_Repayment = {
+  __typename: "Loan_Repayment",
+  LoanRepaymentID: string,
+  loanId: string,
+  loaneeId: string,
+  transactionID: string,
+  installmentDate?: string | null,
+  installmentAmount?: number | null,
+  paymentAmount?: number | null,
+  paymentDate?: string | null,
+  installmentBalance?: number | null,
+};
+
+export enum LoanStatus {
+  ACTIVE = "ACTIVE",
+  PAID = "PAID",
+  NONPERFORMINGLOAN = "NONPERFORMINGLOAN",
+}
+
+
+export type Purchase = {
+  __typename: "Purchase",
+  PurchaseID?: string | null,
+  itemName?: string | null,
+  quantity?: number | null,
+  unitPrice?: number | null,
+  currency?: CurrencyType | null,
+  BusinessID?: string | null,
+  paymentStatus?: TransactionStatus | null,
+  TransactionSettled?: boolean | null,
+};
+
+export type Business_User = {
+  __typename: "Business_User",
+  BusinessID: string,
+  businessName?: string | null,
+  ownerUserId?: string | null,
+  currentBalance?: number | null,
+  transactions?:  Array<Transactions | null > | null,
+  purchases?:  Array<Purchase | null > | null,
+  sales?:  Array<Sale | null > | null,
+  inventory?:  Array<Inventory | null > | null,
+  loans?:  Array<Loan | null > | null,
+  paidLoans?: number | null,
+  activeLoans?: number | null,
+  nonPerformingLoans?: number | null,
+  lateLoanInstallmentRepayments?: number | null,
+  loanRating?: number | null,
+  loanRepayments?:  Array<Loan_Repayment | null > | null,
+};
+
+export type Sale = {
+  __typename: "Sale",
+  SaleID?: string | null,
+  itemName?: string | null,
+  quantity?: number | null,
+  unitPrice?: number | null,
+  currency?: CurrencyType | null,
+  BusinessID?: string | null,
+  paymentStatus?: TransactionStatus | null,
+  TransactionSettled?: boolean | null,
+};
+
+export type Inventory = {
+  __typename: "Inventory",
+  InventoryID?: string | null,
+  categoryName?: string | null,
+  subCategoryName?: string | null,
+  itemName?: string | null,
+  currentStock?: number | null,
+  unsettledOrders?: number | null,
+  unitSalePrice?: number | null,
+  currency?: CurrencyType | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
+};
+
 export type CreateUserInput = {
   id?: string | null,
   username: string,
   phoneNumber: string,
-  codelessNumber?: string | null,
   email?: string | null,
   chatStatus?: string | null,
   chatImage?: string | null,
@@ -19,7 +345,6 @@ export type CreateUserInput = {
 export type ModelUserConditionInput = {
   username?: ModelStringInput | null,
   phoneNumber?: ModelStringInput | null,
-  codelessNumber?: ModelStringInput | null,
   email?: ModelStringInput | null,
   chatStatus?: ModelStringInput | null,
   chatImage?: ModelStringInput | null,
@@ -100,145 +425,10 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type User = {
-  __typename: "User",
-  id: string,
-  username: string,
-  phoneNumber: string,
-  codelessNumber?: string | null,
-  numbers?: ModelContactConnection | null,
-  email?: string | null,
-  chatStatus?: string | null,
-  chatImage?: string | null,
-  imageKey?: string | null,
-  chatMessages?: ModelChatMessageConnection | null,
-  chatRooms?: ModelChatRoomUsersConnection | null,
-  lastOnlineAt?: number | null,
-  adminRightsId?: string | null,
-  publicKey?: string | null,
-  createdAt: string,
-  updatedAt: string,
-  owner?: string | null,
-};
-
-export type ModelContactConnection = {
-  __typename: "ModelContactConnection",
-  items:  Array<Contact | null >,
-  nextToken?: string | null,
-};
-
-export type Contact = {
-  __typename: "Contact",
-  number: string,
-  createdAt: string,
-  updatedAt: string,
-  userNumbersId?: string | null,
-  owner?: string | null,
-};
-
-export type ModelChatMessageConnection = {
-  __typename: "ModelChatMessageConnection",
-  items:  Array<ChatMessage | null >,
-  nextToken?: string | null,
-};
-
-export type ChatMessage = {
-  __typename: "ChatMessage",
-  id: string,
-  createdAt: string,
-  type?: MessageType | null,
-  text?: string | null,
-  userId: string,
-  chatRoomId: string,
-  chatAttachments?: ModelChatAttachmentConnection | null,
-  status?: MessageStatus | null,
-  replyToMessageID?: string | null,
-  forUserId?: string | null,
-  updatedAt: string,
-  owner?: string | null,
-};
-
-export enum MessageType {
-  TEXT = "TEXT",
-  AUDIO = "AUDIO",
-}
-
-
-export type ModelChatAttachmentConnection = {
-  __typename: "ModelChatAttachmentConnection",
-  items:  Array<ChatAttachment | null >,
-  nextToken?: string | null,
-};
-
-export type ChatAttachment = {
-  __typename: "ChatAttachment",
-  id: string,
-  chatMessageID?: string | null,
-  chatRoomID?: string | null,
-  storageKey: string,
-  type: AttachmentType,
-  width?: number | null,
-  height?: number | null,
-  duration?: number | null,
-  createdAt: string,
-  updatedAt: string,
-  owner?: string | null,
-};
-
-export enum AttachmentType {
-  IMAGE = "IMAGE",
-  VIDEO = "VIDEO",
-  DOCUMENT = "DOCUMENT",
-}
-
-
-export enum MessageStatus {
-  SENT = "SENT",
-  DELIVERED = "DELIVERED",
-  READ = "READ",
-}
-
-
-export type ModelChatRoomUsersConnection = {
-  __typename: "ModelChatRoomUsersConnection",
-  items:  Array<ChatRoomUsers | null >,
-  nextToken?: string | null,
-};
-
-export type ChatRoomUsers = {
-  __typename: "ChatRoomUsers",
-  id: string,
-  userId: string,
-  chatRoomId: string,
-  user: User,
-  chatRoom: ChatRoom,
-  createdAt: string,
-  updatedAt: string,
-  owner?: string | null,
-};
-
-export type ChatRoom = {
-  __typename: "ChatRoom",
-  id: string,
-  adminRightsId?: string | null,
-  name?: string | null,
-  image?: string | null,
-  users?: ModelChatRoomUsersConnection | null,
-  chatMessages?: ModelChatMessageConnection | null,
-  newMessages?: number | null,
-  lastMessage?: ChatMessage | null,
-  chatAttachments?: ModelChatAttachmentConnection | null,
-  createdAt: string,
-  updatedAt: string,
-  chatRoomLastMessageId?: string | null,
-  owner?: string | null,
-};
-
 export type UpdateUserInput = {
   id: string,
   username?: string | null,
   phoneNumber?: string | null,
-  codelessNumber?: string | null,
   email?: string | null,
   chatStatus?: string | null,
   chatImage?: string | null,
@@ -409,6 +599,7 @@ export type DeleteChatAttachmentInput = {
 
 export type CreateChatRoomInput = {
   id?: string | null,
+  chatRoomId?: string | null,
   adminRightsId?: string | null,
   name?: string | null,
   image?: string | null,
@@ -417,6 +608,7 @@ export type CreateChatRoomInput = {
 };
 
 export type ModelChatRoomConditionInput = {
+  chatRoomId?: ModelIDInput | null,
   adminRightsId?: ModelIDInput | null,
   name?: ModelStringInput | null,
   image?: ModelStringInput | null,
@@ -429,6 +621,7 @@ export type ModelChatRoomConditionInput = {
 
 export type UpdateChatRoomInput = {
   id: string,
+  chatRoomId?: string | null,
   adminRightsId?: string | null,
   name?: string | null,
   image?: string | null,
@@ -472,7 +665,6 @@ export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   username?: ModelStringInput | null,
   phoneNumber?: ModelStringInput | null,
-  codelessNumber?: ModelStringInput | null,
   email?: ModelStringInput | null,
   chatStatus?: ModelStringInput | null,
   chatImage?: ModelStringInput | null,
@@ -544,6 +736,7 @@ export type ModelChatAttachmentFilterInput = {
 
 export type ModelChatRoomFilterInput = {
   id?: ModelIDInput | null,
+  chatRoomId?: ModelIDInput | null,
   adminRightsId?: ModelIDInput | null,
   name?: ModelStringInput | null,
   image?: ModelStringInput | null,
@@ -583,7 +776,6 @@ export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   username?: ModelSubscriptionStringInput | null,
   phoneNumber?: ModelSubscriptionStringInput | null,
-  codelessNumber?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
   chatStatus?: ModelSubscriptionStringInput | null,
   chatImage?: ModelSubscriptionStringInput | null,
@@ -678,6 +870,7 @@ export type ModelSubscriptionChatAttachmentFilterInput = {
 
 export type ModelSubscriptionChatRoomFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  chatRoomId?: ModelSubscriptionIDInput | null,
   adminRightsId?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   image?: ModelSubscriptionStringInput | null,
@@ -694,6 +887,663 @@ export type ModelSubscriptionChatRoomUsersFilterInput = {
   or?: Array< ModelSubscriptionChatRoomUsersFilterInput | null > | null,
 };
 
+export type CreateIndividualUserAccountMutationVariables = {
+  UserID: string,
+};
+
+export type CreateIndividualUserAccountMutation = {
+  createIndividualUserAccount?:  {
+    __typename: "Individual_User",
+    ID?: string | null,
+    UserID: string,
+    currentBalance?: number | null,
+    transactions?:  Array< {
+      __typename: "Transactions",
+      TransactionID: string,
+      category?: TransactionCategory | null,
+      type?: TransactionType | null,
+      transactionExecutorId: string,
+      transactionAmount?: number | null,
+      currency?: CurrencyType | null,
+      forUserId: string,
+      createdAt: string,
+      status?: TransactionStatus | null,
+    } | null > | null,
+    chamas?:  Array< {
+      __typename: "Group_User",
+      GroupID: string,
+      groupName?: string | null,
+      groupMembers?:  Array< {
+        __typename: "User",
+        id: string,
+        username: string,
+        phoneNumber: string,
+        numbers?:  {
+          __typename: "ModelContactConnection",
+          items:  Array< {
+            __typename: "Contact",
+            number: string,
+            createdAt: string,
+            updatedAt: string,
+            userNumbersId?: string | null,
+            owner?: string | null,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        email?: string | null,
+        chatStatus?: string | null,
+        chatImage?: string | null,
+        imageKey?: string | null,
+        chatMessages?:  {
+          __typename: "ModelChatMessageConnection",
+          items:  Array< {
+            __typename: "ChatMessage",
+            id: string,
+            createdAt: string,
+            type?: MessageType | null,
+            text?: string | null,
+            userId: string,
+            chatRoomId: string,
+            chatAttachments?:  {
+              __typename: "ModelChatAttachmentConnection",
+              items:  Array< {
+                __typename: "ChatAttachment",
+                id: string,
+                chatMessageID?: string | null,
+                chatRoomID?: string | null,
+                storageKey: string,
+                type: AttachmentType,
+                width?: number | null,
+                height?: number | null,
+                duration?: number | null,
+                createdAt: string,
+                updatedAt: string,
+                owner?: string | null,
+              } | null >,
+              nextToken?: string | null,
+            } | null,
+            status?: MessageStatus | null,
+            replyToMessageID?: string | null,
+            forUserId?: string | null,
+            updatedAt: string,
+            owner?: string | null,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        chatRooms?:  {
+          __typename: "ModelChatRoomUsersConnection",
+          items:  Array< {
+            __typename: "ChatRoomUsers",
+            id: string,
+            userId: string,
+            chatRoomId: string,
+            user:  {
+              __typename: "User",
+              id: string,
+              username: string,
+              phoneNumber: string,
+              numbers?:  {
+                __typename: "ModelContactConnection",
+                items:  Array< {
+                  __typename: "Contact",
+                  number: string,
+                  createdAt: string,
+                  updatedAt: string,
+                  userNumbersId?: string | null,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              email?: string | null,
+              chatStatus?: string | null,
+              chatImage?: string | null,
+              imageKey?: string | null,
+              chatMessages?:  {
+                __typename: "ModelChatMessageConnection",
+                items:  Array< {
+                  __typename: "ChatMessage",
+                  id: string,
+                  createdAt: string,
+                  type?: MessageType | null,
+                  text?: string | null,
+                  userId: string,
+                  chatRoomId: string,
+                  chatAttachments?:  {
+                    __typename: "ModelChatAttachmentConnection",
+                    items:  Array< {
+                      __typename: "ChatAttachment",
+                      id: string,
+                      chatMessageID?: string | null,
+                      chatRoomID?: string | null,
+                      storageKey: string,
+                      type: AttachmentType,
+                      width?: number | null,
+                      height?: number | null,
+                      duration?: number | null,
+                      createdAt: string,
+                      updatedAt: string,
+                      owner?: string | null,
+                    } | null >,
+                    nextToken?: string | null,
+                  } | null,
+                  status?: MessageStatus | null,
+                  replyToMessageID?: string | null,
+                  forUserId?: string | null,
+                  updatedAt: string,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              chatRooms?:  {
+                __typename: "ModelChatRoomUsersConnection",
+                items:  Array< {
+                  __typename: "ChatRoomUsers",
+                  id: string,
+                  userId: string,
+                  chatRoomId: string,
+                  user:  {
+                    __typename: "User",
+                    id: string,
+                    username: string,
+                    phoneNumber: string,
+                    numbers?:  {
+                      __typename: "ModelContactConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    email?: string | null,
+                    chatStatus?: string | null,
+                    chatImage?: string | null,
+                    imageKey?: string | null,
+                    chatMessages?:  {
+                      __typename: "ModelChatMessageConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    chatRooms?:  {
+                      __typename: "ModelChatRoomUsersConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    lastOnlineAt?: number | null,
+                    adminRightsId?: string | null,
+                    publicKey?: string | null,
+                    createdAt: string,
+                    updatedAt: string,
+                    owner?: string | null,
+                  },
+                  chatRoom:  {
+                    __typename: "ChatRoom",
+                    id: string,
+                    chatRoomId?: string | null,
+                    adminRightsId?: string | null,
+                    name?: string | null,
+                    image?: string | null,
+                    users?:  {
+                      __typename: "ModelChatRoomUsersConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    chatMessages?:  {
+                      __typename: "ModelChatMessageConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    newMessages?: number | null,
+                    lastMessage?:  {
+                      __typename: "ChatMessage",
+                      id: string,
+                      createdAt: string,
+                      type?: MessageType | null,
+                      text?: string | null,
+                      userId: string,
+                      chatRoomId: string,
+                      status?: MessageStatus | null,
+                      replyToMessageID?: string | null,
+                      forUserId?: string | null,
+                      updatedAt: string,
+                      owner?: string | null,
+                    } | null,
+                    chatAttachments?:  {
+                      __typename: "ModelChatAttachmentConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    createdAt: string,
+                    updatedAt: string,
+                    chatRoomLastMessageId?: string | null,
+                    owner?: string | null,
+                  },
+                  createdAt: string,
+                  updatedAt: string,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              lastOnlineAt?: number | null,
+              adminRightsId?: string | null,
+              publicKey?: string | null,
+              createdAt: string,
+              updatedAt: string,
+              owner?: string | null,
+            },
+            chatRoom:  {
+              __typename: "ChatRoom",
+              id: string,
+              chatRoomId?: string | null,
+              adminRightsId?: string | null,
+              name?: string | null,
+              image?: string | null,
+              users?:  {
+                __typename: "ModelChatRoomUsersConnection",
+                items:  Array< {
+                  __typename: "ChatRoomUsers",
+                  id: string,
+                  userId: string,
+                  chatRoomId: string,
+                  user:  {
+                    __typename: "User",
+                    id: string,
+                    username: string,
+                    phoneNumber: string,
+                    numbers?:  {
+                      __typename: "ModelContactConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    email?: string | null,
+                    chatStatus?: string | null,
+                    chatImage?: string | null,
+                    imageKey?: string | null,
+                    chatMessages?:  {
+                      __typename: "ModelChatMessageConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    chatRooms?:  {
+                      __typename: "ModelChatRoomUsersConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    lastOnlineAt?: number | null,
+                    adminRightsId?: string | null,
+                    publicKey?: string | null,
+                    createdAt: string,
+                    updatedAt: string,
+                    owner?: string | null,
+                  },
+                  chatRoom:  {
+                    __typename: "ChatRoom",
+                    id: string,
+                    chatRoomId?: string | null,
+                    adminRightsId?: string | null,
+                    name?: string | null,
+                    image?: string | null,
+                    users?:  {
+                      __typename: "ModelChatRoomUsersConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    chatMessages?:  {
+                      __typename: "ModelChatMessageConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    newMessages?: number | null,
+                    lastMessage?:  {
+                      __typename: "ChatMessage",
+                      id: string,
+                      createdAt: string,
+                      type?: MessageType | null,
+                      text?: string | null,
+                      userId: string,
+                      chatRoomId: string,
+                      status?: MessageStatus | null,
+                      replyToMessageID?: string | null,
+                      forUserId?: string | null,
+                      updatedAt: string,
+                      owner?: string | null,
+                    } | null,
+                    chatAttachments?:  {
+                      __typename: "ModelChatAttachmentConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    createdAt: string,
+                    updatedAt: string,
+                    chatRoomLastMessageId?: string | null,
+                    owner?: string | null,
+                  },
+                  createdAt: string,
+                  updatedAt: string,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              chatMessages?:  {
+                __typename: "ModelChatMessageConnection",
+                items:  Array< {
+                  __typename: "ChatMessage",
+                  id: string,
+                  createdAt: string,
+                  type?: MessageType | null,
+                  text?: string | null,
+                  userId: string,
+                  chatRoomId: string,
+                  chatAttachments?:  {
+                    __typename: "ModelChatAttachmentConnection",
+                    items:  Array< {
+                      __typename: "ChatAttachment",
+                      id: string,
+                      chatMessageID?: string | null,
+                      chatRoomID?: string | null,
+                      storageKey: string,
+                      type: AttachmentType,
+                      width?: number | null,
+                      height?: number | null,
+                      duration?: number | null,
+                      createdAt: string,
+                      updatedAt: string,
+                      owner?: string | null,
+                    } | null >,
+                    nextToken?: string | null,
+                  } | null,
+                  status?: MessageStatus | null,
+                  replyToMessageID?: string | null,
+                  forUserId?: string | null,
+                  updatedAt: string,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              newMessages?: number | null,
+              lastMessage?:  {
+                __typename: "ChatMessage",
+                id: string,
+                createdAt: string,
+                type?: MessageType | null,
+                text?: string | null,
+                userId: string,
+                chatRoomId: string,
+                chatAttachments?:  {
+                  __typename: "ModelChatAttachmentConnection",
+                  items:  Array< {
+                    __typename: "ChatAttachment",
+                    id: string,
+                    chatMessageID?: string | null,
+                    chatRoomID?: string | null,
+                    storageKey: string,
+                    type: AttachmentType,
+                    width?: number | null,
+                    height?: number | null,
+                    duration?: number | null,
+                    createdAt: string,
+                    updatedAt: string,
+                    owner?: string | null,
+                  } | null >,
+                  nextToken?: string | null,
+                } | null,
+                status?: MessageStatus | null,
+                replyToMessageID?: string | null,
+                forUserId?: string | null,
+                updatedAt: string,
+                owner?: string | null,
+              } | null,
+              chatAttachments?:  {
+                __typename: "ModelChatAttachmentConnection",
+                items:  Array< {
+                  __typename: "ChatAttachment",
+                  id: string,
+                  chatMessageID?: string | null,
+                  chatRoomID?: string | null,
+                  storageKey: string,
+                  type: AttachmentType,
+                  width?: number | null,
+                  height?: number | null,
+                  duration?: number | null,
+                  createdAt: string,
+                  updatedAt: string,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              createdAt: string,
+              updatedAt: string,
+              chatRoomLastMessageId?: string | null,
+              owner?: string | null,
+            },
+            createdAt: string,
+            updatedAt: string,
+            owner?: string | null,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        lastOnlineAt?: number | null,
+        adminRightsId?: string | null,
+        publicKey?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null > | null,
+      currentBalance?: number | null,
+      transactions?:  Array< {
+        __typename: "Transactions",
+        TransactionID: string,
+        category?: TransactionCategory | null,
+        type?: TransactionType | null,
+        transactionExecutorId: string,
+        transactionAmount?: number | null,
+        currency?: CurrencyType | null,
+        forUserId: string,
+        createdAt: string,
+        status?: TransactionStatus | null,
+      } | null > | null,
+      approvedLoanKitty?: number | null,
+      approvedInvestmentKitty?: number | null,
+      loansDisbursed?:  Array< {
+        __typename: "Loan",
+        LoanID: string,
+        loaneeID: string,
+        category?: LoanCategory | null,
+        amountLoaned?: number | null,
+        currency?: CurrencyType | null,
+        loanDisbursementDate: string,
+        interestRate?: number | null,
+        loanPeriod?: number | null,
+        totalInterestPayable?: number | null,
+        totalLoanPayable?: number | null,
+        installments?: number | null,
+        installmentAmount?: number | null,
+        installmentPaymentDate?: string | null,
+        latePayments?: number | null,
+        totalPaidtoDate?: string | null,
+        percentagePaidtoDate?: string | null,
+        repayments?:  Array< {
+          __typename: "Loan_Repayment",
+          LoanRepaymentID: string,
+          loanId: string,
+          loaneeId: string,
+          transactionID: string,
+          installmentDate?: string | null,
+          installmentAmount?: number | null,
+          paymentAmount?: number | null,
+          paymentDate?: string | null,
+          installmentBalance?: number | null,
+        } | null > | null,
+        loanDueDate?: string | null,
+        fullyPaid?: boolean | null,
+        defaulted?: boolean | null,
+        actualAmountPaidonCompletion?: number | null,
+        status?: LoanStatus | null,
+      } | null > | null,
+      paidLoans?: number | null,
+      activeLoans?: number | null,
+      nonPerformingLoans?: number | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    loans?:  Array< {
+      __typename: "Loan",
+      LoanID: string,
+      loaneeID: string,
+      category?: LoanCategory | null,
+      amountLoaned?: number | null,
+      currency?: CurrencyType | null,
+      loanDisbursementDate: string,
+      interestRate?: number | null,
+      loanPeriod?: number | null,
+      totalInterestPayable?: number | null,
+      totalLoanPayable?: number | null,
+      installments?: number | null,
+      installmentAmount?: number | null,
+      installmentPaymentDate?: string | null,
+      latePayments?: number | null,
+      totalPaidtoDate?: string | null,
+      percentagePaidtoDate?: string | null,
+      repayments?:  Array< {
+        __typename: "Loan_Repayment",
+        LoanRepaymentID: string,
+        loanId: string,
+        loaneeId: string,
+        transactionID: string,
+        installmentDate?: string | null,
+        installmentAmount?: number | null,
+        paymentAmount?: number | null,
+        paymentDate?: string | null,
+        installmentBalance?: number | null,
+      } | null > | null,
+      loanDueDate?: string | null,
+      fullyPaid?: boolean | null,
+      defaulted?: boolean | null,
+      actualAmountPaidonCompletion?: number | null,
+      status?: LoanStatus | null,
+    } | null > | null,
+    paidLoans?: number | null,
+    activeLoans?: number | null,
+    nonPerformingLoans?: number | null,
+    lateLoanInstallmentRepayments?: number | null,
+    loanRating?: number | null,
+    loanRepayments?:  Array< {
+      __typename: "Loan_Repayment",
+      LoanRepaymentID: string,
+      loanId: string,
+      loaneeId: string,
+      transactionID: string,
+      installmentDate?: string | null,
+      installmentAmount?: number | null,
+      paymentAmount?: number | null,
+      paymentDate?: string | null,
+      installmentBalance?: number | null,
+    } | null > | null,
+    purchases?:  Array< {
+      __typename: "Purchase",
+      PurchaseID?: string | null,
+      itemName?: string | null,
+      quantity?: number | null,
+      unitPrice?: number | null,
+      currency?: CurrencyType | null,
+      BusinessID?: string | null,
+      paymentStatus?: TransactionStatus | null,
+      TransactionSettled?: boolean | null,
+    } | null > | null,
+    businesses?:  Array< {
+      __typename: "Business_User",
+      BusinessID: string,
+      businessName?: string | null,
+      ownerUserId?: string | null,
+      currentBalance?: number | null,
+      transactions?:  Array< {
+        __typename: "Transactions",
+        TransactionID: string,
+        category?: TransactionCategory | null,
+        type?: TransactionType | null,
+        transactionExecutorId: string,
+        transactionAmount?: number | null,
+        currency?: CurrencyType | null,
+        forUserId: string,
+        createdAt: string,
+        status?: TransactionStatus | null,
+      } | null > | null,
+      purchases?:  Array< {
+        __typename: "Purchase",
+        PurchaseID?: string | null,
+        itemName?: string | null,
+        quantity?: number | null,
+        unitPrice?: number | null,
+        currency?: CurrencyType | null,
+        BusinessID?: string | null,
+        paymentStatus?: TransactionStatus | null,
+        TransactionSettled?: boolean | null,
+      } | null > | null,
+      sales?:  Array< {
+        __typename: "Sale",
+        SaleID?: string | null,
+        itemName?: string | null,
+        quantity?: number | null,
+        unitPrice?: number | null,
+        currency?: CurrencyType | null,
+        BusinessID?: string | null,
+        paymentStatus?: TransactionStatus | null,
+        TransactionSettled?: boolean | null,
+      } | null > | null,
+      inventory?:  Array< {
+        __typename: "Inventory",
+        InventoryID?: string | null,
+        categoryName?: string | null,
+        subCategoryName?: string | null,
+        itemName?: string | null,
+        currentStock?: number | null,
+        unsettledOrders?: number | null,
+        unitSalePrice?: number | null,
+        currency?: CurrencyType | null,
+        createdAt?: string | null,
+        updatedAt?: string | null,
+      } | null > | null,
+      loans?:  Array< {
+        __typename: "Loan",
+        LoanID: string,
+        loaneeID: string,
+        category?: LoanCategory | null,
+        amountLoaned?: number | null,
+        currency?: CurrencyType | null,
+        loanDisbursementDate: string,
+        interestRate?: number | null,
+        loanPeriod?: number | null,
+        totalInterestPayable?: number | null,
+        totalLoanPayable?: number | null,
+        installments?: number | null,
+        installmentAmount?: number | null,
+        installmentPaymentDate?: string | null,
+        latePayments?: number | null,
+        totalPaidtoDate?: string | null,
+        percentagePaidtoDate?: string | null,
+        repayments?:  Array< {
+          __typename: "Loan_Repayment",
+          LoanRepaymentID: string,
+          loanId: string,
+          loaneeId: string,
+          transactionID: string,
+          installmentDate?: string | null,
+          installmentAmount?: number | null,
+          paymentAmount?: number | null,
+          paymentDate?: string | null,
+          installmentBalance?: number | null,
+        } | null > | null,
+        loanDueDate?: string | null,
+        fullyPaid?: boolean | null,
+        defaulted?: boolean | null,
+        actualAmountPaidonCompletion?: number | null,
+        status?: LoanStatus | null,
+      } | null > | null,
+      paidLoans?: number | null,
+      activeLoans?: number | null,
+      nonPerformingLoans?: number | null,
+      lateLoanInstallmentRepayments?: number | null,
+      loanRating?: number | null,
+      loanRepayments?:  Array< {
+        __typename: "Loan_Repayment",
+        LoanRepaymentID: string,
+        loanId: string,
+        loaneeId: string,
+        transactionID: string,
+        installmentDate?: string | null,
+        installmentAmount?: number | null,
+        paymentAmount?: number | null,
+        paymentDate?: string | null,
+        installmentBalance?: number | null,
+      } | null > | null,
+    } | null > | null,
+  } | null,
+};
+
 export type CreateUserMutationVariables = {
   input: CreateUserInput,
   condition?: ModelUserConditionInput | null,
@@ -705,7 +1555,6 @@ export type CreateUserMutation = {
     id: string,
     username: string,
     phoneNumber: string,
-    codelessNumber?: string | null,
     numbers?:  {
       __typename: "ModelContactConnection",
       items:  Array< {
@@ -770,7 +1619,6 @@ export type CreateUserMutation = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -835,7 +1683,6 @@ export type CreateUserMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -886,7 +1733,6 @@ export type CreateUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -901,6 +1747,7 @@ export type CreateUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -926,6 +1773,7 @@ export type CreateUserMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -941,7 +1789,6 @@ export type CreateUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -956,6 +1803,7 @@ export type CreateUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -1065,6 +1913,7 @@ export type CreateUserMutation = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -1080,7 +1929,6 @@ export type CreateUserMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -1131,7 +1979,6 @@ export type CreateUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -1146,6 +1993,7 @@ export type CreateUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -1171,6 +2019,7 @@ export type CreateUserMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -1186,7 +2035,6 @@ export type CreateUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -1201,6 +2049,7 @@ export type CreateUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -1418,7 +2267,6 @@ export type UpdateUserMutation = {
     id: string,
     username: string,
     phoneNumber: string,
-    codelessNumber?: string | null,
     numbers?:  {
       __typename: "ModelContactConnection",
       items:  Array< {
@@ -1483,7 +2331,6 @@ export type UpdateUserMutation = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -1548,7 +2395,6 @@ export type UpdateUserMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -1599,7 +2445,6 @@ export type UpdateUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -1614,6 +2459,7 @@ export type UpdateUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -1639,6 +2485,7 @@ export type UpdateUserMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -1654,7 +2501,6 @@ export type UpdateUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -1669,6 +2515,7 @@ export type UpdateUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -1778,6 +2625,7 @@ export type UpdateUserMutation = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -1793,7 +2641,6 @@ export type UpdateUserMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -1844,7 +2691,6 @@ export type UpdateUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -1859,6 +2705,7 @@ export type UpdateUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -1884,6 +2731,7 @@ export type UpdateUserMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -1899,7 +2747,6 @@ export type UpdateUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -1914,6 +2761,7 @@ export type UpdateUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -2131,7 +2979,6 @@ export type DeleteUserMutation = {
     id: string,
     username: string,
     phoneNumber: string,
-    codelessNumber?: string | null,
     numbers?:  {
       __typename: "ModelContactConnection",
       items:  Array< {
@@ -2196,7 +3043,6 @@ export type DeleteUserMutation = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -2261,7 +3107,6 @@ export type DeleteUserMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -2312,7 +3157,6 @@ export type DeleteUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -2327,6 +3171,7 @@ export type DeleteUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -2352,6 +3197,7 @@ export type DeleteUserMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -2367,7 +3213,6 @@ export type DeleteUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -2382,6 +3227,7 @@ export type DeleteUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -2491,6 +3337,7 @@ export type DeleteUserMutation = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -2506,7 +3353,6 @@ export type DeleteUserMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -2557,7 +3403,6 @@ export type DeleteUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -2572,6 +3417,7 @@ export type DeleteUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -2597,6 +3443,7 @@ export type DeleteUserMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -2612,7 +3459,6 @@ export type DeleteUserMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -2627,6 +3473,7 @@ export type DeleteUserMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -2893,6 +3740,7 @@ export type CreateAdminRightsMutation = {
     chatRoom?:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -2908,7 +3756,6 @@ export type CreateAdminRightsMutation = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -2973,7 +3820,6 @@ export type CreateAdminRightsMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -3031,6 +3877,7 @@ export type CreateAdminRightsMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -3123,6 +3970,7 @@ export type CreateAdminRightsMutation = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -3138,7 +3986,6 @@ export type CreateAdminRightsMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -3196,6 +4043,7 @@ export type CreateAdminRightsMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -3475,7 +4323,6 @@ export type CreateAdminRightsMutation = {
         id: string,
         username: string,
         phoneNumber: string,
-        codelessNumber?: string | null,
         numbers?:  {
           __typename: "ModelContactConnection",
           items:  Array< {
@@ -3540,7 +4387,6 @@ export type CreateAdminRightsMutation = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -3605,7 +4451,6 @@ export type CreateAdminRightsMutation = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -3632,6 +4477,7 @@ export type CreateAdminRightsMutation = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -3683,6 +4529,7 @@ export type CreateAdminRightsMutation = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -3698,7 +4545,6 @@ export type CreateAdminRightsMutation = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -3725,6 +4571,7 @@ export type CreateAdminRightsMutation = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -3892,6 +4739,7 @@ export type UpdateAdminRightsMutation = {
     chatRoom?:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -3907,7 +4755,6 @@ export type UpdateAdminRightsMutation = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -3972,7 +4819,6 @@ export type UpdateAdminRightsMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -4030,6 +4876,7 @@ export type UpdateAdminRightsMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -4122,6 +4969,7 @@ export type UpdateAdminRightsMutation = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -4137,7 +4985,6 @@ export type UpdateAdminRightsMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -4195,6 +5042,7 @@ export type UpdateAdminRightsMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -4474,7 +5322,6 @@ export type UpdateAdminRightsMutation = {
         id: string,
         username: string,
         phoneNumber: string,
-        codelessNumber?: string | null,
         numbers?:  {
           __typename: "ModelContactConnection",
           items:  Array< {
@@ -4539,7 +5386,6 @@ export type UpdateAdminRightsMutation = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -4604,7 +5450,6 @@ export type UpdateAdminRightsMutation = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -4631,6 +5476,7 @@ export type UpdateAdminRightsMutation = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -4682,6 +5528,7 @@ export type UpdateAdminRightsMutation = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -4697,7 +5544,6 @@ export type UpdateAdminRightsMutation = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -4724,6 +5570,7 @@ export type UpdateAdminRightsMutation = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -4891,6 +5738,7 @@ export type DeleteAdminRightsMutation = {
     chatRoom?:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -4906,7 +5754,6 @@ export type DeleteAdminRightsMutation = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -4971,7 +5818,6 @@ export type DeleteAdminRightsMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -5029,6 +5875,7 @@ export type DeleteAdminRightsMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -5121,6 +5968,7 @@ export type DeleteAdminRightsMutation = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -5136,7 +5984,6 @@ export type DeleteAdminRightsMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -5194,6 +6041,7 @@ export type DeleteAdminRightsMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -5473,7 +6321,6 @@ export type DeleteAdminRightsMutation = {
         id: string,
         username: string,
         phoneNumber: string,
-        codelessNumber?: string | null,
         numbers?:  {
           __typename: "ModelContactConnection",
           items:  Array< {
@@ -5538,7 +6385,6 @@ export type DeleteAdminRightsMutation = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -5603,7 +6449,6 @@ export type DeleteAdminRightsMutation = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -5630,6 +6475,7 @@ export type DeleteAdminRightsMutation = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -5681,6 +6527,7 @@ export type DeleteAdminRightsMutation = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -5696,7 +6543,6 @@ export type DeleteAdminRightsMutation = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -5723,6 +6569,7 @@ export type DeleteAdminRightsMutation = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -6073,6 +6920,7 @@ export type CreateChatRoomMutation = {
   createChatRoom?:  {
     __typename: "ChatRoom",
     id: string,
+    chatRoomId?: string | null,
     adminRightsId?: string | null,
     name?: string | null,
     image?: string | null,
@@ -6088,7 +6936,6 @@ export type CreateChatRoomMutation = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -6153,7 +7000,6 @@ export type CreateChatRoomMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -6204,7 +7050,6 @@ export type CreateChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -6219,6 +7064,7 @@ export type CreateChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -6244,6 +7090,7 @@ export type CreateChatRoomMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -6259,7 +7106,6 @@ export type CreateChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -6274,6 +7120,7 @@ export type CreateChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -6383,6 +7230,7 @@ export type CreateChatRoomMutation = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -6398,7 +7246,6 @@ export type CreateChatRoomMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -6449,7 +7296,6 @@ export type CreateChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -6464,6 +7310,7 @@ export type CreateChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -6489,6 +7336,7 @@ export type CreateChatRoomMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -6504,7 +7352,6 @@ export type CreateChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -6519,6 +7366,7 @@ export type CreateChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -6819,6 +7667,7 @@ export type UpdateChatRoomMutation = {
   updateChatRoom?:  {
     __typename: "ChatRoom",
     id: string,
+    chatRoomId?: string | null,
     adminRightsId?: string | null,
     name?: string | null,
     image?: string | null,
@@ -6834,7 +7683,6 @@ export type UpdateChatRoomMutation = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -6899,7 +7747,6 @@ export type UpdateChatRoomMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -6950,7 +7797,6 @@ export type UpdateChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -6965,6 +7811,7 @@ export type UpdateChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -6990,6 +7837,7 @@ export type UpdateChatRoomMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -7005,7 +7853,6 @@ export type UpdateChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -7020,6 +7867,7 @@ export type UpdateChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -7129,6 +7977,7 @@ export type UpdateChatRoomMutation = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -7144,7 +7993,6 @@ export type UpdateChatRoomMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -7195,7 +8043,6 @@ export type UpdateChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -7210,6 +8057,7 @@ export type UpdateChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -7235,6 +8083,7 @@ export type UpdateChatRoomMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -7250,7 +8099,6 @@ export type UpdateChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -7265,6 +8113,7 @@ export type UpdateChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -7565,6 +8414,7 @@ export type DeleteChatRoomMutation = {
   deleteChatRoom?:  {
     __typename: "ChatRoom",
     id: string,
+    chatRoomId?: string | null,
     adminRightsId?: string | null,
     name?: string | null,
     image?: string | null,
@@ -7580,7 +8430,6 @@ export type DeleteChatRoomMutation = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -7645,7 +8494,6 @@ export type DeleteChatRoomMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -7696,7 +8544,6 @@ export type DeleteChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -7711,6 +8558,7 @@ export type DeleteChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -7736,6 +8584,7 @@ export type DeleteChatRoomMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -7751,7 +8600,6 @@ export type DeleteChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -7766,6 +8614,7 @@ export type DeleteChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -7875,6 +8724,7 @@ export type DeleteChatRoomMutation = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -7890,7 +8740,6 @@ export type DeleteChatRoomMutation = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -7941,7 +8790,6 @@ export type DeleteChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -7956,6 +8804,7 @@ export type DeleteChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -7981,6 +8830,7 @@ export type DeleteChatRoomMutation = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -7996,7 +8846,6 @@ export type DeleteChatRoomMutation = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -8011,6 +8860,7 @@ export type DeleteChatRoomMutation = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -8318,7 +9168,6 @@ export type CreateChatRoomUsersMutation = {
       id: string,
       username: string,
       phoneNumber: string,
-      codelessNumber?: string | null,
       numbers?:  {
         __typename: "ModelContactConnection",
         items:  Array< {
@@ -8383,7 +9232,6 @@ export type CreateChatRoomUsersMutation = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -8448,7 +9296,6 @@ export type CreateChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -8506,6 +9353,7 @@ export type CreateChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -8598,6 +9446,7 @@ export type CreateChatRoomUsersMutation = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -8613,7 +9462,6 @@ export type CreateChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -8671,6 +9519,7 @@ export type CreateChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -8861,6 +9710,7 @@ export type CreateChatRoomUsersMutation = {
     chatRoom:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -8876,7 +9726,6 @@ export type CreateChatRoomUsersMutation = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -8941,7 +9790,6 @@ export type CreateChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -8999,6 +9847,7 @@ export type CreateChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -9091,6 +9940,7 @@ export type CreateChatRoomUsersMutation = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -9106,7 +9956,6 @@ export type CreateChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -9164,6 +10013,7 @@ export type CreateChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -9458,7 +10308,6 @@ export type UpdateChatRoomUsersMutation = {
       id: string,
       username: string,
       phoneNumber: string,
-      codelessNumber?: string | null,
       numbers?:  {
         __typename: "ModelContactConnection",
         items:  Array< {
@@ -9523,7 +10372,6 @@ export type UpdateChatRoomUsersMutation = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -9588,7 +10436,6 @@ export type UpdateChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -9646,6 +10493,7 @@ export type UpdateChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -9738,6 +10586,7 @@ export type UpdateChatRoomUsersMutation = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -9753,7 +10602,6 @@ export type UpdateChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -9811,6 +10659,7 @@ export type UpdateChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -10001,6 +10850,7 @@ export type UpdateChatRoomUsersMutation = {
     chatRoom:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -10016,7 +10866,6 @@ export type UpdateChatRoomUsersMutation = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -10081,7 +10930,6 @@ export type UpdateChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -10139,6 +10987,7 @@ export type UpdateChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -10231,6 +11080,7 @@ export type UpdateChatRoomUsersMutation = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -10246,7 +11096,6 @@ export type UpdateChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -10304,6 +11153,7 @@ export type UpdateChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -10598,7 +11448,6 @@ export type DeleteChatRoomUsersMutation = {
       id: string,
       username: string,
       phoneNumber: string,
-      codelessNumber?: string | null,
       numbers?:  {
         __typename: "ModelContactConnection",
         items:  Array< {
@@ -10663,7 +11512,6 @@ export type DeleteChatRoomUsersMutation = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -10728,7 +11576,6 @@ export type DeleteChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -10786,6 +11633,7 @@ export type DeleteChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -10878,6 +11726,7 @@ export type DeleteChatRoomUsersMutation = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -10893,7 +11742,6 @@ export type DeleteChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -10951,6 +11799,7 @@ export type DeleteChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -11141,6 +11990,7 @@ export type DeleteChatRoomUsersMutation = {
     chatRoom:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -11156,7 +12006,6 @@ export type DeleteChatRoomUsersMutation = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -11221,7 +12070,6 @@ export type DeleteChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -11279,6 +12127,7 @@ export type DeleteChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -11371,6 +12220,7 @@ export type DeleteChatRoomUsersMutation = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -11386,7 +12236,6 @@ export type DeleteChatRoomUsersMutation = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -11444,6 +12293,7 @@ export type DeleteChatRoomUsersMutation = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -11732,7 +12582,6 @@ export type GetUsersByNumbersQuery = {
     id: string,
     username: string,
     phoneNumber: string,
-    codelessNumber?: string | null,
     numbers?:  {
       __typename: "ModelContactConnection",
       items:  Array< {
@@ -11797,7 +12646,6 @@ export type GetUsersByNumbersQuery = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -11862,7 +12710,6 @@ export type GetUsersByNumbersQuery = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -11913,7 +12760,6 @@ export type GetUsersByNumbersQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -11928,6 +12774,7 @@ export type GetUsersByNumbersQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -11953,6 +12800,7 @@ export type GetUsersByNumbersQuery = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -11968,7 +12816,6 @@ export type GetUsersByNumbersQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -11983,6 +12830,7 @@ export type GetUsersByNumbersQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -12092,6 +12940,7 @@ export type GetUsersByNumbersQuery = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -12107,7 +12956,6 @@ export type GetUsersByNumbersQuery = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -12158,7 +13006,6 @@ export type GetUsersByNumbersQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -12173,6 +13020,7 @@ export type GetUsersByNumbersQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -12198,6 +13046,7 @@ export type GetUsersByNumbersQuery = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -12213,7 +13062,6 @@ export type GetUsersByNumbersQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -12228,6 +13076,7 @@ export type GetUsersByNumbersQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -12434,6 +13283,663 @@ export type GetUsersByNumbersQuery = {
   } | null > | null,
 };
 
+export type GetIndividual_UserQueryVariables = {
+  UserID: string,
+};
+
+export type GetIndividual_UserQuery = {
+  getIndividual_User?:  {
+    __typename: "Individual_User",
+    ID?: string | null,
+    UserID: string,
+    currentBalance?: number | null,
+    transactions?:  Array< {
+      __typename: "Transactions",
+      TransactionID: string,
+      category?: TransactionCategory | null,
+      type?: TransactionType | null,
+      transactionExecutorId: string,
+      transactionAmount?: number | null,
+      currency?: CurrencyType | null,
+      forUserId: string,
+      createdAt: string,
+      status?: TransactionStatus | null,
+    } | null > | null,
+    chamas?:  Array< {
+      __typename: "Group_User",
+      GroupID: string,
+      groupName?: string | null,
+      groupMembers?:  Array< {
+        __typename: "User",
+        id: string,
+        username: string,
+        phoneNumber: string,
+        numbers?:  {
+          __typename: "ModelContactConnection",
+          items:  Array< {
+            __typename: "Contact",
+            number: string,
+            createdAt: string,
+            updatedAt: string,
+            userNumbersId?: string | null,
+            owner?: string | null,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        email?: string | null,
+        chatStatus?: string | null,
+        chatImage?: string | null,
+        imageKey?: string | null,
+        chatMessages?:  {
+          __typename: "ModelChatMessageConnection",
+          items:  Array< {
+            __typename: "ChatMessage",
+            id: string,
+            createdAt: string,
+            type?: MessageType | null,
+            text?: string | null,
+            userId: string,
+            chatRoomId: string,
+            chatAttachments?:  {
+              __typename: "ModelChatAttachmentConnection",
+              items:  Array< {
+                __typename: "ChatAttachment",
+                id: string,
+                chatMessageID?: string | null,
+                chatRoomID?: string | null,
+                storageKey: string,
+                type: AttachmentType,
+                width?: number | null,
+                height?: number | null,
+                duration?: number | null,
+                createdAt: string,
+                updatedAt: string,
+                owner?: string | null,
+              } | null >,
+              nextToken?: string | null,
+            } | null,
+            status?: MessageStatus | null,
+            replyToMessageID?: string | null,
+            forUserId?: string | null,
+            updatedAt: string,
+            owner?: string | null,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        chatRooms?:  {
+          __typename: "ModelChatRoomUsersConnection",
+          items:  Array< {
+            __typename: "ChatRoomUsers",
+            id: string,
+            userId: string,
+            chatRoomId: string,
+            user:  {
+              __typename: "User",
+              id: string,
+              username: string,
+              phoneNumber: string,
+              numbers?:  {
+                __typename: "ModelContactConnection",
+                items:  Array< {
+                  __typename: "Contact",
+                  number: string,
+                  createdAt: string,
+                  updatedAt: string,
+                  userNumbersId?: string | null,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              email?: string | null,
+              chatStatus?: string | null,
+              chatImage?: string | null,
+              imageKey?: string | null,
+              chatMessages?:  {
+                __typename: "ModelChatMessageConnection",
+                items:  Array< {
+                  __typename: "ChatMessage",
+                  id: string,
+                  createdAt: string,
+                  type?: MessageType | null,
+                  text?: string | null,
+                  userId: string,
+                  chatRoomId: string,
+                  chatAttachments?:  {
+                    __typename: "ModelChatAttachmentConnection",
+                    items:  Array< {
+                      __typename: "ChatAttachment",
+                      id: string,
+                      chatMessageID?: string | null,
+                      chatRoomID?: string | null,
+                      storageKey: string,
+                      type: AttachmentType,
+                      width?: number | null,
+                      height?: number | null,
+                      duration?: number | null,
+                      createdAt: string,
+                      updatedAt: string,
+                      owner?: string | null,
+                    } | null >,
+                    nextToken?: string | null,
+                  } | null,
+                  status?: MessageStatus | null,
+                  replyToMessageID?: string | null,
+                  forUserId?: string | null,
+                  updatedAt: string,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              chatRooms?:  {
+                __typename: "ModelChatRoomUsersConnection",
+                items:  Array< {
+                  __typename: "ChatRoomUsers",
+                  id: string,
+                  userId: string,
+                  chatRoomId: string,
+                  user:  {
+                    __typename: "User",
+                    id: string,
+                    username: string,
+                    phoneNumber: string,
+                    numbers?:  {
+                      __typename: "ModelContactConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    email?: string | null,
+                    chatStatus?: string | null,
+                    chatImage?: string | null,
+                    imageKey?: string | null,
+                    chatMessages?:  {
+                      __typename: "ModelChatMessageConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    chatRooms?:  {
+                      __typename: "ModelChatRoomUsersConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    lastOnlineAt?: number | null,
+                    adminRightsId?: string | null,
+                    publicKey?: string | null,
+                    createdAt: string,
+                    updatedAt: string,
+                    owner?: string | null,
+                  },
+                  chatRoom:  {
+                    __typename: "ChatRoom",
+                    id: string,
+                    chatRoomId?: string | null,
+                    adminRightsId?: string | null,
+                    name?: string | null,
+                    image?: string | null,
+                    users?:  {
+                      __typename: "ModelChatRoomUsersConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    chatMessages?:  {
+                      __typename: "ModelChatMessageConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    newMessages?: number | null,
+                    lastMessage?:  {
+                      __typename: "ChatMessage",
+                      id: string,
+                      createdAt: string,
+                      type?: MessageType | null,
+                      text?: string | null,
+                      userId: string,
+                      chatRoomId: string,
+                      status?: MessageStatus | null,
+                      replyToMessageID?: string | null,
+                      forUserId?: string | null,
+                      updatedAt: string,
+                      owner?: string | null,
+                    } | null,
+                    chatAttachments?:  {
+                      __typename: "ModelChatAttachmentConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    createdAt: string,
+                    updatedAt: string,
+                    chatRoomLastMessageId?: string | null,
+                    owner?: string | null,
+                  },
+                  createdAt: string,
+                  updatedAt: string,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              lastOnlineAt?: number | null,
+              adminRightsId?: string | null,
+              publicKey?: string | null,
+              createdAt: string,
+              updatedAt: string,
+              owner?: string | null,
+            },
+            chatRoom:  {
+              __typename: "ChatRoom",
+              id: string,
+              chatRoomId?: string | null,
+              adminRightsId?: string | null,
+              name?: string | null,
+              image?: string | null,
+              users?:  {
+                __typename: "ModelChatRoomUsersConnection",
+                items:  Array< {
+                  __typename: "ChatRoomUsers",
+                  id: string,
+                  userId: string,
+                  chatRoomId: string,
+                  user:  {
+                    __typename: "User",
+                    id: string,
+                    username: string,
+                    phoneNumber: string,
+                    numbers?:  {
+                      __typename: "ModelContactConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    email?: string | null,
+                    chatStatus?: string | null,
+                    chatImage?: string | null,
+                    imageKey?: string | null,
+                    chatMessages?:  {
+                      __typename: "ModelChatMessageConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    chatRooms?:  {
+                      __typename: "ModelChatRoomUsersConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    lastOnlineAt?: number | null,
+                    adminRightsId?: string | null,
+                    publicKey?: string | null,
+                    createdAt: string,
+                    updatedAt: string,
+                    owner?: string | null,
+                  },
+                  chatRoom:  {
+                    __typename: "ChatRoom",
+                    id: string,
+                    chatRoomId?: string | null,
+                    adminRightsId?: string | null,
+                    name?: string | null,
+                    image?: string | null,
+                    users?:  {
+                      __typename: "ModelChatRoomUsersConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    chatMessages?:  {
+                      __typename: "ModelChatMessageConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    newMessages?: number | null,
+                    lastMessage?:  {
+                      __typename: "ChatMessage",
+                      id: string,
+                      createdAt: string,
+                      type?: MessageType | null,
+                      text?: string | null,
+                      userId: string,
+                      chatRoomId: string,
+                      status?: MessageStatus | null,
+                      replyToMessageID?: string | null,
+                      forUserId?: string | null,
+                      updatedAt: string,
+                      owner?: string | null,
+                    } | null,
+                    chatAttachments?:  {
+                      __typename: "ModelChatAttachmentConnection",
+                      nextToken?: string | null,
+                    } | null,
+                    createdAt: string,
+                    updatedAt: string,
+                    chatRoomLastMessageId?: string | null,
+                    owner?: string | null,
+                  },
+                  createdAt: string,
+                  updatedAt: string,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              chatMessages?:  {
+                __typename: "ModelChatMessageConnection",
+                items:  Array< {
+                  __typename: "ChatMessage",
+                  id: string,
+                  createdAt: string,
+                  type?: MessageType | null,
+                  text?: string | null,
+                  userId: string,
+                  chatRoomId: string,
+                  chatAttachments?:  {
+                    __typename: "ModelChatAttachmentConnection",
+                    items:  Array< {
+                      __typename: "ChatAttachment",
+                      id: string,
+                      chatMessageID?: string | null,
+                      chatRoomID?: string | null,
+                      storageKey: string,
+                      type: AttachmentType,
+                      width?: number | null,
+                      height?: number | null,
+                      duration?: number | null,
+                      createdAt: string,
+                      updatedAt: string,
+                      owner?: string | null,
+                    } | null >,
+                    nextToken?: string | null,
+                  } | null,
+                  status?: MessageStatus | null,
+                  replyToMessageID?: string | null,
+                  forUserId?: string | null,
+                  updatedAt: string,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              newMessages?: number | null,
+              lastMessage?:  {
+                __typename: "ChatMessage",
+                id: string,
+                createdAt: string,
+                type?: MessageType | null,
+                text?: string | null,
+                userId: string,
+                chatRoomId: string,
+                chatAttachments?:  {
+                  __typename: "ModelChatAttachmentConnection",
+                  items:  Array< {
+                    __typename: "ChatAttachment",
+                    id: string,
+                    chatMessageID?: string | null,
+                    chatRoomID?: string | null,
+                    storageKey: string,
+                    type: AttachmentType,
+                    width?: number | null,
+                    height?: number | null,
+                    duration?: number | null,
+                    createdAt: string,
+                    updatedAt: string,
+                    owner?: string | null,
+                  } | null >,
+                  nextToken?: string | null,
+                } | null,
+                status?: MessageStatus | null,
+                replyToMessageID?: string | null,
+                forUserId?: string | null,
+                updatedAt: string,
+                owner?: string | null,
+              } | null,
+              chatAttachments?:  {
+                __typename: "ModelChatAttachmentConnection",
+                items:  Array< {
+                  __typename: "ChatAttachment",
+                  id: string,
+                  chatMessageID?: string | null,
+                  chatRoomID?: string | null,
+                  storageKey: string,
+                  type: AttachmentType,
+                  width?: number | null,
+                  height?: number | null,
+                  duration?: number | null,
+                  createdAt: string,
+                  updatedAt: string,
+                  owner?: string | null,
+                } | null >,
+                nextToken?: string | null,
+              } | null,
+              createdAt: string,
+              updatedAt: string,
+              chatRoomLastMessageId?: string | null,
+              owner?: string | null,
+            },
+            createdAt: string,
+            updatedAt: string,
+            owner?: string | null,
+          } | null >,
+          nextToken?: string | null,
+        } | null,
+        lastOnlineAt?: number | null,
+        adminRightsId?: string | null,
+        publicKey?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null > | null,
+      currentBalance?: number | null,
+      transactions?:  Array< {
+        __typename: "Transactions",
+        TransactionID: string,
+        category?: TransactionCategory | null,
+        type?: TransactionType | null,
+        transactionExecutorId: string,
+        transactionAmount?: number | null,
+        currency?: CurrencyType | null,
+        forUserId: string,
+        createdAt: string,
+        status?: TransactionStatus | null,
+      } | null > | null,
+      approvedLoanKitty?: number | null,
+      approvedInvestmentKitty?: number | null,
+      loansDisbursed?:  Array< {
+        __typename: "Loan",
+        LoanID: string,
+        loaneeID: string,
+        category?: LoanCategory | null,
+        amountLoaned?: number | null,
+        currency?: CurrencyType | null,
+        loanDisbursementDate: string,
+        interestRate?: number | null,
+        loanPeriod?: number | null,
+        totalInterestPayable?: number | null,
+        totalLoanPayable?: number | null,
+        installments?: number | null,
+        installmentAmount?: number | null,
+        installmentPaymentDate?: string | null,
+        latePayments?: number | null,
+        totalPaidtoDate?: string | null,
+        percentagePaidtoDate?: string | null,
+        repayments?:  Array< {
+          __typename: "Loan_Repayment",
+          LoanRepaymentID: string,
+          loanId: string,
+          loaneeId: string,
+          transactionID: string,
+          installmentDate?: string | null,
+          installmentAmount?: number | null,
+          paymentAmount?: number | null,
+          paymentDate?: string | null,
+          installmentBalance?: number | null,
+        } | null > | null,
+        loanDueDate?: string | null,
+        fullyPaid?: boolean | null,
+        defaulted?: boolean | null,
+        actualAmountPaidonCompletion?: number | null,
+        status?: LoanStatus | null,
+      } | null > | null,
+      paidLoans?: number | null,
+      activeLoans?: number | null,
+      nonPerformingLoans?: number | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    loans?:  Array< {
+      __typename: "Loan",
+      LoanID: string,
+      loaneeID: string,
+      category?: LoanCategory | null,
+      amountLoaned?: number | null,
+      currency?: CurrencyType | null,
+      loanDisbursementDate: string,
+      interestRate?: number | null,
+      loanPeriod?: number | null,
+      totalInterestPayable?: number | null,
+      totalLoanPayable?: number | null,
+      installments?: number | null,
+      installmentAmount?: number | null,
+      installmentPaymentDate?: string | null,
+      latePayments?: number | null,
+      totalPaidtoDate?: string | null,
+      percentagePaidtoDate?: string | null,
+      repayments?:  Array< {
+        __typename: "Loan_Repayment",
+        LoanRepaymentID: string,
+        loanId: string,
+        loaneeId: string,
+        transactionID: string,
+        installmentDate?: string | null,
+        installmentAmount?: number | null,
+        paymentAmount?: number | null,
+        paymentDate?: string | null,
+        installmentBalance?: number | null,
+      } | null > | null,
+      loanDueDate?: string | null,
+      fullyPaid?: boolean | null,
+      defaulted?: boolean | null,
+      actualAmountPaidonCompletion?: number | null,
+      status?: LoanStatus | null,
+    } | null > | null,
+    paidLoans?: number | null,
+    activeLoans?: number | null,
+    nonPerformingLoans?: number | null,
+    lateLoanInstallmentRepayments?: number | null,
+    loanRating?: number | null,
+    loanRepayments?:  Array< {
+      __typename: "Loan_Repayment",
+      LoanRepaymentID: string,
+      loanId: string,
+      loaneeId: string,
+      transactionID: string,
+      installmentDate?: string | null,
+      installmentAmount?: number | null,
+      paymentAmount?: number | null,
+      paymentDate?: string | null,
+      installmentBalance?: number | null,
+    } | null > | null,
+    purchases?:  Array< {
+      __typename: "Purchase",
+      PurchaseID?: string | null,
+      itemName?: string | null,
+      quantity?: number | null,
+      unitPrice?: number | null,
+      currency?: CurrencyType | null,
+      BusinessID?: string | null,
+      paymentStatus?: TransactionStatus | null,
+      TransactionSettled?: boolean | null,
+    } | null > | null,
+    businesses?:  Array< {
+      __typename: "Business_User",
+      BusinessID: string,
+      businessName?: string | null,
+      ownerUserId?: string | null,
+      currentBalance?: number | null,
+      transactions?:  Array< {
+        __typename: "Transactions",
+        TransactionID: string,
+        category?: TransactionCategory | null,
+        type?: TransactionType | null,
+        transactionExecutorId: string,
+        transactionAmount?: number | null,
+        currency?: CurrencyType | null,
+        forUserId: string,
+        createdAt: string,
+        status?: TransactionStatus | null,
+      } | null > | null,
+      purchases?:  Array< {
+        __typename: "Purchase",
+        PurchaseID?: string | null,
+        itemName?: string | null,
+        quantity?: number | null,
+        unitPrice?: number | null,
+        currency?: CurrencyType | null,
+        BusinessID?: string | null,
+        paymentStatus?: TransactionStatus | null,
+        TransactionSettled?: boolean | null,
+      } | null > | null,
+      sales?:  Array< {
+        __typename: "Sale",
+        SaleID?: string | null,
+        itemName?: string | null,
+        quantity?: number | null,
+        unitPrice?: number | null,
+        currency?: CurrencyType | null,
+        BusinessID?: string | null,
+        paymentStatus?: TransactionStatus | null,
+        TransactionSettled?: boolean | null,
+      } | null > | null,
+      inventory?:  Array< {
+        __typename: "Inventory",
+        InventoryID?: string | null,
+        categoryName?: string | null,
+        subCategoryName?: string | null,
+        itemName?: string | null,
+        currentStock?: number | null,
+        unsettledOrders?: number | null,
+        unitSalePrice?: number | null,
+        currency?: CurrencyType | null,
+        createdAt?: string | null,
+        updatedAt?: string | null,
+      } | null > | null,
+      loans?:  Array< {
+        __typename: "Loan",
+        LoanID: string,
+        loaneeID: string,
+        category?: LoanCategory | null,
+        amountLoaned?: number | null,
+        currency?: CurrencyType | null,
+        loanDisbursementDate: string,
+        interestRate?: number | null,
+        loanPeriod?: number | null,
+        totalInterestPayable?: number | null,
+        totalLoanPayable?: number | null,
+        installments?: number | null,
+        installmentAmount?: number | null,
+        installmentPaymentDate?: string | null,
+        latePayments?: number | null,
+        totalPaidtoDate?: string | null,
+        percentagePaidtoDate?: string | null,
+        repayments?:  Array< {
+          __typename: "Loan_Repayment",
+          LoanRepaymentID: string,
+          loanId: string,
+          loaneeId: string,
+          transactionID: string,
+          installmentDate?: string | null,
+          installmentAmount?: number | null,
+          paymentAmount?: number | null,
+          paymentDate?: string | null,
+          installmentBalance?: number | null,
+        } | null > | null,
+        loanDueDate?: string | null,
+        fullyPaid?: boolean | null,
+        defaulted?: boolean | null,
+        actualAmountPaidonCompletion?: number | null,
+        status?: LoanStatus | null,
+      } | null > | null,
+      paidLoans?: number | null,
+      activeLoans?: number | null,
+      nonPerformingLoans?: number | null,
+      lateLoanInstallmentRepayments?: number | null,
+      loanRating?: number | null,
+      loanRepayments?:  Array< {
+        __typename: "Loan_Repayment",
+        LoanRepaymentID: string,
+        loanId: string,
+        loaneeId: string,
+        transactionID: string,
+        installmentDate?: string | null,
+        installmentAmount?: number | null,
+        paymentAmount?: number | null,
+        paymentDate?: string | null,
+        installmentBalance?: number | null,
+      } | null > | null,
+    } | null > | null,
+  } | null,
+};
+
 export type GetUserQueryVariables = {
   id: string,
 };
@@ -12444,7 +13950,6 @@ export type GetUserQuery = {
     id: string,
     username: string,
     phoneNumber: string,
-    codelessNumber?: string | null,
     numbers?:  {
       __typename: "ModelContactConnection",
       items:  Array< {
@@ -12509,7 +14014,6 @@ export type GetUserQuery = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -12574,7 +14078,6 @@ export type GetUserQuery = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -12625,7 +14128,6 @@ export type GetUserQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -12640,6 +14142,7 @@ export type GetUserQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -12665,6 +14168,7 @@ export type GetUserQuery = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -12680,7 +14184,6 @@ export type GetUserQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -12695,6 +14198,7 @@ export type GetUserQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -12804,6 +14308,7 @@ export type GetUserQuery = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -12819,7 +14324,6 @@ export type GetUserQuery = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -12870,7 +14374,6 @@ export type GetUserQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -12885,6 +14388,7 @@ export type GetUserQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -12910,6 +14414,7 @@ export type GetUserQuery = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -12925,7 +14430,6 @@ export type GetUserQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -12940,6 +14444,7 @@ export type GetUserQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -13160,7 +14665,6 @@ export type ListUsersQuery = {
       id: string,
       username: string,
       phoneNumber: string,
-      codelessNumber?: string | null,
       numbers?:  {
         __typename: "ModelContactConnection",
         items:  Array< {
@@ -13225,7 +14729,6 @@ export type ListUsersQuery = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -13290,7 +14793,6 @@ export type ListUsersQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -13348,6 +14850,7 @@ export type ListUsersQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -13440,6 +14943,7 @@ export type ListUsersQuery = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -13455,7 +14959,6 @@ export type ListUsersQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -13513,6 +15016,7 @@ export type ListUsersQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -13753,6 +15257,7 @@ export type GetAdminRightsQuery = {
     chatRoom?:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -13768,7 +15273,6 @@ export type GetAdminRightsQuery = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -13833,7 +15337,6 @@ export type GetAdminRightsQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -13891,6 +15394,7 @@ export type GetAdminRightsQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -13983,6 +15487,7 @@ export type GetAdminRightsQuery = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -13998,7 +15503,6 @@ export type GetAdminRightsQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -14056,6 +15560,7 @@ export type GetAdminRightsQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -14335,7 +15840,6 @@ export type GetAdminRightsQuery = {
         id: string,
         username: string,
         phoneNumber: string,
-        codelessNumber?: string | null,
         numbers?:  {
           __typename: "ModelContactConnection",
           items:  Array< {
@@ -14400,7 +15904,6 @@ export type GetAdminRightsQuery = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -14465,7 +15968,6 @@ export type GetAdminRightsQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -14492,6 +15994,7 @@ export type GetAdminRightsQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -14543,6 +16046,7 @@ export type GetAdminRightsQuery = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -14558,7 +16062,6 @@ export type GetAdminRightsQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -14585,6 +16088,7 @@ export type GetAdminRightsQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -14755,6 +16259,7 @@ export type ListAdminRightsQuery = {
       chatRoom?:  {
         __typename: "ChatRoom",
         id: string,
+        chatRoomId?: string | null,
         adminRightsId?: string | null,
         name?: string | null,
         image?: string | null,
@@ -14770,7 +16275,6 @@ export type ListAdminRightsQuery = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -14835,7 +16339,6 @@ export type ListAdminRightsQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -14862,6 +16365,7 @@ export type ListAdminRightsQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -14913,6 +16417,7 @@ export type ListAdminRightsQuery = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -14928,7 +16433,6 @@ export type ListAdminRightsQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -14955,6 +16459,7 @@ export type ListAdminRightsQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -15193,7 +16698,6 @@ export type ListAdminRightsQuery = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -15258,7 +16762,6 @@ export type ListAdminRightsQuery = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -15309,7 +16812,6 @@ export type ListAdminRightsQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -15324,6 +16826,7 @@ export type ListAdminRightsQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -15349,6 +16852,7 @@ export type ListAdminRightsQuery = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -15364,7 +16868,6 @@ export type ListAdminRightsQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -15379,6 +16882,7 @@ export type ListAdminRightsQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -15636,6 +17140,7 @@ export type GetChatRoomQuery = {
   getChatRoom?:  {
     __typename: "ChatRoom",
     id: string,
+    chatRoomId?: string | null,
     adminRightsId?: string | null,
     name?: string | null,
     image?: string | null,
@@ -15651,7 +17156,6 @@ export type GetChatRoomQuery = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -15716,7 +17220,6 @@ export type GetChatRoomQuery = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -15767,7 +17270,6 @@ export type GetChatRoomQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -15782,6 +17284,7 @@ export type GetChatRoomQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -15807,6 +17310,7 @@ export type GetChatRoomQuery = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -15822,7 +17326,6 @@ export type GetChatRoomQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -15837,6 +17340,7 @@ export type GetChatRoomQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -15946,6 +17450,7 @@ export type GetChatRoomQuery = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -15961,7 +17466,6 @@ export type GetChatRoomQuery = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -16012,7 +17516,6 @@ export type GetChatRoomQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -16027,6 +17530,7 @@ export type GetChatRoomQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -16052,6 +17556,7 @@ export type GetChatRoomQuery = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -16067,7 +17572,6 @@ export type GetChatRoomQuery = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -16082,6 +17586,7 @@ export type GetChatRoomQuery = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -16385,6 +17890,7 @@ export type ListChatRoomsQuery = {
     items:  Array< {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -16400,7 +17906,6 @@ export type ListChatRoomsQuery = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -16465,7 +17970,6 @@ export type ListChatRoomsQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -16523,6 +18027,7 @@ export type ListChatRoomsQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -16615,6 +18120,7 @@ export type ListChatRoomsQuery = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -16630,7 +18136,6 @@ export type ListChatRoomsQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -16688,6 +18193,7 @@ export type ListChatRoomsQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -16979,7 +18485,6 @@ export type GetChatRoomUsersQuery = {
       id: string,
       username: string,
       phoneNumber: string,
-      codelessNumber?: string | null,
       numbers?:  {
         __typename: "ModelContactConnection",
         items:  Array< {
@@ -17044,7 +18549,6 @@ export type GetChatRoomUsersQuery = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -17109,7 +18613,6 @@ export type GetChatRoomUsersQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -17167,6 +18670,7 @@ export type GetChatRoomUsersQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -17259,6 +18763,7 @@ export type GetChatRoomUsersQuery = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -17274,7 +18779,6 @@ export type GetChatRoomUsersQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -17332,6 +18836,7 @@ export type GetChatRoomUsersQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -17522,6 +19027,7 @@ export type GetChatRoomUsersQuery = {
     chatRoom:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -17537,7 +19043,6 @@ export type GetChatRoomUsersQuery = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -17602,7 +19107,6 @@ export type GetChatRoomUsersQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -17660,6 +19164,7 @@ export type GetChatRoomUsersQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -17752,6 +19257,7 @@ export type GetChatRoomUsersQuery = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -17767,7 +19273,6 @@ export type GetChatRoomUsersQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -17825,6 +19330,7 @@ export type GetChatRoomUsersQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -18122,7 +19628,6 @@ export type ListChatRoomUsersQuery = {
         id: string,
         username: string,
         phoneNumber: string,
-        codelessNumber?: string | null,
         numbers?:  {
           __typename: "ModelContactConnection",
           items:  Array< {
@@ -18187,7 +19692,6 @@ export type ListChatRoomUsersQuery = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -18252,7 +19756,6 @@ export type ListChatRoomUsersQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -18279,6 +19782,7 @@ export type ListChatRoomUsersQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -18330,6 +19834,7 @@ export type ListChatRoomUsersQuery = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -18345,7 +19850,6 @@ export type ListChatRoomUsersQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -18372,6 +19876,7 @@ export type ListChatRoomUsersQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -18521,6 +20026,7 @@ export type ListChatRoomUsersQuery = {
       chatRoom:  {
         __typename: "ChatRoom",
         id: string,
+        chatRoomId?: string | null,
         adminRightsId?: string | null,
         name?: string | null,
         image?: string | null,
@@ -18536,7 +20042,6 @@ export type ListChatRoomUsersQuery = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -18601,7 +20106,6 @@ export type ListChatRoomUsersQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -18628,6 +20132,7 @@ export type ListChatRoomUsersQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -18679,6 +20184,7 @@ export type ListChatRoomUsersQuery = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -18694,7 +20200,6 @@ export type ListChatRoomUsersQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -18721,6 +20226,7 @@ export type ListChatRoomUsersQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -18976,7 +20482,6 @@ export type UsersByPhoneNumberQuery = {
       id: string,
       username: string,
       phoneNumber: string,
-      codelessNumber?: string | null,
       numbers?:  {
         __typename: "ModelContactConnection",
         items:  Array< {
@@ -19041,7 +20546,6 @@ export type UsersByPhoneNumberQuery = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -19106,7 +20610,6 @@ export type UsersByPhoneNumberQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -19164,6 +20667,7 @@ export type UsersByPhoneNumberQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -19256,6 +20760,7 @@ export type UsersByPhoneNumberQuery = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -19271,7 +20776,6 @@ export type UsersByPhoneNumberQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -19329,566 +20833,7 @@ export type UsersByPhoneNumberQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
-                  adminRightsId?: string | null,
-                  name?: string | null,
-                  image?: string | null,
-                  users?:  {
-                    __typename: "ModelChatRoomUsersConnection",
-                    items:  Array< {
-                      __typename: "ChatRoomUsers",
-                      id: string,
-                      userId: string,
-                      chatRoomId: string,
-                      createdAt: string,
-                      updatedAt: string,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  chatMessages?:  {
-                    __typename: "ModelChatMessageConnection",
-                    items:  Array< {
-                      __typename: "ChatMessage",
-                      id: string,
-                      createdAt: string,
-                      type?: MessageType | null,
-                      text?: string | null,
-                      userId: string,
-                      chatRoomId: string,
-                      status?: MessageStatus | null,
-                      replyToMessageID?: string | null,
-                      forUserId?: string | null,
-                      updatedAt: string,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  newMessages?: number | null,
-                  lastMessage?:  {
-                    __typename: "ChatMessage",
-                    id: string,
-                    createdAt: string,
-                    type?: MessageType | null,
-                    text?: string | null,
-                    userId: string,
-                    chatRoomId: string,
-                    chatAttachments?:  {
-                      __typename: "ModelChatAttachmentConnection",
-                      nextToken?: string | null,
-                    } | null,
-                    status?: MessageStatus | null,
-                    replyToMessageID?: string | null,
-                    forUserId?: string | null,
-                    updatedAt: string,
-                    owner?: string | null,
-                  } | null,
-                  chatAttachments?:  {
-                    __typename: "ModelChatAttachmentConnection",
-                    items:  Array< {
-                      __typename: "ChatAttachment",
-                      id: string,
-                      chatMessageID?: string | null,
-                      chatRoomID?: string | null,
-                      storageKey: string,
-                      type: AttachmentType,
-                      width?: number | null,
-                      height?: number | null,
-                      duration?: number | null,
-                      createdAt: string,
-                      updatedAt: string,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  createdAt: string,
-                  updatedAt: string,
-                  chatRoomLastMessageId?: string | null,
-                  owner?: string | null,
-                },
-                createdAt: string,
-                updatedAt: string,
-                owner?: string | null,
-              } | null >,
-              nextToken?: string | null,
-            } | null,
-            chatMessages?:  {
-              __typename: "ModelChatMessageConnection",
-              items:  Array< {
-                __typename: "ChatMessage",
-                id: string,
-                createdAt: string,
-                type?: MessageType | null,
-                text?: string | null,
-                userId: string,
-                chatRoomId: string,
-                chatAttachments?:  {
-                  __typename: "ModelChatAttachmentConnection",
-                  items:  Array< {
-                    __typename: "ChatAttachment",
-                    id: string,
-                    chatMessageID?: string | null,
-                    chatRoomID?: string | null,
-                    storageKey: string,
-                    type: AttachmentType,
-                    width?: number | null,
-                    height?: number | null,
-                    duration?: number | null,
-                    createdAt: string,
-                    updatedAt: string,
-                    owner?: string | null,
-                  } | null >,
-                  nextToken?: string | null,
-                } | null,
-                status?: MessageStatus | null,
-                replyToMessageID?: string | null,
-                forUserId?: string | null,
-                updatedAt: string,
-                owner?: string | null,
-              } | null >,
-              nextToken?: string | null,
-            } | null,
-            newMessages?: number | null,
-            lastMessage?:  {
-              __typename: "ChatMessage",
-              id: string,
-              createdAt: string,
-              type?: MessageType | null,
-              text?: string | null,
-              userId: string,
-              chatRoomId: string,
-              chatAttachments?:  {
-                __typename: "ModelChatAttachmentConnection",
-                items:  Array< {
-                  __typename: "ChatAttachment",
-                  id: string,
-                  chatMessageID?: string | null,
-                  chatRoomID?: string | null,
-                  storageKey: string,
-                  type: AttachmentType,
-                  width?: number | null,
-                  height?: number | null,
-                  duration?: number | null,
-                  createdAt: string,
-                  updatedAt: string,
-                  owner?: string | null,
-                } | null >,
-                nextToken?: string | null,
-              } | null,
-              status?: MessageStatus | null,
-              replyToMessageID?: string | null,
-              forUserId?: string | null,
-              updatedAt: string,
-              owner?: string | null,
-            } | null,
-            chatAttachments?:  {
-              __typename: "ModelChatAttachmentConnection",
-              items:  Array< {
-                __typename: "ChatAttachment",
-                id: string,
-                chatMessageID?: string | null,
-                chatRoomID?: string | null,
-                storageKey: string,
-                type: AttachmentType,
-                width?: number | null,
-                height?: number | null,
-                duration?: number | null,
-                createdAt: string,
-                updatedAt: string,
-                owner?: string | null,
-              } | null >,
-              nextToken?: string | null,
-            } | null,
-            createdAt: string,
-            updatedAt: string,
-            chatRoomLastMessageId?: string | null,
-            owner?: string | null,
-          },
-          createdAt: string,
-          updatedAt: string,
-          owner?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      lastOnlineAt?: number | null,
-      adminRightsId?: string | null,
-      publicKey?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      owner?: string | null,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type UsersByCodelessNumberQueryVariables = {
-  codelessNumber: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type UsersByCodelessNumberQuery = {
-  usersByCodelessNumber?:  {
-    __typename: "ModelUserConnection",
-    items:  Array< {
-      __typename: "User",
-      id: string,
-      username: string,
-      phoneNumber: string,
-      codelessNumber?: string | null,
-      numbers?:  {
-        __typename: "ModelContactConnection",
-        items:  Array< {
-          __typename: "Contact",
-          number: string,
-          createdAt: string,
-          updatedAt: string,
-          userNumbersId?: string | null,
-          owner?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      email?: string | null,
-      chatStatus?: string | null,
-      chatImage?: string | null,
-      imageKey?: string | null,
-      chatMessages?:  {
-        __typename: "ModelChatMessageConnection",
-        items:  Array< {
-          __typename: "ChatMessage",
-          id: string,
-          createdAt: string,
-          type?: MessageType | null,
-          text?: string | null,
-          userId: string,
-          chatRoomId: string,
-          chatAttachments?:  {
-            __typename: "ModelChatAttachmentConnection",
-            items:  Array< {
-              __typename: "ChatAttachment",
-              id: string,
-              chatMessageID?: string | null,
-              chatRoomID?: string | null,
-              storageKey: string,
-              type: AttachmentType,
-              width?: number | null,
-              height?: number | null,
-              duration?: number | null,
-              createdAt: string,
-              updatedAt: string,
-              owner?: string | null,
-            } | null >,
-            nextToken?: string | null,
-          } | null,
-          status?: MessageStatus | null,
-          replyToMessageID?: string | null,
-          forUserId?: string | null,
-          updatedAt: string,
-          owner?: string | null,
-        } | null >,
-        nextToken?: string | null,
-      } | null,
-      chatRooms?:  {
-        __typename: "ModelChatRoomUsersConnection",
-        items:  Array< {
-          __typename: "ChatRoomUsers",
-          id: string,
-          userId: string,
-          chatRoomId: string,
-          user:  {
-            __typename: "User",
-            id: string,
-            username: string,
-            phoneNumber: string,
-            codelessNumber?: string | null,
-            numbers?:  {
-              __typename: "ModelContactConnection",
-              items:  Array< {
-                __typename: "Contact",
-                number: string,
-                createdAt: string,
-                updatedAt: string,
-                userNumbersId?: string | null,
-                owner?: string | null,
-              } | null >,
-              nextToken?: string | null,
-            } | null,
-            email?: string | null,
-            chatStatus?: string | null,
-            chatImage?: string | null,
-            imageKey?: string | null,
-            chatMessages?:  {
-              __typename: "ModelChatMessageConnection",
-              items:  Array< {
-                __typename: "ChatMessage",
-                id: string,
-                createdAt: string,
-                type?: MessageType | null,
-                text?: string | null,
-                userId: string,
-                chatRoomId: string,
-                chatAttachments?:  {
-                  __typename: "ModelChatAttachmentConnection",
-                  items:  Array< {
-                    __typename: "ChatAttachment",
-                    id: string,
-                    chatMessageID?: string | null,
-                    chatRoomID?: string | null,
-                    storageKey: string,
-                    type: AttachmentType,
-                    width?: number | null,
-                    height?: number | null,
-                    duration?: number | null,
-                    createdAt: string,
-                    updatedAt: string,
-                    owner?: string | null,
-                  } | null >,
-                  nextToken?: string | null,
-                } | null,
-                status?: MessageStatus | null,
-                replyToMessageID?: string | null,
-                forUserId?: string | null,
-                updatedAt: string,
-                owner?: string | null,
-              } | null >,
-              nextToken?: string | null,
-            } | null,
-            chatRooms?:  {
-              __typename: "ModelChatRoomUsersConnection",
-              items:  Array< {
-                __typename: "ChatRoomUsers",
-                id: string,
-                userId: string,
-                chatRoomId: string,
-                user:  {
-                  __typename: "User",
-                  id: string,
-                  username: string,
-                  phoneNumber: string,
-                  codelessNumber?: string | null,
-                  numbers?:  {
-                    __typename: "ModelContactConnection",
-                    items:  Array< {
-                      __typename: "Contact",
-                      number: string,
-                      createdAt: string,
-                      updatedAt: string,
-                      userNumbersId?: string | null,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  email?: string | null,
-                  chatStatus?: string | null,
-                  chatImage?: string | null,
-                  imageKey?: string | null,
-                  chatMessages?:  {
-                    __typename: "ModelChatMessageConnection",
-                    items:  Array< {
-                      __typename: "ChatMessage",
-                      id: string,
-                      createdAt: string,
-                      type?: MessageType | null,
-                      text?: string | null,
-                      userId: string,
-                      chatRoomId: string,
-                      status?: MessageStatus | null,
-                      replyToMessageID?: string | null,
-                      forUserId?: string | null,
-                      updatedAt: string,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  chatRooms?:  {
-                    __typename: "ModelChatRoomUsersConnection",
-                    items:  Array< {
-                      __typename: "ChatRoomUsers",
-                      id: string,
-                      userId: string,
-                      chatRoomId: string,
-                      createdAt: string,
-                      updatedAt: string,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  lastOnlineAt?: number | null,
-                  adminRightsId?: string | null,
-                  publicKey?: string | null,
-                  createdAt: string,
-                  updatedAt: string,
-                  owner?: string | null,
-                },
-                chatRoom:  {
-                  __typename: "ChatRoom",
-                  id: string,
-                  adminRightsId?: string | null,
-                  name?: string | null,
-                  image?: string | null,
-                  users?:  {
-                    __typename: "ModelChatRoomUsersConnection",
-                    items:  Array< {
-                      __typename: "ChatRoomUsers",
-                      id: string,
-                      userId: string,
-                      chatRoomId: string,
-                      createdAt: string,
-                      updatedAt: string,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  chatMessages?:  {
-                    __typename: "ModelChatMessageConnection",
-                    items:  Array< {
-                      __typename: "ChatMessage",
-                      id: string,
-                      createdAt: string,
-                      type?: MessageType | null,
-                      text?: string | null,
-                      userId: string,
-                      chatRoomId: string,
-                      status?: MessageStatus | null,
-                      replyToMessageID?: string | null,
-                      forUserId?: string | null,
-                      updatedAt: string,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  newMessages?: number | null,
-                  lastMessage?:  {
-                    __typename: "ChatMessage",
-                    id: string,
-                    createdAt: string,
-                    type?: MessageType | null,
-                    text?: string | null,
-                    userId: string,
-                    chatRoomId: string,
-                    chatAttachments?:  {
-                      __typename: "ModelChatAttachmentConnection",
-                      nextToken?: string | null,
-                    } | null,
-                    status?: MessageStatus | null,
-                    replyToMessageID?: string | null,
-                    forUserId?: string | null,
-                    updatedAt: string,
-                    owner?: string | null,
-                  } | null,
-                  chatAttachments?:  {
-                    __typename: "ModelChatAttachmentConnection",
-                    items:  Array< {
-                      __typename: "ChatAttachment",
-                      id: string,
-                      chatMessageID?: string | null,
-                      chatRoomID?: string | null,
-                      storageKey: string,
-                      type: AttachmentType,
-                      width?: number | null,
-                      height?: number | null,
-                      duration?: number | null,
-                      createdAt: string,
-                      updatedAt: string,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  createdAt: string,
-                  updatedAt: string,
-                  chatRoomLastMessageId?: string | null,
-                  owner?: string | null,
-                },
-                createdAt: string,
-                updatedAt: string,
-                owner?: string | null,
-              } | null >,
-              nextToken?: string | null,
-            } | null,
-            lastOnlineAt?: number | null,
-            adminRightsId?: string | null,
-            publicKey?: string | null,
-            createdAt: string,
-            updatedAt: string,
-            owner?: string | null,
-          },
-          chatRoom:  {
-            __typename: "ChatRoom",
-            id: string,
-            adminRightsId?: string | null,
-            name?: string | null,
-            image?: string | null,
-            users?:  {
-              __typename: "ModelChatRoomUsersConnection",
-              items:  Array< {
-                __typename: "ChatRoomUsers",
-                id: string,
-                userId: string,
-                chatRoomId: string,
-                user:  {
-                  __typename: "User",
-                  id: string,
-                  username: string,
-                  phoneNumber: string,
-                  codelessNumber?: string | null,
-                  numbers?:  {
-                    __typename: "ModelContactConnection",
-                    items:  Array< {
-                      __typename: "Contact",
-                      number: string,
-                      createdAt: string,
-                      updatedAt: string,
-                      userNumbersId?: string | null,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  email?: string | null,
-                  chatStatus?: string | null,
-                  chatImage?: string | null,
-                  imageKey?: string | null,
-                  chatMessages?:  {
-                    __typename: "ModelChatMessageConnection",
-                    items:  Array< {
-                      __typename: "ChatMessage",
-                      id: string,
-                      createdAt: string,
-                      type?: MessageType | null,
-                      text?: string | null,
-                      userId: string,
-                      chatRoomId: string,
-                      status?: MessageStatus | null,
-                      replyToMessageID?: string | null,
-                      forUserId?: string | null,
-                      updatedAt: string,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  chatRooms?:  {
-                    __typename: "ModelChatRoomUsersConnection",
-                    items:  Array< {
-                      __typename: "ChatRoomUsers",
-                      id: string,
-                      userId: string,
-                      chatRoomId: string,
-                      createdAt: string,
-                      updatedAt: string,
-                      owner?: string | null,
-                    } | null >,
-                    nextToken?: string | null,
-                  } | null,
-                  lastOnlineAt?: number | null,
-                  adminRightsId?: string | null,
-                  publicKey?: string | null,
-                  createdAt: string,
-                  updatedAt: string,
-                  owner?: string | null,
-                },
-                chatRoom:  {
-                  __typename: "ChatRoom",
-                  id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -20096,7 +21041,6 @@ export type UsersByAdminRightsIdQuery = {
       id: string,
       username: string,
       phoneNumber: string,
-      codelessNumber?: string | null,
       numbers?:  {
         __typename: "ModelContactConnection",
         items:  Array< {
@@ -20161,7 +21105,6 @@ export type UsersByAdminRightsIdQuery = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -20226,7 +21169,6 @@ export type UsersByAdminRightsIdQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -20284,6 +21226,7 @@ export type UsersByAdminRightsIdQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -20376,6 +21319,7 @@ export type UsersByAdminRightsIdQuery = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -20391,7 +21335,6 @@ export type UsersByAdminRightsIdQuery = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -20449,6 +21392,7 @@ export type UsersByAdminRightsIdQuery = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -20814,7 +21758,6 @@ export type ChatRoomUsersByUserIdQuery = {
         id: string,
         username: string,
         phoneNumber: string,
-        codelessNumber?: string | null,
         numbers?:  {
           __typename: "ModelContactConnection",
           items:  Array< {
@@ -20879,7 +21822,6 @@ export type ChatRoomUsersByUserIdQuery = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -20944,7 +21886,6 @@ export type ChatRoomUsersByUserIdQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -20971,6 +21912,7 @@ export type ChatRoomUsersByUserIdQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -21022,6 +21964,7 @@ export type ChatRoomUsersByUserIdQuery = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -21037,7 +21980,6 @@ export type ChatRoomUsersByUserIdQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -21064,6 +22006,7 @@ export type ChatRoomUsersByUserIdQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -21213,6 +22156,7 @@ export type ChatRoomUsersByUserIdQuery = {
       chatRoom:  {
         __typename: "ChatRoom",
         id: string,
+        chatRoomId?: string | null,
         adminRightsId?: string | null,
         name?: string | null,
         image?: string | null,
@@ -21228,7 +22172,6 @@ export type ChatRoomUsersByUserIdQuery = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -21293,7 +22236,6 @@ export type ChatRoomUsersByUserIdQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -21320,6 +22262,7 @@ export type ChatRoomUsersByUserIdQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -21371,6 +22314,7 @@ export type ChatRoomUsersByUserIdQuery = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -21386,7 +22330,6 @@ export type ChatRoomUsersByUserIdQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -21413,6 +22356,7 @@ export type ChatRoomUsersByUserIdQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -21673,7 +22617,6 @@ export type ChatRoomUsersByChatRoomIdQuery = {
         id: string,
         username: string,
         phoneNumber: string,
-        codelessNumber?: string | null,
         numbers?:  {
           __typename: "ModelContactConnection",
           items:  Array< {
@@ -21738,7 +22681,6 @@ export type ChatRoomUsersByChatRoomIdQuery = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -21803,7 +22745,6 @@ export type ChatRoomUsersByChatRoomIdQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -21830,6 +22771,7 @@ export type ChatRoomUsersByChatRoomIdQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -21881,6 +22823,7 @@ export type ChatRoomUsersByChatRoomIdQuery = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -21896,7 +22839,6 @@ export type ChatRoomUsersByChatRoomIdQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -21923,6 +22865,7 @@ export type ChatRoomUsersByChatRoomIdQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -22072,6 +23015,7 @@ export type ChatRoomUsersByChatRoomIdQuery = {
       chatRoom:  {
         __typename: "ChatRoom",
         id: string,
+        chatRoomId?: string | null,
         adminRightsId?: string | null,
         name?: string | null,
         image?: string | null,
@@ -22087,7 +23031,6 @@ export type ChatRoomUsersByChatRoomIdQuery = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -22152,7 +23095,6 @@ export type ChatRoomUsersByChatRoomIdQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -22179,6 +23121,7 @@ export type ChatRoomUsersByChatRoomIdQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -22230,6 +23173,7 @@ export type ChatRoomUsersByChatRoomIdQuery = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -22245,7 +23189,6 @@ export type ChatRoomUsersByChatRoomIdQuery = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -22272,6 +23215,7 @@ export type ChatRoomUsersByChatRoomIdQuery = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -22512,13 +23456,14 @@ export type ChatRoomUsersByChatRoomIdQuery = {
 };
 
 export type OnUpdateChatroomByChatroomIdSubscriptionVariables = {
-  chatRoomID: string,
+  chatRoomId: string,
 };
 
 export type OnUpdateChatroomByChatroomIdSubscription = {
   onUpdateChatroomByChatroomId?:  {
     __typename: "ChatRoom",
     id: string,
+    chatRoomId?: string | null,
     adminRightsId?: string | null,
     name?: string | null,
     image?: string | null,
@@ -22534,7 +23479,6 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -22599,7 +23543,6 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -22650,7 +23593,6 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -22665,6 +23607,7 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -22690,6 +23633,7 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -22705,7 +23649,6 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -22720,6 +23663,7 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -22829,6 +23773,7 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -22844,7 +23789,6 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -22895,7 +23839,6 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -22910,6 +23853,7 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -22935,6 +23879,7 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -22950,7 +23895,6 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -22965,6 +23909,7 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -23256,6 +24201,45 @@ export type OnUpdateChatroomByChatroomIdSubscription = {
   } | null,
 };
 
+export type OnCreateNewChatMessageByChatroomIdSubscriptionVariables = {
+  chatRoomId: string,
+};
+
+export type OnCreateNewChatMessageByChatroomIdSubscription = {
+  onCreateNewChatMessageByChatroomId?:  {
+    __typename: "ChatMessage",
+    id: string,
+    createdAt: string,
+    type?: MessageType | null,
+    text?: string | null,
+    userId: string,
+    chatRoomId: string,
+    chatAttachments?:  {
+      __typename: "ModelChatAttachmentConnection",
+      items:  Array< {
+        __typename: "ChatAttachment",
+        id: string,
+        chatMessageID?: string | null,
+        chatRoomID?: string | null,
+        storageKey: string,
+        type: AttachmentType,
+        width?: number | null,
+        height?: number | null,
+        duration?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    status?: MessageStatus | null,
+    replyToMessageID?: string | null,
+    forUserId?: string | null,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
 export type OnCreateUserSubscriptionVariables = {
   filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
@@ -23267,7 +24251,6 @@ export type OnCreateUserSubscription = {
     id: string,
     username: string,
     phoneNumber: string,
-    codelessNumber?: string | null,
     numbers?:  {
       __typename: "ModelContactConnection",
       items:  Array< {
@@ -23332,7 +24315,6 @@ export type OnCreateUserSubscription = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -23397,7 +24379,6 @@ export type OnCreateUserSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -23448,7 +24429,6 @@ export type OnCreateUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -23463,6 +24443,7 @@ export type OnCreateUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -23488,6 +24469,7 @@ export type OnCreateUserSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -23503,7 +24485,6 @@ export type OnCreateUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -23518,6 +24499,7 @@ export type OnCreateUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -23627,6 +24609,7 @@ export type OnCreateUserSubscription = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -23642,7 +24625,6 @@ export type OnCreateUserSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -23693,7 +24675,6 @@ export type OnCreateUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -23708,6 +24689,7 @@ export type OnCreateUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -23733,6 +24715,7 @@ export type OnCreateUserSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -23748,7 +24731,6 @@ export type OnCreateUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -23763,6 +24745,7 @@ export type OnCreateUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -23980,7 +24963,6 @@ export type OnUpdateUserSubscription = {
     id: string,
     username: string,
     phoneNumber: string,
-    codelessNumber?: string | null,
     numbers?:  {
       __typename: "ModelContactConnection",
       items:  Array< {
@@ -24045,7 +25027,6 @@ export type OnUpdateUserSubscription = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -24110,7 +25091,6 @@ export type OnUpdateUserSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -24161,7 +25141,6 @@ export type OnUpdateUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -24176,6 +25155,7 @@ export type OnUpdateUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -24201,6 +25181,7 @@ export type OnUpdateUserSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -24216,7 +25197,6 @@ export type OnUpdateUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -24231,6 +25211,7 @@ export type OnUpdateUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -24340,6 +25321,7 @@ export type OnUpdateUserSubscription = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -24355,7 +25337,6 @@ export type OnUpdateUserSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -24406,7 +25387,6 @@ export type OnUpdateUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -24421,6 +25401,7 @@ export type OnUpdateUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -24446,6 +25427,7 @@ export type OnUpdateUserSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -24461,7 +25443,6 @@ export type OnUpdateUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -24476,6 +25457,7 @@ export type OnUpdateUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -24693,7 +25675,6 @@ export type OnDeleteUserSubscription = {
     id: string,
     username: string,
     phoneNumber: string,
-    codelessNumber?: string | null,
     numbers?:  {
       __typename: "ModelContactConnection",
       items:  Array< {
@@ -24758,7 +25739,6 @@ export type OnDeleteUserSubscription = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -24823,7 +25803,6 @@ export type OnDeleteUserSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -24874,7 +25853,6 @@ export type OnDeleteUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -24889,6 +25867,7 @@ export type OnDeleteUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -24914,6 +25893,7 @@ export type OnDeleteUserSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -24929,7 +25909,6 @@ export type OnDeleteUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -24944,6 +25923,7 @@ export type OnDeleteUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -25053,6 +26033,7 @@ export type OnDeleteUserSubscription = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -25068,7 +26049,6 @@ export type OnDeleteUserSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -25119,7 +26099,6 @@ export type OnDeleteUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -25134,6 +26113,7 @@ export type OnDeleteUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -25159,6 +26139,7 @@ export type OnDeleteUserSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -25174,7 +26155,6 @@ export type OnDeleteUserSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -25189,6 +26169,7 @@ export type OnDeleteUserSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -25455,6 +26436,7 @@ export type OnCreateAdminRightsSubscription = {
     chatRoom?:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -25470,7 +26452,6 @@ export type OnCreateAdminRightsSubscription = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -25535,7 +26516,6 @@ export type OnCreateAdminRightsSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -25593,6 +26573,7 @@ export type OnCreateAdminRightsSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -25685,6 +26666,7 @@ export type OnCreateAdminRightsSubscription = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -25700,7 +26682,6 @@ export type OnCreateAdminRightsSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -25758,6 +26739,7 @@ export type OnCreateAdminRightsSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -26037,7 +27019,6 @@ export type OnCreateAdminRightsSubscription = {
         id: string,
         username: string,
         phoneNumber: string,
-        codelessNumber?: string | null,
         numbers?:  {
           __typename: "ModelContactConnection",
           items:  Array< {
@@ -26102,7 +27083,6 @@ export type OnCreateAdminRightsSubscription = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -26167,7 +27147,6 @@ export type OnCreateAdminRightsSubscription = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -26194,6 +27173,7 @@ export type OnCreateAdminRightsSubscription = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -26245,6 +27225,7 @@ export type OnCreateAdminRightsSubscription = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -26260,7 +27241,6 @@ export type OnCreateAdminRightsSubscription = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -26287,6 +27267,7 @@ export type OnCreateAdminRightsSubscription = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -26454,6 +27435,7 @@ export type OnUpdateAdminRightsSubscription = {
     chatRoom?:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -26469,7 +27451,6 @@ export type OnUpdateAdminRightsSubscription = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -26534,7 +27515,6 @@ export type OnUpdateAdminRightsSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -26592,6 +27572,7 @@ export type OnUpdateAdminRightsSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -26684,6 +27665,7 @@ export type OnUpdateAdminRightsSubscription = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -26699,7 +27681,6 @@ export type OnUpdateAdminRightsSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -26757,6 +27738,7 @@ export type OnUpdateAdminRightsSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -27036,7 +28018,6 @@ export type OnUpdateAdminRightsSubscription = {
         id: string,
         username: string,
         phoneNumber: string,
-        codelessNumber?: string | null,
         numbers?:  {
           __typename: "ModelContactConnection",
           items:  Array< {
@@ -27101,7 +28082,6 @@ export type OnUpdateAdminRightsSubscription = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -27166,7 +28146,6 @@ export type OnUpdateAdminRightsSubscription = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -27193,6 +28172,7 @@ export type OnUpdateAdminRightsSubscription = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -27244,6 +28224,7 @@ export type OnUpdateAdminRightsSubscription = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -27259,7 +28240,6 @@ export type OnUpdateAdminRightsSubscription = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -27286,6 +28266,7 @@ export type OnUpdateAdminRightsSubscription = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -27453,6 +28434,7 @@ export type OnDeleteAdminRightsSubscription = {
     chatRoom?:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -27468,7 +28450,6 @@ export type OnDeleteAdminRightsSubscription = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -27533,7 +28514,6 @@ export type OnDeleteAdminRightsSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -27591,6 +28571,7 @@ export type OnDeleteAdminRightsSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -27683,6 +28664,7 @@ export type OnDeleteAdminRightsSubscription = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -27698,7 +28680,6 @@ export type OnDeleteAdminRightsSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -27756,6 +28737,7 @@ export type OnDeleteAdminRightsSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -28035,7 +29017,6 @@ export type OnDeleteAdminRightsSubscription = {
         id: string,
         username: string,
         phoneNumber: string,
-        codelessNumber?: string | null,
         numbers?:  {
           __typename: "ModelContactConnection",
           items:  Array< {
@@ -28100,7 +29081,6 @@ export type OnDeleteAdminRightsSubscription = {
               id: string,
               username: string,
               phoneNumber: string,
-              codelessNumber?: string | null,
               numbers?:  {
                 __typename: "ModelContactConnection",
                 items:  Array< {
@@ -28165,7 +29145,6 @@ export type OnDeleteAdminRightsSubscription = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -28192,6 +29171,7 @@ export type OnDeleteAdminRightsSubscription = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -28243,6 +29223,7 @@ export type OnDeleteAdminRightsSubscription = {
             chatRoom:  {
               __typename: "ChatRoom",
               id: string,
+              chatRoomId?: string | null,
               adminRightsId?: string | null,
               name?: string | null,
               image?: string | null,
@@ -28258,7 +29239,6 @@ export type OnDeleteAdminRightsSubscription = {
                     id: string,
                     username: string,
                     phoneNumber: string,
-                    codelessNumber?: string | null,
                     numbers?:  {
                       __typename: "ModelContactConnection",
                       nextToken?: string | null,
@@ -28285,6 +29265,7 @@ export type OnDeleteAdminRightsSubscription = {
                   chatRoom:  {
                     __typename: "ChatRoom",
                     id: string,
+                    chatRoomId?: string | null,
                     adminRightsId?: string | null,
                     name?: string | null,
                     image?: string | null,
@@ -28635,6 +29616,7 @@ export type OnCreateChatRoomSubscription = {
   onCreateChatRoom?:  {
     __typename: "ChatRoom",
     id: string,
+    chatRoomId?: string | null,
     adminRightsId?: string | null,
     name?: string | null,
     image?: string | null,
@@ -28650,7 +29632,6 @@ export type OnCreateChatRoomSubscription = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -28715,7 +29696,6 @@ export type OnCreateChatRoomSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -28766,7 +29746,6 @@ export type OnCreateChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -28781,6 +29760,7 @@ export type OnCreateChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -28806,6 +29786,7 @@ export type OnCreateChatRoomSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -28821,7 +29802,6 @@ export type OnCreateChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -28836,6 +29816,7 @@ export type OnCreateChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -28945,6 +29926,7 @@ export type OnCreateChatRoomSubscription = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -28960,7 +29942,6 @@ export type OnCreateChatRoomSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -29011,7 +29992,6 @@ export type OnCreateChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -29026,6 +30006,7 @@ export type OnCreateChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -29051,6 +30032,7 @@ export type OnCreateChatRoomSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -29066,7 +30048,6 @@ export type OnCreateChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -29081,6 +30062,7 @@ export type OnCreateChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -29381,6 +30363,7 @@ export type OnUpdateChatRoomSubscription = {
   onUpdateChatRoom?:  {
     __typename: "ChatRoom",
     id: string,
+    chatRoomId?: string | null,
     adminRightsId?: string | null,
     name?: string | null,
     image?: string | null,
@@ -29396,7 +30379,6 @@ export type OnUpdateChatRoomSubscription = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -29461,7 +30443,6 @@ export type OnUpdateChatRoomSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -29512,7 +30493,6 @@ export type OnUpdateChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -29527,6 +30507,7 @@ export type OnUpdateChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -29552,6 +30533,7 @@ export type OnUpdateChatRoomSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -29567,7 +30549,6 @@ export type OnUpdateChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -29582,6 +30563,7 @@ export type OnUpdateChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -29691,6 +30673,7 @@ export type OnUpdateChatRoomSubscription = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -29706,7 +30689,6 @@ export type OnUpdateChatRoomSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -29757,7 +30739,6 @@ export type OnUpdateChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -29772,6 +30753,7 @@ export type OnUpdateChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -29797,6 +30779,7 @@ export type OnUpdateChatRoomSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -29812,7 +30795,6 @@ export type OnUpdateChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -29827,6 +30809,7 @@ export type OnUpdateChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -30127,6 +31110,7 @@ export type OnDeleteChatRoomSubscription = {
   onDeleteChatRoom?:  {
     __typename: "ChatRoom",
     id: string,
+    chatRoomId?: string | null,
     adminRightsId?: string | null,
     name?: string | null,
     image?: string | null,
@@ -30142,7 +31126,6 @@ export type OnDeleteChatRoomSubscription = {
           id: string,
           username: string,
           phoneNumber: string,
-          codelessNumber?: string | null,
           numbers?:  {
             __typename: "ModelContactConnection",
             items:  Array< {
@@ -30207,7 +31190,6 @@ export type OnDeleteChatRoomSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -30258,7 +31240,6 @@ export type OnDeleteChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -30273,6 +31254,7 @@ export type OnDeleteChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -30298,6 +31280,7 @@ export type OnDeleteChatRoomSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -30313,7 +31296,6 @@ export type OnDeleteChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -30328,6 +31310,7 @@ export type OnDeleteChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -30437,6 +31420,7 @@ export type OnDeleteChatRoomSubscription = {
         chatRoom:  {
           __typename: "ChatRoom",
           id: string,
+          chatRoomId?: string | null,
           adminRightsId?: string | null,
           name?: string | null,
           image?: string | null,
@@ -30452,7 +31436,6 @@ export type OnDeleteChatRoomSubscription = {
                 id: string,
                 username: string,
                 phoneNumber: string,
-                codelessNumber?: string | null,
                 numbers?:  {
                   __typename: "ModelContactConnection",
                   items:  Array< {
@@ -30503,7 +31486,6 @@ export type OnDeleteChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -30518,6 +31500,7 @@ export type OnDeleteChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -30543,6 +31526,7 @@ export type OnDeleteChatRoomSubscription = {
               chatRoom:  {
                 __typename: "ChatRoom",
                 id: string,
+                chatRoomId?: string | null,
                 adminRightsId?: string | null,
                 name?: string | null,
                 image?: string | null,
@@ -30558,7 +31542,6 @@ export type OnDeleteChatRoomSubscription = {
                       id: string,
                       username: string,
                       phoneNumber: string,
-                      codelessNumber?: string | null,
                       email?: string | null,
                       chatStatus?: string | null,
                       chatImage?: string | null,
@@ -30573,6 +31556,7 @@ export type OnDeleteChatRoomSubscription = {
                     chatRoom:  {
                       __typename: "ChatRoom",
                       id: string,
+                      chatRoomId?: string | null,
                       adminRightsId?: string | null,
                       name?: string | null,
                       image?: string | null,
@@ -30880,7 +31864,6 @@ export type OnCreateChatRoomUsersSubscription = {
       id: string,
       username: string,
       phoneNumber: string,
-      codelessNumber?: string | null,
       numbers?:  {
         __typename: "ModelContactConnection",
         items:  Array< {
@@ -30945,7 +31928,6 @@ export type OnCreateChatRoomUsersSubscription = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -31010,7 +31992,6 @@ export type OnCreateChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -31068,6 +32049,7 @@ export type OnCreateChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -31160,6 +32142,7 @@ export type OnCreateChatRoomUsersSubscription = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -31175,7 +32158,6 @@ export type OnCreateChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -31233,6 +32215,7 @@ export type OnCreateChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -31423,6 +32406,7 @@ export type OnCreateChatRoomUsersSubscription = {
     chatRoom:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -31438,7 +32422,6 @@ export type OnCreateChatRoomUsersSubscription = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -31503,7 +32486,6 @@ export type OnCreateChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -31561,6 +32543,7 @@ export type OnCreateChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -31653,6 +32636,7 @@ export type OnCreateChatRoomUsersSubscription = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -31668,7 +32652,6 @@ export type OnCreateChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -31726,6 +32709,7 @@ export type OnCreateChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -32020,7 +33004,6 @@ export type OnUpdateChatRoomUsersSubscription = {
       id: string,
       username: string,
       phoneNumber: string,
-      codelessNumber?: string | null,
       numbers?:  {
         __typename: "ModelContactConnection",
         items:  Array< {
@@ -32085,7 +33068,6 @@ export type OnUpdateChatRoomUsersSubscription = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -32150,7 +33132,6 @@ export type OnUpdateChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -32208,6 +33189,7 @@ export type OnUpdateChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -32300,6 +33282,7 @@ export type OnUpdateChatRoomUsersSubscription = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -32315,7 +33298,6 @@ export type OnUpdateChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -32373,6 +33355,7 @@ export type OnUpdateChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -32563,6 +33546,7 @@ export type OnUpdateChatRoomUsersSubscription = {
     chatRoom:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -32578,7 +33562,6 @@ export type OnUpdateChatRoomUsersSubscription = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -32643,7 +33626,6 @@ export type OnUpdateChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -32701,6 +33683,7 @@ export type OnUpdateChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -32793,6 +33776,7 @@ export type OnUpdateChatRoomUsersSubscription = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -32808,7 +33792,6 @@ export type OnUpdateChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -32866,6 +33849,7 @@ export type OnUpdateChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -33160,7 +34144,6 @@ export type OnDeleteChatRoomUsersSubscription = {
       id: string,
       username: string,
       phoneNumber: string,
-      codelessNumber?: string | null,
       numbers?:  {
         __typename: "ModelContactConnection",
         items:  Array< {
@@ -33225,7 +34208,6 @@ export type OnDeleteChatRoomUsersSubscription = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -33290,7 +34272,6 @@ export type OnDeleteChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -33348,6 +34329,7 @@ export type OnDeleteChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -33440,6 +34422,7 @@ export type OnDeleteChatRoomUsersSubscription = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -33455,7 +34438,6 @@ export type OnDeleteChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -33513,6 +34495,7 @@ export type OnDeleteChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -33703,6 +34686,7 @@ export type OnDeleteChatRoomUsersSubscription = {
     chatRoom:  {
       __typename: "ChatRoom",
       id: string,
+      chatRoomId?: string | null,
       adminRightsId?: string | null,
       name?: string | null,
       image?: string | null,
@@ -33718,7 +34702,6 @@ export type OnDeleteChatRoomUsersSubscription = {
             id: string,
             username: string,
             phoneNumber: string,
-            codelessNumber?: string | null,
             numbers?:  {
               __typename: "ModelContactConnection",
               items:  Array< {
@@ -33783,7 +34766,6 @@ export type OnDeleteChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -33841,6 +34823,7 @@ export type OnDeleteChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,
@@ -33933,6 +34916,7 @@ export type OnDeleteChatRoomUsersSubscription = {
           chatRoom:  {
             __typename: "ChatRoom",
             id: string,
+            chatRoomId?: string | null,
             adminRightsId?: string | null,
             name?: string | null,
             image?: string | null,
@@ -33948,7 +34932,6 @@ export type OnDeleteChatRoomUsersSubscription = {
                   id: string,
                   username: string,
                   phoneNumber: string,
-                  codelessNumber?: string | null,
                   numbers?:  {
                     __typename: "ModelContactConnection",
                     items:  Array< {
@@ -34006,6 +34989,7 @@ export type OnDeleteChatRoomUsersSubscription = {
                 chatRoom:  {
                   __typename: "ChatRoom",
                   id: string,
+                  chatRoomId?: string | null,
                   adminRightsId?: string | null,
                   name?: string | null,
                   image?: string | null,

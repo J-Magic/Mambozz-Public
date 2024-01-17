@@ -8,7 +8,6 @@ export const getUsersByNumbers = /* GraphQL */ `
       id
       username
       phoneNumber
-      codelessNumber
       numbers {
         items {
           number
@@ -64,7 +63,6 @@ export const getUsersByNumbers = /* GraphQL */ `
             id
             username
             phoneNumber
-            codelessNumber
             numbers {
               items {
                 number
@@ -120,7 +118,6 @@ export const getUsersByNumbers = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -163,7 +160,6 @@ export const getUsersByNumbers = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -177,6 +173,7 @@ export const getUsersByNumbers = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -201,6 +198,7 @@ export const getUsersByNumbers = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -213,7 +211,6 @@ export const getUsersByNumbers = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -227,6 +224,7 @@ export const getUsersByNumbers = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -327,6 +325,7 @@ export const getUsersByNumbers = /* GraphQL */ `
           }
           chatRoom {
             id
+            chatRoomId
             adminRightsId
             name
             image
@@ -339,7 +338,6 @@ export const getUsersByNumbers = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -382,7 +380,6 @@ export const getUsersByNumbers = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -396,6 +393,7 @@ export const getUsersByNumbers = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -420,6 +418,7 @@ export const getUsersByNumbers = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -432,7 +431,6 @@ export const getUsersByNumbers = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -446,6 +444,7 @@ export const getUsersByNumbers = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -635,13 +634,600 @@ export const getUsersByNumbers = /* GraphQL */ `
     }
   }
 `;
+export const getIndividual_User = /* GraphQL */ `
+  query GetIndividual_User($UserID: ID!) {
+    getIndividual_User(UserID: $UserID) {
+      ID
+      UserID
+      currentBalance
+      transactions {
+        TransactionID
+        category
+        type
+        transactionExecutorId
+        transactionAmount
+        currency
+        forUserId
+        createdAt
+        status
+      }
+      chamas {
+        GroupID
+        groupName
+        groupMembers {
+          id
+          username
+          phoneNumber
+          numbers {
+            items {
+              number
+              createdAt
+              updatedAt
+              userNumbersId
+              owner
+            }
+            nextToken
+          }
+          email
+          chatStatus
+          chatImage
+          imageKey
+          chatMessages {
+            items {
+              id
+              createdAt
+              type
+              text
+              userId
+              chatRoomId
+              chatAttachments {
+                items {
+                  id
+                  chatMessageID
+                  chatRoomID
+                  storageKey
+                  type
+                  width
+                  height
+                  duration
+                  createdAt
+                  updatedAt
+                  owner
+                }
+                nextToken
+              }
+              status
+              replyToMessageID
+              forUserId
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          chatRooms {
+            items {
+              id
+              userId
+              chatRoomId
+              user {
+                id
+                username
+                phoneNumber
+                numbers {
+                  items {
+                    number
+                    createdAt
+                    updatedAt
+                    userNumbersId
+                    owner
+                  }
+                  nextToken
+                }
+                email
+                chatStatus
+                chatImage
+                imageKey
+                chatMessages {
+                  items {
+                    id
+                    createdAt
+                    type
+                    text
+                    userId
+                    chatRoomId
+                    chatAttachments {
+                      items {
+                        id
+                        chatMessageID
+                        chatRoomID
+                        storageKey
+                        type
+                        width
+                        height
+                        duration
+                        createdAt
+                        updatedAt
+                        owner
+                      }
+                      nextToken
+                    }
+                    status
+                    replyToMessageID
+                    forUserId
+                    updatedAt
+                    owner
+                  }
+                  nextToken
+                }
+                chatRooms {
+                  items {
+                    id
+                    userId
+                    chatRoomId
+                    user {
+                      id
+                      username
+                      phoneNumber
+                      numbers {
+                        nextToken
+                      }
+                      email
+                      chatStatus
+                      chatImage
+                      imageKey
+                      chatMessages {
+                        nextToken
+                      }
+                      chatRooms {
+                        nextToken
+                      }
+                      lastOnlineAt
+                      adminRightsId
+                      publicKey
+                      createdAt
+                      updatedAt
+                      owner
+                    }
+                    chatRoom {
+                      id
+                      chatRoomId
+                      adminRightsId
+                      name
+                      image
+                      users {
+                        nextToken
+                      }
+                      chatMessages {
+                        nextToken
+                      }
+                      newMessages
+                      lastMessage {
+                        id
+                        createdAt
+                        type
+                        text
+                        userId
+                        chatRoomId
+                        status
+                        replyToMessageID
+                        forUserId
+                        updatedAt
+                        owner
+                      }
+                      chatAttachments {
+                        nextToken
+                      }
+                      createdAt
+                      updatedAt
+                      chatRoomLastMessageId
+                      owner
+                    }
+                    createdAt
+                    updatedAt
+                    owner
+                  }
+                  nextToken
+                }
+                lastOnlineAt
+                adminRightsId
+                publicKey
+                createdAt
+                updatedAt
+                owner
+              }
+              chatRoom {
+                id
+                chatRoomId
+                adminRightsId
+                name
+                image
+                users {
+                  items {
+                    id
+                    userId
+                    chatRoomId
+                    user {
+                      id
+                      username
+                      phoneNumber
+                      numbers {
+                        nextToken
+                      }
+                      email
+                      chatStatus
+                      chatImage
+                      imageKey
+                      chatMessages {
+                        nextToken
+                      }
+                      chatRooms {
+                        nextToken
+                      }
+                      lastOnlineAt
+                      adminRightsId
+                      publicKey
+                      createdAt
+                      updatedAt
+                      owner
+                    }
+                    chatRoom {
+                      id
+                      chatRoomId
+                      adminRightsId
+                      name
+                      image
+                      users {
+                        nextToken
+                      }
+                      chatMessages {
+                        nextToken
+                      }
+                      newMessages
+                      lastMessage {
+                        id
+                        createdAt
+                        type
+                        text
+                        userId
+                        chatRoomId
+                        status
+                        replyToMessageID
+                        forUserId
+                        updatedAt
+                        owner
+                      }
+                      chatAttachments {
+                        nextToken
+                      }
+                      createdAt
+                      updatedAt
+                      chatRoomLastMessageId
+                      owner
+                    }
+                    createdAt
+                    updatedAt
+                    owner
+                  }
+                  nextToken
+                }
+                chatMessages {
+                  items {
+                    id
+                    createdAt
+                    type
+                    text
+                    userId
+                    chatRoomId
+                    chatAttachments {
+                      items {
+                        id
+                        chatMessageID
+                        chatRoomID
+                        storageKey
+                        type
+                        width
+                        height
+                        duration
+                        createdAt
+                        updatedAt
+                        owner
+                      }
+                      nextToken
+                    }
+                    status
+                    replyToMessageID
+                    forUserId
+                    updatedAt
+                    owner
+                  }
+                  nextToken
+                }
+                newMessages
+                lastMessage {
+                  id
+                  createdAt
+                  type
+                  text
+                  userId
+                  chatRoomId
+                  chatAttachments {
+                    items {
+                      id
+                      chatMessageID
+                      chatRoomID
+                      storageKey
+                      type
+                      width
+                      height
+                      duration
+                      createdAt
+                      updatedAt
+                      owner
+                    }
+                    nextToken
+                  }
+                  status
+                  replyToMessageID
+                  forUserId
+                  updatedAt
+                  owner
+                }
+                chatAttachments {
+                  items {
+                    id
+                    chatMessageID
+                    chatRoomID
+                    storageKey
+                    type
+                    width
+                    height
+                    duration
+                    createdAt
+                    updatedAt
+                    owner
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+                chatRoomLastMessageId
+                owner
+              }
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          lastOnlineAt
+          adminRightsId
+          publicKey
+          createdAt
+          updatedAt
+          owner
+        }
+        currentBalance
+        transactions {
+          TransactionID
+          category
+          type
+          transactionExecutorId
+          transactionAmount
+          currency
+          forUserId
+          createdAt
+          status
+        }
+        approvedLoanKitty
+        approvedInvestmentKitty
+        loansDisbursed {
+          LoanID
+          loaneeID
+          category
+          amountLoaned
+          currency
+          loanDisbursementDate
+          interestRate
+          loanPeriod
+          totalInterestPayable
+          totalLoanPayable
+          installments
+          installmentAmount
+          installmentPaymentDate
+          latePayments
+          totalPaidtoDate
+          percentagePaidtoDate
+          repayments {
+            LoanRepaymentID
+            loanId
+            loaneeId
+            transactionID
+            installmentDate
+            installmentAmount
+            paymentAmount
+            paymentDate
+            installmentBalance
+          }
+          loanDueDate
+          fullyPaid
+          defaulted
+          actualAmountPaidonCompletion
+          status
+        }
+        paidLoans
+        activeLoans
+        nonPerformingLoans
+        createdAt
+        updatedAt
+      }
+      loans {
+        LoanID
+        loaneeID
+        category
+        amountLoaned
+        currency
+        loanDisbursementDate
+        interestRate
+        loanPeriod
+        totalInterestPayable
+        totalLoanPayable
+        installments
+        installmentAmount
+        installmentPaymentDate
+        latePayments
+        totalPaidtoDate
+        percentagePaidtoDate
+        repayments {
+          LoanRepaymentID
+          loanId
+          loaneeId
+          transactionID
+          installmentDate
+          installmentAmount
+          paymentAmount
+          paymentDate
+          installmentBalance
+        }
+        loanDueDate
+        fullyPaid
+        defaulted
+        actualAmountPaidonCompletion
+        status
+      }
+      paidLoans
+      activeLoans
+      nonPerformingLoans
+      lateLoanInstallmentRepayments
+      loanRating
+      loanRepayments {
+        LoanRepaymentID
+        loanId
+        loaneeId
+        transactionID
+        installmentDate
+        installmentAmount
+        paymentAmount
+        paymentDate
+        installmentBalance
+      }
+      purchases {
+        PurchaseID
+        itemName
+        quantity
+        unitPrice
+        currency
+        BusinessID
+        paymentStatus
+        TransactionSettled
+      }
+      businesses {
+        BusinessID
+        businessName
+        ownerUserId
+        currentBalance
+        transactions {
+          TransactionID
+          category
+          type
+          transactionExecutorId
+          transactionAmount
+          currency
+          forUserId
+          createdAt
+          status
+        }
+        purchases {
+          PurchaseID
+          itemName
+          quantity
+          unitPrice
+          currency
+          BusinessID
+          paymentStatus
+          TransactionSettled
+        }
+        sales {
+          SaleID
+          itemName
+          quantity
+          unitPrice
+          currency
+          BusinessID
+          paymentStatus
+          TransactionSettled
+        }
+        inventory {
+          InventoryID
+          categoryName
+          subCategoryName
+          itemName
+          currentStock
+          unsettledOrders
+          unitSalePrice
+          currency
+          createdAt
+          updatedAt
+        }
+        loans {
+          LoanID
+          loaneeID
+          category
+          amountLoaned
+          currency
+          loanDisbursementDate
+          interestRate
+          loanPeriod
+          totalInterestPayable
+          totalLoanPayable
+          installments
+          installmentAmount
+          installmentPaymentDate
+          latePayments
+          totalPaidtoDate
+          percentagePaidtoDate
+          repayments {
+            LoanRepaymentID
+            loanId
+            loaneeId
+            transactionID
+            installmentDate
+            installmentAmount
+            paymentAmount
+            paymentDate
+            installmentBalance
+          }
+          loanDueDate
+          fullyPaid
+          defaulted
+          actualAmountPaidonCompletion
+          status
+        }
+        paidLoans
+        activeLoans
+        nonPerformingLoans
+        lateLoanInstallmentRepayments
+        loanRating
+        loanRepayments {
+          LoanRepaymentID
+          loanId
+          loaneeId
+          transactionID
+          installmentDate
+          installmentAmount
+          paymentAmount
+          paymentDate
+          installmentBalance
+        }
+      }
+    }
+  }
+`;
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
       username
       phoneNumber
-      codelessNumber
       numbers {
         items {
           number
@@ -697,7 +1283,6 @@ export const getUser = /* GraphQL */ `
             id
             username
             phoneNumber
-            codelessNumber
             numbers {
               items {
                 number
@@ -753,7 +1338,6 @@ export const getUser = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -796,7 +1380,6 @@ export const getUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -810,6 +1393,7 @@ export const getUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -834,6 +1418,7 @@ export const getUser = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -846,7 +1431,6 @@ export const getUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -860,6 +1444,7 @@ export const getUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -960,6 +1545,7 @@ export const getUser = /* GraphQL */ `
           }
           chatRoom {
             id
+            chatRoomId
             adminRightsId
             name
             image
@@ -972,7 +1558,6 @@ export const getUser = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -1015,7 +1600,6 @@ export const getUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -1029,6 +1613,7 @@ export const getUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -1053,6 +1638,7 @@ export const getUser = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -1065,7 +1651,6 @@ export const getUser = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -1079,6 +1664,7 @@ export const getUser = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -1279,7 +1865,6 @@ export const listUsers = /* GraphQL */ `
         id
         username
         phoneNumber
-        codelessNumber
         numbers {
           items {
             number
@@ -1335,7 +1920,6 @@ export const listUsers = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -1391,7 +1975,6 @@ export const listUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -1442,6 +2025,7 @@ export const listUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -1525,6 +2109,7 @@ export const listUsers = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -1537,7 +2122,6 @@ export const listUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -1588,6 +2172,7 @@ export const listUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -1805,6 +2390,7 @@ export const getAdminRights = /* GraphQL */ `
       id
       chatRoom {
         id
+        chatRoomId
         adminRightsId
         name
         image
@@ -1817,7 +2403,6 @@ export const getAdminRights = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -1873,7 +2458,6 @@ export const getAdminRights = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -1924,6 +2508,7 @@ export const getAdminRights = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -2007,6 +2592,7 @@ export const getAdminRights = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -2019,7 +2605,6 @@ export const getAdminRights = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -2070,6 +2655,7 @@ export const getAdminRights = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -2321,7 +2907,6 @@ export const getAdminRights = /* GraphQL */ `
           id
           username
           phoneNumber
-          codelessNumber
           numbers {
             items {
               number
@@ -2377,7 +2962,6 @@ export const getAdminRights = /* GraphQL */ `
                 id
                 username
                 phoneNumber
-                codelessNumber
                 numbers {
                   items {
                     number
@@ -2433,7 +3017,6 @@ export const getAdminRights = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -2456,6 +3039,7 @@ export const getAdminRights = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -2502,6 +3086,7 @@ export const getAdminRights = /* GraphQL */ `
               }
               chatRoom {
                 id
+                chatRoomId
                 adminRightsId
                 name
                 image
@@ -2514,7 +3099,6 @@ export const getAdminRights = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -2537,6 +3121,7 @@ export const getAdminRights = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -2690,6 +3275,7 @@ export const listAdminRights = /* GraphQL */ `
         id
         chatRoom {
           id
+          chatRoomId
           adminRightsId
           name
           image
@@ -2702,7 +3288,6 @@ export const listAdminRights = /* GraphQL */ `
                 id
                 username
                 phoneNumber
-                codelessNumber
                 numbers {
                   items {
                     number
@@ -2758,7 +3343,6 @@ export const listAdminRights = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -2781,6 +3365,7 @@ export const listAdminRights = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -2827,6 +3412,7 @@ export const listAdminRights = /* GraphQL */ `
               }
               chatRoom {
                 id
+                chatRoomId
                 adminRightsId
                 name
                 image
@@ -2839,7 +3425,6 @@ export const listAdminRights = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -2862,6 +3447,7 @@ export const listAdminRights = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -3076,7 +3662,6 @@ export const listAdminRights = /* GraphQL */ `
             id
             username
             phoneNumber
-            codelessNumber
             numbers {
               items {
                 number
@@ -3132,7 +3717,6 @@ export const listAdminRights = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -3175,7 +3759,6 @@ export const listAdminRights = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -3189,6 +3772,7 @@ export const listAdminRights = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -3213,6 +3797,7 @@ export const listAdminRights = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -3225,7 +3810,6 @@ export const listAdminRights = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -3239,6 +3823,7 @@ export const listAdminRights = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -3466,6 +4051,7 @@ export const getChatRoom = /* GraphQL */ `
   query GetChatRoom($id: ID!) {
     getChatRoom(id: $id) {
       id
+      chatRoomId
       adminRightsId
       name
       image
@@ -3478,7 +4064,6 @@ export const getChatRoom = /* GraphQL */ `
             id
             username
             phoneNumber
-            codelessNumber
             numbers {
               items {
                 number
@@ -3534,7 +4119,6 @@ export const getChatRoom = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -3577,7 +4161,6 @@ export const getChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -3591,6 +4174,7 @@ export const getChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -3615,6 +4199,7 @@ export const getChatRoom = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -3627,7 +4212,6 @@ export const getChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -3641,6 +4225,7 @@ export const getChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -3741,6 +4326,7 @@ export const getChatRoom = /* GraphQL */ `
           }
           chatRoom {
             id
+            chatRoomId
             adminRightsId
             name
             image
@@ -3753,7 +4339,6 @@ export const getChatRoom = /* GraphQL */ `
                   id
                   username
                   phoneNumber
-                  codelessNumber
                   numbers {
                     items {
                       number
@@ -3796,7 +4381,6 @@ export const getChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -3810,6 +4394,7 @@ export const getChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -3834,6 +4419,7 @@ export const getChatRoom = /* GraphQL */ `
                 }
                 chatRoom {
                   id
+                  chatRoomId
                   adminRightsId
                   name
                   image
@@ -3846,7 +4432,6 @@ export const getChatRoom = /* GraphQL */ `
                         id
                         username
                         phoneNumber
-                        codelessNumber
                         email
                         chatStatus
                         chatImage
@@ -3860,6 +4445,7 @@ export const getChatRoom = /* GraphQL */ `
                       }
                       chatRoom {
                         id
+                        chatRoomId
                         adminRightsId
                         name
                         image
@@ -4134,6 +4720,7 @@ export const listChatRooms = /* GraphQL */ `
     listChatRooms(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        chatRoomId
         adminRightsId
         name
         image
@@ -4146,7 +4733,6 @@ export const listChatRooms = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -4202,7 +4788,6 @@ export const listChatRooms = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -4253,6 +4838,7 @@ export const listChatRooms = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -4336,6 +4922,7 @@ export const listChatRooms = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -4348,7 +4935,6 @@ export const listChatRooms = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -4399,6 +4985,7 @@ export const listChatRooms = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -4659,7 +5246,6 @@ export const getChatRoomUsers = /* GraphQL */ `
         id
         username
         phoneNumber
-        codelessNumber
         numbers {
           items {
             number
@@ -4715,7 +5301,6 @@ export const getChatRoomUsers = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -4771,7 +5356,6 @@ export const getChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -4822,6 +5406,7 @@ export const getChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -4905,6 +5490,7 @@ export const getChatRoomUsers = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -4917,7 +5503,6 @@ export const getChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -4968,6 +5553,7 @@ export const getChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -5140,6 +5726,7 @@ export const getChatRoomUsers = /* GraphQL */ `
       }
       chatRoom {
         id
+        chatRoomId
         adminRightsId
         name
         image
@@ -5152,7 +5739,6 @@ export const getChatRoomUsers = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -5208,7 +5794,6 @@ export const getChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -5259,6 +5844,7 @@ export const getChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -5342,6 +5928,7 @@ export const getChatRoomUsers = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -5354,7 +5941,6 @@ export const getChatRoomUsers = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -5405,6 +5991,7 @@ export const getChatRoomUsers = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -5672,7 +6259,6 @@ export const listChatRoomUsers = /* GraphQL */ `
           id
           username
           phoneNumber
-          codelessNumber
           numbers {
             items {
               number
@@ -5728,7 +6314,6 @@ export const listChatRoomUsers = /* GraphQL */ `
                 id
                 username
                 phoneNumber
-                codelessNumber
                 numbers {
                   items {
                     number
@@ -5784,7 +6369,6 @@ export const listChatRoomUsers = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -5807,6 +6391,7 @@ export const listChatRoomUsers = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -5853,6 +6438,7 @@ export const listChatRoomUsers = /* GraphQL */ `
               }
               chatRoom {
                 id
+                chatRoomId
                 adminRightsId
                 name
                 image
@@ -5865,7 +6451,6 @@ export const listChatRoomUsers = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -5888,6 +6473,7 @@ export const listChatRoomUsers = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -6023,6 +6609,7 @@ export const listChatRoomUsers = /* GraphQL */ `
         }
         chatRoom {
           id
+          chatRoomId
           adminRightsId
           name
           image
@@ -6035,7 +6622,6 @@ export const listChatRoomUsers = /* GraphQL */ `
                 id
                 username
                 phoneNumber
-                codelessNumber
                 numbers {
                   items {
                     number
@@ -6091,7 +6677,6 @@ export const listChatRoomUsers = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -6114,6 +6699,7 @@ export const listChatRoomUsers = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -6160,6 +6746,7 @@ export const listChatRoomUsers = /* GraphQL */ `
               }
               chatRoom {
                 id
+                chatRoomId
                 adminRightsId
                 name
                 image
@@ -6172,7 +6759,6 @@ export const listChatRoomUsers = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -6195,6 +6781,7 @@ export const listChatRoomUsers = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -6431,7 +7018,6 @@ export const usersByPhoneNumber = /* GraphQL */ `
         id
         username
         phoneNumber
-        codelessNumber
         numbers {
           items {
             number
@@ -6487,7 +7073,6 @@ export const usersByPhoneNumber = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -6543,7 +7128,6 @@ export const usersByPhoneNumber = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -6594,6 +7178,7 @@ export const usersByPhoneNumber = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -6677,6 +7262,7 @@ export const usersByPhoneNumber = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -6689,7 +7275,6 @@ export const usersByPhoneNumber = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -6740,508 +7325,7 @@ export const usersByPhoneNumber = /* GraphQL */ `
                   }
                   chatRoom {
                     id
-                    adminRightsId
-                    name
-                    image
-                    users {
-                      items {
-                        id
-                        userId
-                        chatRoomId
-                        createdAt
-                        updatedAt
-                        owner
-                      }
-                      nextToken
-                    }
-                    chatMessages {
-                      items {
-                        id
-                        createdAt
-                        type
-                        text
-                        userId
-                        chatRoomId
-                        status
-                        replyToMessageID
-                        forUserId
-                        updatedAt
-                        owner
-                      }
-                      nextToken
-                    }
-                    newMessages
-                    lastMessage {
-                      id
-                      createdAt
-                      type
-                      text
-                      userId
-                      chatRoomId
-                      chatAttachments {
-                        nextToken
-                      }
-                      status
-                      replyToMessageID
-                      forUserId
-                      updatedAt
-                      owner
-                    }
-                    chatAttachments {
-                      items {
-                        id
-                        chatMessageID
-                        chatRoomID
-                        storageKey
-                        type
-                        width
-                        height
-                        duration
-                        createdAt
-                        updatedAt
-                        owner
-                      }
-                      nextToken
-                    }
-                    createdAt
-                    updatedAt
-                    chatRoomLastMessageId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
-              chatMessages {
-                items {
-                  id
-                  createdAt
-                  type
-                  text
-                  userId
-                  chatRoomId
-                  chatAttachments {
-                    items {
-                      id
-                      chatMessageID
-                      chatRoomID
-                      storageKey
-                      type
-                      width
-                      height
-                      duration
-                      createdAt
-                      updatedAt
-                      owner
-                    }
-                    nextToken
-                  }
-                  status
-                  replyToMessageID
-                  forUserId
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
-              newMessages
-              lastMessage {
-                id
-                createdAt
-                type
-                text
-                userId
-                chatRoomId
-                chatAttachments {
-                  items {
-                    id
-                    chatMessageID
-                    chatRoomID
-                    storageKey
-                    type
-                    width
-                    height
-                    duration
-                    createdAt
-                    updatedAt
-                    owner
-                  }
-                  nextToken
-                }
-                status
-                replyToMessageID
-                forUserId
-                updatedAt
-                owner
-              }
-              chatAttachments {
-                items {
-                  id
-                  chatMessageID
-                  chatRoomID
-                  storageKey
-                  type
-                  width
-                  height
-                  duration
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
-              createdAt
-              updatedAt
-              chatRoomLastMessageId
-              owner
-            }
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-        lastOnlineAt
-        adminRightsId
-        publicKey
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const usersByCodelessNumber = /* GraphQL */ `
-  query UsersByCodelessNumber(
-    $codelessNumber: String!
-    $sortDirection: ModelSortDirection
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    usersByCodelessNumber(
-      codelessNumber: $codelessNumber
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        username
-        phoneNumber
-        codelessNumber
-        numbers {
-          items {
-            number
-            createdAt
-            updatedAt
-            userNumbersId
-            owner
-          }
-          nextToken
-        }
-        email
-        chatStatus
-        chatImage
-        imageKey
-        chatMessages {
-          items {
-            id
-            createdAt
-            type
-            text
-            userId
-            chatRoomId
-            chatAttachments {
-              items {
-                id
-                chatMessageID
-                chatRoomID
-                storageKey
-                type
-                width
-                height
-                duration
-                createdAt
-                updatedAt
-                owner
-              }
-              nextToken
-            }
-            status
-            replyToMessageID
-            forUserId
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-        chatRooms {
-          items {
-            id
-            userId
-            chatRoomId
-            user {
-              id
-              username
-              phoneNumber
-              codelessNumber
-              numbers {
-                items {
-                  number
-                  createdAt
-                  updatedAt
-                  userNumbersId
-                  owner
-                }
-                nextToken
-              }
-              email
-              chatStatus
-              chatImage
-              imageKey
-              chatMessages {
-                items {
-                  id
-                  createdAt
-                  type
-                  text
-                  userId
-                  chatRoomId
-                  chatAttachments {
-                    items {
-                      id
-                      chatMessageID
-                      chatRoomID
-                      storageKey
-                      type
-                      width
-                      height
-                      duration
-                      createdAt
-                      updatedAt
-                      owner
-                    }
-                    nextToken
-                  }
-                  status
-                  replyToMessageID
-                  forUserId
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
-              chatRooms {
-                items {
-                  id
-                  userId
-                  chatRoomId
-                  user {
-                    id
-                    username
-                    phoneNumber
-                    codelessNumber
-                    numbers {
-                      items {
-                        number
-                        createdAt
-                        updatedAt
-                        userNumbersId
-                        owner
-                      }
-                      nextToken
-                    }
-                    email
-                    chatStatus
-                    chatImage
-                    imageKey
-                    chatMessages {
-                      items {
-                        id
-                        createdAt
-                        type
-                        text
-                        userId
-                        chatRoomId
-                        status
-                        replyToMessageID
-                        forUserId
-                        updatedAt
-                        owner
-                      }
-                      nextToken
-                    }
-                    chatRooms {
-                      items {
-                        id
-                        userId
-                        chatRoomId
-                        createdAt
-                        updatedAt
-                        owner
-                      }
-                      nextToken
-                    }
-                    lastOnlineAt
-                    adminRightsId
-                    publicKey
-                    createdAt
-                    updatedAt
-                    owner
-                  }
-                  chatRoom {
-                    id
-                    adminRightsId
-                    name
-                    image
-                    users {
-                      items {
-                        id
-                        userId
-                        chatRoomId
-                        createdAt
-                        updatedAt
-                        owner
-                      }
-                      nextToken
-                    }
-                    chatMessages {
-                      items {
-                        id
-                        createdAt
-                        type
-                        text
-                        userId
-                        chatRoomId
-                        status
-                        replyToMessageID
-                        forUserId
-                        updatedAt
-                        owner
-                      }
-                      nextToken
-                    }
-                    newMessages
-                    lastMessage {
-                      id
-                      createdAt
-                      type
-                      text
-                      userId
-                      chatRoomId
-                      chatAttachments {
-                        nextToken
-                      }
-                      status
-                      replyToMessageID
-                      forUserId
-                      updatedAt
-                      owner
-                    }
-                    chatAttachments {
-                      items {
-                        id
-                        chatMessageID
-                        chatRoomID
-                        storageKey
-                        type
-                        width
-                        height
-                        duration
-                        createdAt
-                        updatedAt
-                        owner
-                      }
-                      nextToken
-                    }
-                    createdAt
-                    updatedAt
-                    chatRoomLastMessageId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
-              lastOnlineAt
-              adminRightsId
-              publicKey
-              createdAt
-              updatedAt
-              owner
-            }
-            chatRoom {
-              id
-              adminRightsId
-              name
-              image
-              users {
-                items {
-                  id
-                  userId
-                  chatRoomId
-                  user {
-                    id
-                    username
-                    phoneNumber
-                    codelessNumber
-                    numbers {
-                      items {
-                        number
-                        createdAt
-                        updatedAt
-                        userNumbersId
-                        owner
-                      }
-                      nextToken
-                    }
-                    email
-                    chatStatus
-                    chatImage
-                    imageKey
-                    chatMessages {
-                      items {
-                        id
-                        createdAt
-                        type
-                        text
-                        userId
-                        chatRoomId
-                        status
-                        replyToMessageID
-                        forUserId
-                        updatedAt
-                        owner
-                      }
-                      nextToken
-                    }
-                    chatRooms {
-                      items {
-                        id
-                        userId
-                        chatRoomId
-                        createdAt
-                        updatedAt
-                        owner
-                      }
-                      nextToken
-                    }
-                    lastOnlineAt
-                    adminRightsId
-                    publicKey
-                    createdAt
-                    updatedAt
-                    owner
-                  }
-                  chatRoom {
-                    id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -7435,7 +7519,6 @@ export const usersByAdminRightsId = /* GraphQL */ `
         id
         username
         phoneNumber
-        codelessNumber
         numbers {
           items {
             number
@@ -7491,7 +7574,6 @@ export const usersByAdminRightsId = /* GraphQL */ `
               id
               username
               phoneNumber
-              codelessNumber
               numbers {
                 items {
                   number
@@ -7547,7 +7629,6 @@ export const usersByAdminRightsId = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -7598,6 +7679,7 @@ export const usersByAdminRightsId = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -7681,6 +7763,7 @@ export const usersByAdminRightsId = /* GraphQL */ `
             }
             chatRoom {
               id
+              chatRoomId
               adminRightsId
               name
               image
@@ -7693,7 +7776,6 @@ export const usersByAdminRightsId = /* GraphQL */ `
                     id
                     username
                     phoneNumber
-                    codelessNumber
                     numbers {
                       items {
                         number
@@ -7744,6 +7826,7 @@ export const usersByAdminRightsId = /* GraphQL */ `
                   }
                   chatRoom {
                     id
+                    chatRoomId
                     adminRightsId
                     name
                     image
@@ -8103,7 +8186,6 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
           id
           username
           phoneNumber
-          codelessNumber
           numbers {
             items {
               number
@@ -8159,7 +8241,6 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
                 id
                 username
                 phoneNumber
-                codelessNumber
                 numbers {
                   items {
                     number
@@ -8215,7 +8296,6 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -8238,6 +8318,7 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -8284,6 +8365,7 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
               }
               chatRoom {
                 id
+                chatRoomId
                 adminRightsId
                 name
                 image
@@ -8296,7 +8378,6 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -8319,6 +8400,7 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -8454,6 +8536,7 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
         }
         chatRoom {
           id
+          chatRoomId
           adminRightsId
           name
           image
@@ -8466,7 +8549,6 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
                 id
                 username
                 phoneNumber
-                codelessNumber
                 numbers {
                   items {
                     number
@@ -8522,7 +8604,6 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -8545,6 +8626,7 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -8591,6 +8673,7 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
               }
               chatRoom {
                 id
+                chatRoomId
                 adminRightsId
                 name
                 image
@@ -8603,7 +8686,6 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -8626,6 +8708,7 @@ export const chatRoomUsersByUserId = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -8866,7 +8949,6 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
           id
           username
           phoneNumber
-          codelessNumber
           numbers {
             items {
               number
@@ -8922,7 +9004,6 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
                 id
                 username
                 phoneNumber
-                codelessNumber
                 numbers {
                   items {
                     number
@@ -8978,7 +9059,6 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -9001,6 +9081,7 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -9047,6 +9128,7 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
               }
               chatRoom {
                 id
+                chatRoomId
                 adminRightsId
                 name
                 image
@@ -9059,7 +9141,6 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -9082,6 +9163,7 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -9217,6 +9299,7 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
         }
         chatRoom {
           id
+          chatRoomId
           adminRightsId
           name
           image
@@ -9229,7 +9312,6 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
                 id
                 username
                 phoneNumber
-                codelessNumber
                 numbers {
                   items {
                     number
@@ -9285,7 +9367,6 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -9308,6 +9389,7 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image
@@ -9354,6 +9436,7 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
               }
               chatRoom {
                 id
+                chatRoomId
                 adminRightsId
                 name
                 image
@@ -9366,7 +9449,6 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
                       id
                       username
                       phoneNumber
-                      codelessNumber
                       numbers {
                         nextToken
                       }
@@ -9389,6 +9471,7 @@ export const chatRoomUsersByChatRoomId = /* GraphQL */ `
                     }
                     chatRoom {
                       id
+                      chatRoomId
                       adminRightsId
                       name
                       image

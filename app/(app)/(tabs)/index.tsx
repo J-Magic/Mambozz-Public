@@ -14,7 +14,7 @@ import { Entypo } from '@expo/vector-icons';
 import { useRouter, Link, Redirect, useFocusEffect } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from '../../../context/auth';
-import { ChatRoom, GetUserQuery, ChatRoomUsers, User } from '@/src/API';
+import { ChatRoom, ChatRoomUsers, User } from '@/src/API';
 import { API, graphqlOperation } from 'aws-amplify';
 import { FlatList } from 'react-native-gesture-handler';
 import ChatListItem from '@/components/ChatListItem';
@@ -32,15 +32,27 @@ import { setContacts, setRegdContacts } from '@/slices/navSlice';
 import {
   GetUsersByNumbersQueryVariables,
   GetUsersByNumbersQuery,
+  GetUserQuery,
+  GetUserQueryVariables,
 } from '@/src/API';
-import { getUsersByNumbers } from '@/components/ApolloQueries/Queries';
-import { useQuery } from '@apollo/client';
+import {
+  getIndividual_User,
+  getUsersByNumbers,
+  listChatRooms,
+} from '@/components/ApolloQueries/Queries';
+import { createIndividualUserAccount } from '@/components/ApolloQueries/Mutations';
+import {
+  CreateIndividualUserAccountMutation,
+  CreateIndividualUserAccountMutationVariables,
+} from '@/src/API';
+import { useQuery, useMutation } from '@apollo/client';
 import { contactsInput } from '@/src/API';
 
 export default function Chats() {
   let initialProfileStatus;
 
   let syncedContactsResult: any;
+
   const router = useRouter();
   const [chatRoom, setChatRooms] = useState<Array<ChatRoomUsers | null> | null>(
     null
@@ -48,7 +60,7 @@ export default function Chats() {
   const [acceptUpdates, setAcceptUpdates] = useState(true);
   // const [loading, setLoading] = useState(false);
   const [chatsLoading, setChatsLoading] = useState<boolean>(false);
-  const { authedUser } = useAuth();
+  const { authedUser, authId } = useAuth();
   const [expoPushToken, setExpoPushToken] = useState<string | undefined>(
     undefined
   );
@@ -62,13 +74,51 @@ export default function Chats() {
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [phoneContacts, setPhoneContacts] = useState<contactsInput[] | []>([]);
 
-  // let uniqueContacts: string[]| null = []
-  // let numbersToCheck: contactsInput[];
-
   const dispatch = useAppDispatch();
 
-  // console.log('TOTAL BATCHES TO GO THRO: ', totalBatches);
-  // console.log('CURRENT BATCH NO: ', currentBatch);
+  // const { data, loading, error } = useQuery<
+  //   GetIndividual_UserQuery,
+  //   GetIndividual_UserQueryVariables
+  // >(getIndividual_User, {
+  //   variables: {
+  //     UserID: 'a36fc11a-06df-4d4a-a26a-a6748bcc6205',
+  //   },
+  // });
+
+  // console.log('Get Individual User: ', data);
+  // if (!authId) {
+  //   console.log('No Auth Id');
+  //   return;
+  // }
+
+  // useEffect(() => {
+  //   const [
+  //     doCreateIndividualUser,
+  //     {
+  //       data: createIndividualUserData,
+  //       loading: createIndividualUserLoading,
+  //       error: createIndividualUserError,
+  //     },
+  //   ] = useMutation<
+  //     CreateIndividualUserAccountMutation,
+  //     CreateIndividualUserAccountMutationVariables
+  //   >(createIndividualUserAccount);
+  //   (async () => {
+  //     try {
+  //       let newIndividualUserWallet = await doCreateIndividualUser({
+  //         variables: {
+  //           UserID: authId,
+  //         },
+  //       });
+
+  //       console.log('Auth Id - Chats:', authId);
+  //       console.log('NEW WALLET: ', newIndividualUserWallet);
+  //       console.log('Data: ', createIndividualUserData);
+  //     } catch (e) {
+  //       console.log('Error creating wallet :', e);
+  //     }
+  //   })();
+  // }, [authId]);
 
   // const getUser = async () => {
   //   initialProfileStatus = await AsyncStorage.getItem('USER_INITIAL_PROFILE');
@@ -84,6 +134,32 @@ export default function Chats() {
   // getUser();
 
   // Fetch Chatrooms
+
+  const {
+    data: chatRoomsData,
+    loading: chatRoomsLoading,
+    error: chatRoomsError,
+  } = useQuery<GetUserQuery, GetUserQueryVariables>(listChatRooms, {
+    variables: {
+      id: authId,
+    },
+  });
+
+  let rooms = chatRoomsData?.getUser?.chatRooms?.items || [];
+  console.log('CHATROOMS: ', rooms);
+
+  rooms = rooms.filter((room) => room !== null);
+  const sortedChatRooms: Array<ChatRoomUsers | null> = rooms
+    .filter((r): r is ChatRoomUsers => r !== null)
+    .sort((r1, r2) => {
+      if (r1 && r2) {
+        const date1 = new Date(r1.chatRoom.updatedAt);
+        const date2 = new Date(r2.chatRoom.updatedAt);
+        // Compare dates in descending order
+        return date2.getTime() - date1.getTime();
+      }
+      return 0;
+    });
 
   // const fetchChatRooms = async () => {
   //   // setLoading(true);
@@ -124,26 +200,6 @@ export default function Chats() {
   //   fetchChatRooms();
 
   // }, []);
-
-  // useEffect(() => {
-  // (async () => {
-  //   const { data } = await Contacts.getContactsAsync({
-  //     fields: [Contacts.Fields.PhoneNumbers],
-  //   });
-  //   if (data.length > 0) {
-  //     const contacts = data;
-  //     setNumbers(contacts);
-  //     dispatch(setContacts({ digits: contacts }));
-  //   }
-  // })();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (numbers[30]?.phoneNumbers?.[0]?.number) {
-  //     console.log('NUMBERS FROM INVOKING USEEFFECT: ', numbers[0], numbers[1]);
-  //     syncContacts();
-  //   }
-  // }, [numbers, currentBatch]);
 
   const writeContactsToDynamoDB = async (mobileNumbers: string[]) => {
     try {
@@ -234,54 +290,54 @@ export default function Chats() {
     }
   };
 
-  useFocusEffect(
-    React.useCallback(() => {
-      setChatsLoading(true);
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     setChatsLoading(true);
 
-      (async () => {
-        try {
-          if (!authedUser) {
-            setChatsLoading(false);
-            return;
-          }
+  //     (async () => {
+  //       try {
+  //         if (!authedUser) {
+  //           setChatsLoading(false);
+  //           return;
+  //         }
 
-          const response = (await API.graphql(
-            graphqlOperation(listChatRooms, {
-              id: authedUser,
-            })
-          )) as { data: GetUserQuery };
-          let rooms = response?.data?.getUser?.chatRooms?.items || [];
-          console.log('Rooms: ', rooms);
+  //         const response = (await API.graphql(
+  //           graphqlOperation(listChatRooms, {
+  //             id: authedUser,
+  //           })
+  //         )) as { data: GetUserQuery };
+  //         let rooms = response?.data?.getUser?.chatRooms?.items || [];
+  //         console.log('Rooms: ', rooms);
 
-          rooms = rooms.filter((room) => room !== null);
-          const sortedRooms: Array<ChatRoomUsers | null> = rooms
-            .filter((r): r is ChatRoomUsers => r !== null)
-            .sort((r1, r2) => {
-              if (r1 && r2) {
-                const date1 = new Date(r1.chatRoom.updatedAt);
-                const date2 = new Date(r2.chatRoom.updatedAt);
-                // Compare dates in descending order
-                return date2.getTime() - date1.getTime();
-              }
-              return 0;
-            });
+  //         rooms = rooms.filter((room) => room !== null);
+  //         const sortedRooms: Array<ChatRoomUsers | null> = rooms
+  //           .filter((r): r is ChatRoomUsers => r !== null)
+  //           .sort((r1, r2) => {
+  //             if (r1 && r2) {
+  //               const date1 = new Date(r1.chatRoom.updatedAt);
+  //               const date2 = new Date(r2.chatRoom.updatedAt);
+  //               // Compare dates in descending order
+  //               return date2.getTime() - date1.getTime();
+  //             }
+  //             return 0;
+  //           });
 
-          console.log('Sorted Rooms: ', sortedRooms);
-          if (acceptUpdates) {
-            setChatRooms(sortedRooms);
-          }
-        } catch (e) {
-          console.log('Error refreshing chats list', e);
-        }
-      })();
+  //         console.log('Sorted Rooms: ', sortedRooms);
+  //         if (acceptUpdates) {
+  //           setChatRooms(sortedRooms);
+  //         }
+  //       } catch (e) {
+  //         console.log('Error refreshing chats list', e);
+  //       }
+  //     })();
 
-      setChatsLoading(false);
+  //     setChatsLoading(false);
 
-      return () => {
-        setAcceptUpdates(false);
-      };
-    }, [])
-  );
+  //     return () => {
+  //       setAcceptUpdates(false);
+  //     };
+  //   }, [])
+  // );
 
   // useEffect(() => {
   //   registerForPushNotificationsAsync().then((token) =>
@@ -424,7 +480,7 @@ export default function Chats() {
 
   // console.log('DATA FROM APOLLO CLIENT: ', data?.getUsersByNumbers);
   // dispatch(setRegdContacts({ users: data?.getUsersByNumbers }));
-  if (!authedUser) {
+  if (!authedUser || !authId) {
     // <Redirect href={'/login'} />;
     return <ActivityIndicator />;
   }
@@ -451,7 +507,8 @@ export default function Chats() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FlatList
-        data={chatRoom}
+        // data={chatRoom}
+        data={sortedChatRooms}
         renderItem={({ item }) => <ChatListItem chat={item?.chatRoom} />}
         style={{ backgroundColor: 'white' }}
         refreshing={chatsLoading}
@@ -502,39 +559,39 @@ export default function Chats() {
   );
 }
 
-export const listChatRooms = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      chatRooms {
-        items {
-          chatRoom {
-            id
-            name
-            image
-            updatedAt
-            users {
-              items {
-                user {
-                  id
-                  username
-                  chatStatus
-                  chatImage
-                  lastOnlineAt
-                }
-              }
-            }
-            lastMessage {
-              id
-              createdAt
-              text
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+// export const listChatRooms = /* GraphQL */ `
+//   query GetUser($id: ID!) {
+//     getUser(id: $id) {
+//       id
+//       chatRooms {
+//         items {
+//           chatRoom {
+//             id
+//             name
+//             image
+//             updatedAt
+//             users {
+//               items {
+//                 user {
+//                   id
+//                   username
+//                   chatStatus
+//                   chatImage
+//                   lastOnlineAt
+//                 }
+//               }
+//             }
+//             lastMessage {
+//               id
+//               createdAt
+//               text
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `;
 
 export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {

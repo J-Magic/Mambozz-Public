@@ -18,13 +18,13 @@ export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from 'expo-router';
-import { loadErrorMessages, loadDevMessages } from '@apollo/client/dev';
+// import { loadErrorMessages, loadDevMessages } from '@apollo/client/dev';
 
-if (process.env.NODE_ENV !== 'production') {
-  // Adds messages only in a dev environment
-  loadDevMessages();
-  loadErrorMessages();
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   // Adds messages only in a dev environment
+//   loadDevMessages();
+//   // loadErrorMessages();
+// }
 
 Amplify.configure({
   ...config,
